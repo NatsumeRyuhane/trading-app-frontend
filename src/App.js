@@ -23,7 +23,7 @@ const HOME_PAGE_STATE = "home";
 
 function App() {
   const [selectedMenu, setSelectedMenu] = useState(HOME_PAGE_STATE);
-  const [isLoggedIn, setIsLoggedIn] = useState(True); // set Login to True initially, easier for testing
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // set Login to True initially, easier for testing
 
   // Check session on initial load
   useEffect(() => {
