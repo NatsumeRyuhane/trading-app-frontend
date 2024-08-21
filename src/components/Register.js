@@ -77,6 +77,14 @@ function Register() {
               placeholder="lastname"
             />
           </Form.Item>
+          <Form.Item
+            name="address"
+            rules={[{ required: true, message: 'Please input your Address!' }]}
+          >
+            <Input
+              placeholder="Address"
+            />
+          </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Register

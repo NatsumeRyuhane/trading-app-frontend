@@ -32,6 +32,20 @@ export const register = (userData) => {
   });
 };
 
+export const logout = () => {
+  const logoutUrl = "/logout";
+  return fetch(logoutUrl, {
+    method: 'POST',
+    credentials: 'include',
+  }).then((response) => {
+    if (response.status !== 204) {
+      throw Error('Fail to log out');
+    }
+  })
+}
+
+
+
 
 
 // Search for items
