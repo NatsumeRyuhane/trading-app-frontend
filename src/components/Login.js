@@ -31,8 +31,19 @@ function Login({ onSuccess }) {
     <>
       <Button
         shape="round"
+        type="primary"
         onClick={signinOnClick}
-        style={{ marginRight: "20px" }}
+        style={{
+          height: 40,
+          padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
+          background: "#3A00E5",
+          borderRadius: 20,
+          justifyContent: "center",
+          alignItems: "center", // Center text vertically
+          display: "flex",
+          color: "white",
+          border: "none", 
+        }}
       >
         Login
       </Button>
@@ -57,7 +68,17 @@ function Login({ onSuccess }) {
             <Input.Password prefix={<LockOutlined />} placeholder="Password" />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" style={{
+          height: 40,
+          padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
+          background: "#3A00E5",
+          borderRadius: 20,
+          justifyContent: "center",
+          alignItems: "center", // Center text vertically
+          display: "flex",
+          color: "white",
+          border: "none", 
+        }}>
               Login
             </Button>
           </Form.Item>
