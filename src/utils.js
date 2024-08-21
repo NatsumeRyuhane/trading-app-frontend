@@ -41,8 +41,8 @@ export const logout = () => {
     if (response.status !== 204) {
       throw Error('Fail to log out');
     }
-  })
-}
+  });
+};
 
 
 

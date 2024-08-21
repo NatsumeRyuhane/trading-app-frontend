@@ -1,5 +1,6 @@
 import { Button, Modal, message } from "antd";
 import React, { useState } from "react";
+import { logout } from "../utils";
 
 function Logout({ onLogout }) {
   const [displayModal, setDisplayModal] = useState(false);
@@ -13,10 +14,15 @@ function Logout({ onLogout }) {
   };
 
   const handleLogout = () => {
-    // Perform logout actions like clearing tokens, etc.
-    message.success("You have been logged out");
-    onLogout(); // Notify parent component about the logout
-    setDisplayModal(false);
+    logout()
+      .then(() => {
+        message.success("You have been logged out");
+        onLogout(); // Notify parent component about the logout
+        setDisplayModal(false);
+      })
+      .catch(err => {
+        message.error(err.message);
+      });
   };
 
   return (

@@ -1,18 +1,16 @@
 import React from "react";
-import { Layout, Row, Col, Typography, Modal } from "antd";
+import { Layout, Row, Col, Typography } from "antd";
 import ItemsDisplay from "./ItemsDisplay";
 import MyOrderedItemPage from "./MyOrderedItemPage";
 import TradeMyItems from "./TradeMyItems";
+import Logout from "./Logout";
 
 const { Content } = Layout;
 const { Title } = Typography;
 
 const Homepage = ({
   isLoggedIn,
-  onLogout,
-  handleLogout,
-  cancelLogout,
-  showLogoutConfirm
+  onLogout
 }) => {
   return (
     <Layout>
@@ -28,23 +26,9 @@ const Homepage = ({
           {/* Logout Button */}
           <Row style={{ padding: "20px 0", textAlign: "center" }}>
             <Col span={24}>
-              <button onClick={onLogout} style={{ color: "red", fontSize: "16px" }}>
-                Log Out
-              </button>
+              <Logout onLogout={onLogout} />
             </Col>
           </Row>
-
-          {/* Logout Confirmation Modal */}
-          <Modal
-            title="Are you sure you want to log out?"
-            visible={showLogoutConfirm}
-            onOk={handleLogout}
-            onCancel={cancelLogout}
-            okText="Yes, log out"
-            cancelText="No, stay logged in"
-          >
-            <p>If you log out, you will need to log in again to access your account.</p>
-          </Modal>
 
           {/* User Dashboard Content */}
           <Row gutter={[16, 16]} style={{ padding: "20px 0" }}>
