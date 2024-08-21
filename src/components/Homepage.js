@@ -35,14 +35,6 @@ const Homepage = ({
             <Col span={24}>
               <Title level={3}>Your Dashboard</Title>
 
-              {/* Display Items */}
-              <ItemsDisplay />
-
-              {/* My Ordered Items */}
-              <MyOrderedItemPage />
-
-              {/* Trade My Items */}
-              <TradeMyItems />
             </Col>
           </Row>
         </div>
