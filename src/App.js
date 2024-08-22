@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import { Button, Layout, Menu, Typography } from "antd";
+import { Button, Layout, Menu } from "antd";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 import {
@@ -28,7 +28,12 @@ function App() {
   // Check session on initial load
   useEffect(() => {
     const session = Cookies.get("sessionToken");
-    setIsLoggedIn(!!session);
+    // setIsLoggedIn(!!session);
+
+    // for easier testing: isLoggedIn is true when reloading
+    if (session) {
+      setIsLoggedIn(true);
+    }
 
     // Update selected menu based on the current path
     const path = window.location.pathname;
@@ -39,18 +44,6 @@ function App() {
     else if (path === "/trade") setSelectedMenu("trade");
     else if (path === "/login") setSelectedMenu("login");
   }, []);
-
-  useEffect(() => {
-    // Update selected menu when path changes
-
-    const path = window.location.pathname;
-
-    if (path === "/") setSelectedMenu(HOME_PAGE_STATE);
-    else if (path === "/buy") setSelectedMenu("buy");
-    else if (path === "/myOrdered") setSelectedMenu("myOrdered");
-    else if (path === "/trade") setSelectedMenu("trade");
-    else if (path === "/login") setSelectedMenu("login");
-  }, [window.location.pathname]);
 
   const handleLoginSuccess = (sessionToken) => {
     Cookies.set("sessionToken", sessionToken);
