@@ -1,8 +1,9 @@
 import React from "react";
-import { Layout, Button, Divider } from "antd";
+import { Layout, Button } from "antd";
 import ItemsDisplay from "./ItemsDisplay";
+import { useNavigate } from "react-router-dom";
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 function TradeMyItems() {
   return (
@@ -36,6 +37,11 @@ function TradeMyItems() {
 }
 
 function ItemsSummary() {
+  const navigate = useNavigate();
+
+  const handleSellNewItem = () => {
+    navigate("/uploadItems");
+  };
   return (
     <div
       style={{
@@ -73,6 +79,7 @@ function ItemsSummary() {
           minWidth: "10px",
           height: "auto",
         }}
+        onClick={handleSellNewItem}
       >
         Sell a new Item!
       </Button>

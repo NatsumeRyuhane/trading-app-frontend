@@ -17,6 +17,7 @@ import TradeMyItems from "./components/TradeMyItems";
 import MyOrderedItems from "./components/MyOrderedItemPage";
 import SearchResult from "./components/SearchResult";
 import ItemInformation from "./components/ItemInformation";
+import UploadItems from "./components/UpLoadItemsPage";
 
 const { Header, Content } = Layout;
 const HOME_PAGE_STATE = "home";
@@ -95,6 +96,7 @@ function App() {
         />
         <Route path="/search" element={<SearchResult />} />
         <Route path="/item/:itemId" element={<ItemInformation />} />
+        <Route path="/uploadItems" element={<UploadItems />} />
       </Routes>
     );
   };
