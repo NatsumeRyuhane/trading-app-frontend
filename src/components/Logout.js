@@ -27,7 +27,17 @@ function Logout({ onLogout }) {
 
   return (
     <>
-      <Button className="loginButton" onClick={logoutOnClick}>
+      <Button className="loginButton" onClick={logoutOnClick} style={{
+          height: 40,
+          padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
+          background: "#3A00E5",
+          borderRadius: 20,
+          justifyContent: "center",
+          alignItems: "center", // Center text vertically
+          display: "flex",
+          color: "white",
+          border: "none", 
+        }}>
         Log Out
       </Button>
       <Modal

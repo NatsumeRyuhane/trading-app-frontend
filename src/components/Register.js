@@ -31,7 +31,17 @@ function Register() {
 
   return (
     <>
-      <Button shape="round" type="primary" onClick={signupOnClick}>
+      <Button shape="round" type="primary" onClick={signupOnClick} style={{
+          height: 40,
+          padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
+          background: "#3A00E5",
+          borderRadius: 20,
+          justifyContent: "center",
+          alignItems: "center", // Center text vertically
+          display: "flex",
+          color: "white",
+          border: "none", 
+        }}>
         Register</Button>
       <Modal
         title="Register"
@@ -86,7 +96,17 @@ function Register() {
             />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" style={{
+          height: 40,
+          padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
+          background: "#3A00E5",
+          borderRadius: 20,
+          justifyContent: "center",
+          alignItems: "center", // Center text vertically
+          display: "flex",
+          color: "white",
+          border: "none", 
+        }}>
               Register
             </Button>
           </Form.Item>

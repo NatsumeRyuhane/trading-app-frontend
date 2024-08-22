@@ -131,10 +131,15 @@ export function ItemCard({
         >
           <div
             style={{
+              height: 40,
+              padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
+              background: "#3A00E5",
+              borderRadius: 20,
+              justifyContent: "center",
+              alignItems: "center", // Center text vertically
+              display: "flex",
               color: "white",
-              fontSize: 16,
-              fontFamily: "Arial",
-              letterSpacing: 0.14,
+              border: "none", 
             }}
             // connect to Stripe payment page related to this item
             // onClick={() => handleCheckout(itemId)}
