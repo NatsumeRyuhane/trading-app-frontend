@@ -40,17 +40,21 @@ function Homepage({ isLoggedIn, onLogout }) {
           shopping and selling simple, social, and sustainable!
         </p>
         {isLoggedIn && (
-          <Button type="primary" size="large" style={{
-            height: 40,
-            padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
-            background: "#3A00E5",
-            borderRadius: 20,
-            justifyContent: "center",
-            alignItems: "center", // Center text vertically
-            display: "flex",
-            color: "white",
-            border: "none", 
-          }}>
+          <Button
+            type="primary"
+            size="large"
+            style={{
+              height: 40,
+              padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
+              background: "#3A00E5",
+              borderRadius: 20,
+              justifyContent: "center",
+              alignItems: "center", // Center text vertically
+              display: "flex",
+              color: "white",
+              border: "none",
+            }}
+          >
             Checkout
           </Button>
         )}
@@ -65,23 +69,22 @@ function Homepage({ isLoggedIn, onLogout }) {
             </Title>
           </Col>
           <Col>
-      <div
-        style={{
-          height: 40,
-            padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
-            background: "#3A00E5",
-            borderRadius: 20,
-            justifyContent: "center",
-            alignItems: "center", // Center text vertically
-            display: "flex",
-            color: "white",
-          
-        }}
-        onClick={() => window.location.reload()}
-      >
-        Refresh
-      </div>
-    </Col>
+            <div
+              style={{
+                height: 40,
+                padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
+                background: "#3A00E5",
+                borderRadius: 20,
+                justifyContent: "center",
+                alignItems: "center", // Center text vertically
+                display: "flex",
+                color: "white",
+              }}
+              onClick={() => window.location.reload()}
+            >
+              Refresh
+            </div>
+          </Col>
         </Row>
         <Row gutter={[16, 16]}>
           {dummyItems.slice(0, 4).map((item) => (
@@ -175,17 +178,19 @@ function Homepage({ isLoggedIn, onLogout }) {
 
       {/* Logout Button */}
       {isLoggedIn && (
-        <div style={{
-          height: 40,
-          padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
-          background: "#3A00E5",
-          borderRadius: 20,
-          justifyContent: "center",
-          alignItems: "center", // Center text vertically
-          display: "flex",
-          color: "white",
-          border: "none", 
-        }}>
+        <div
+          style={{
+            height: 40,
+            padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
+            background: "#3A00E5",
+            borderRadius: 20,
+            justifyContent: "center",
+            alignItems: "center", // Center text vertically
+            display: "flex",
+            color: "white",
+            border: "none",
+          }}
+        >
           <Logout onLogout={onLogout} />
         </div>
       )}

@@ -45,7 +45,7 @@ function Register() {
         Register</Button>
       <Modal
         title="Register"
-        visible={displayModal}
+        open={displayModal}
         onCancel={handleCancel}
         footer={null}
         destroyOnClose={true}
@@ -66,7 +66,7 @@ function Register() {
             name="password"
             rules={[{ required: true, message: 'Please input your Password!' }]}
           >
-            <Input
+            <Input.Password
               prefix={<LockOutlined />}
               placeholder="Password"
             />

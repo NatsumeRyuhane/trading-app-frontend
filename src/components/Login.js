@@ -29,66 +29,114 @@ function Login({ onSuccess }) {
 
   return (
     <>
-      <Button
-        shape="round"
-        type="primary"
-        onClick={signinOnClick}
+      <div
         style={{
-          height: 40,
-          padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
-          background: "#3A00E5",
-          borderRadius: 20,
-          justifyContent: "center",
-          alignItems: "center", // Center text vertically
           display: "flex",
-          color: "white",
-          border: "none", 
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
         }}
       >
-        Login
-      </Button>
+        <Button
+          shape="round"
+          type="primary"
+          onClick={signinOnClick}
+          style={{
+            height: 40,
+            padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
+            background: "#3A00E5",
+            borderRadius: 20,
+            justifyContent: "center",
+            alignItems: "center", // Center text vertically
+            display: "flex",
+            color: "white",
+            border: "none",
+            marginBottom: 20, // Add some space between the button and the text below
+          }}
+        >
+          Login
+        </Button>
+
+        {/* register draft */}
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span style={{ marginRight: 10 }}>No account?</span>
+          <Register />
+        </div>
+      </div>
+
       <Modal
         title="Log in"
-        visible={displayModal}
+        open={displayModal}
         onCancel={handleCancel}
         footer={null}
         destroyOnClose={true}
       >
-        <Form name="normal_login" onFinish={onFinish} preserve={false}>
-          <Form.Item
-            name="username"
-            rules={[{ required: true, message: "Please input your Username!" }]}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+            padding: "20px",
+            background: "#f0f2f5",
+            borderRadius: 10,
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              maxWidth: 400,
+              padding: "20px",
+              background: "#f0f2f5",
+              borderRadius: 8,
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            }}
           >
-            <Input prefix={<UserOutlined />} placeholder="Username" />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[{ required: true, message: "Please input your Password!" }]}
-          >
-            <Input.Password prefix={<LockOutlined />} placeholder="Password" />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit" style={{
-          height: 40,
-          padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
-          background: "#3A00E5",
-          borderRadius: 20,
-          justifyContent: "center",
-          alignItems: "center", // Center text vertically
-          display: "flex",
-          color: "white",
-          border: "none", 
-        }}>
-              Login
-            </Button>
-          </Form.Item>
-        </Form>
+            <h2 style={{ textAlign: "center", marginBottom: 20 }}>
+              Login to your Second-hand Trading Account
+            </h2>
+            <Form name="normal_login" onFinish={onFinish} preserve={false}>
+              <Form.Item
+                name="username"
+                rules={[
+                  { required: true, message: "Please input your Username!" },
+                ]}
+              >
+                <Input prefix={<UserOutlined />} placeholder="Email Address" />
+              </Form.Item>
+              <Form.Item
+                name="password"
+                rules={[
+                  { required: true, message: "Please input your Password!" },
+                ]}
+              >
+                <Input.Password
+                  prefix={<LockOutlined />}
+                  placeholder="Password"
+                />
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{
+                    width: "100%",
+                    height: 40,
+                    background: "#3A00E5",
+                    borderRadius: 20,
+                    color: "white",
+                    border: "none",
+                    marginBottom: 10,
+                  }}
+                >
+                  Login
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+        </div>
       </Modal>
-
-      {/* register draft */}
-      <div>
-        no accout? <Register />
-      </div>
     </>
   );
 }
