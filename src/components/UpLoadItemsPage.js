@@ -11,20 +11,40 @@ import {
 import TextArea from "antd/lib/input/TextArea";
 import React, { useState, useRef } from "react";
 import { PlusOutlined } from "@ant-design/icons";
+import { uploadItem } from "../utils";
 
 function UploadItems() {
   const [loading, setLoading] = useState(false);
 
-  const fileInputRef = useRef(null);
-
   const handleSubmit = async (values) => {
-    // console.log("hi");
+    console.log(values);
     const formData = new FormData();
-    const { files } = fileInputRef.current;
 
-    if (files.length > 5) {
+    formData.append("name", values.name);
+    formData.append("category", values.category);
+    formData.append("price", values.price);
+    formData.append("description", values.description);
+
+    if (values.image.fileList.length > 5) {
       message.error("You can at most upload 5 pictures.");
       return;
+    }
+
+    for (let i = 0; i < values.image.fileList.length; i++) {
+      formData.append("images", values.image.fileList[i]);
+    }
+
+    setLoading(true);
+
+    try {
+      await uploadItem(formData);
+      message.success("Upload Successful");
+      //   for (const [key, value] of formData) {
+      //     console.log(key, value);
+    } catch (error) {
+      message.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -35,7 +55,6 @@ function UploadItems() {
         style={{
           display: "flex",
           justifyContent: "center",
-          //   alignItems: "center",
         }}
       >
         Upload a new Item for trade!
@@ -49,44 +68,36 @@ function UploadItems() {
       >
         <Form
           labelCol={{ span: 8 }}
-          wrapperCol={{ span: 14 }}
+          wrapperCol={{ span: 10 }}
           layout="horizontal"
           name="uploadItem"
+          className="textBold"
           style={{
             width: 600,
           }}
           onFinish={handleSubmit}
         >
-          <Form.Item
-            name="item_name"
-            label="Item Name"
-            rules={[{ required: true }]}
-          >
+          <Form.Item name="name" label="Item Name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item
-            name="upload_product_image"
-            label="Upload Product Image"
-            rules={[{ required: true }]}
-          >
-            <div>
-              <Upload action="/upload.do" listType="picture-card">
-                <button
-                  style={{ border: 0, background: "none" }}
-                  type="file"
-                  accept="image/png, image/jpeg"
-                  ref={fileInputRef}
-                  multiple={true}
-                >
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>Upload</div>
-                </button>
-              </Upload>
-              <div>Max file size 10MB</div>
-            </div>
+          <Form.Item multiple={true} name="image" label="Upload Product Image">
+            <Upload listType="picture-card" multiple={true}>
+              <div style={{ marginTop: 8 }}>Upload</div>
+            </Upload>
           </Form.Item>
+          <div
+            style={{
+              fontSize: 14,
+              fontWeight: 400,
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: 20,
+            }}
+          >
+            Max file size 10MB.
+          </div>
           <Form.Item
-            name="choose_a_category"
+            name="category"
             label="Chose a Category"
             rules={[{ required: true }]}
           >
@@ -100,14 +111,14 @@ function UploadItems() {
             </Select>
           </Form.Item>
           <Form.Item
-            name="set_price"
+            name="price"
             label="Set Price"
             rules={[{ required: true }]}
           >
             <InputNumber />
           </Form.Item>
           <Form.Item
-            name="add_prodect_description"
+            name="description"
             label="Add Product Description"
             rules={[{ required: true }]}
           >
@@ -116,16 +127,30 @@ function UploadItems() {
           <div>
             <Checkbox>List the product for sale once it is approved</Checkbox>
           </div>
-          <Form.Item
+
+          <div
             style={{
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "flex-end",
               alignItems: "center",
               marginTop: "30px",
             }}
           >
-            <Button>Upload Item</Button>
-          </Form.Item>
+            <Button
+              htmlType="submit"
+              loading={loading}
+              className="buttonBlue"
+              style={{ fontSize: 20, fontWeight: 500, width: 196, height: 50 }}
+            >
+              Upload Item
+            </Button>
+            <Button
+              danger
+              style={{ marginLeft: 30, border: "none", fontSize: 20 }}
+            >
+              Cancel and Return
+            </Button>
+          </div>
         </Form>
       </div>
     </div>

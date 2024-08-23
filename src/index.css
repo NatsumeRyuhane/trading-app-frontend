@@ -22,7 +22,9 @@
 .ant-layout {
   background-color: white;
 }
-
+.ant-form-item-label {
+  text-align: left;
+}
 /* .ant-input-group {
   width: 50%;
 } */
@@ -69,6 +71,10 @@ code {
   margin-bottom: 30px;
 }
 
+.textBold {
+  font-size: 20px;
+  font-weight: 500;
+}
 .loginButton {
   background-color: #ffe100;
   width: 130px;
