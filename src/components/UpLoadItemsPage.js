@@ -9,11 +9,13 @@ import {
   Select,
 } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { uploadItem } from "../utils";
+import { useNavigate } from "react-router-dom";
 
 function UploadItems() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (values) => {
@@ -37,10 +39,11 @@ function UploadItems() {
     setLoading(true);
 
     try {
-      await uploadItem(formData);
-      message.success("Upload Successful");
-      //   for (const [key, value] of formData) {
-      //     console.log(key, value);
+      // await uploadItem(formData);
+      navigate("/uploadSeccess");
+      // for (const [key, value] of formData) {
+      //   console.log(key, value);
+      // }
     } catch (error) {
       message.error(error.message);
     } finally {
