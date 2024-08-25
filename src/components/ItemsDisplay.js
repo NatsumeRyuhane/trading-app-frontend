@@ -98,6 +98,7 @@ function ItemRow({
           width: "225px",
           height: "166px",
           cursor: "pointer",
+          objectFit: "cover",
         }}
         src={imgSrc}
         alt={title}
