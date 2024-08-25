@@ -1,29 +1,29 @@
 export const login = (credentials) => {
-    const loginUrl = `/login?username=${credentials.username}&password=${credentials.password}`;
-  
-    // fetch will return something called a Promise
-    return fetch(loginUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
-      if (response.status < 200 || response.status >= 300) {
-        throw Error("Fail to log in");
-      }
-    }); // returns a promise
-  };
-  
+  const loginUrl = `/login?username=${credentials.username}&password=${credentials.password}`;
+
+  // fetch will return something called a Promise
+  return fetch(loginUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Fail to log in");
+    }
+  }); // returns a promise
+};
+
 // Register a new user (formerly sign up)
 export const register = (userData) => {
-  const registerUrl = "/register";
+  const registerUrl = "auth/register";
 
   return fetch(registerUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(userData),//convert a JavaScript object(userData) into a JSON stirng represtiontation
+    body: JSON.stringify(userData), //convert a JavaScript object(userData) into a JSON stirng represtiontation
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw new Error("Fail to register");
@@ -35,18 +35,14 @@ export const register = (userData) => {
 export const logout = () => {
   const logoutUrl = "/logout";
   return fetch(logoutUrl, {
-    method: 'POST',
-    credentials: 'include',
+    method: "POST",
+    credentials: "include",
   }).then((response) => {
     if (response.status !== 204) {
-      throw Error('Fail to log out');
+      throw Error("Fail to log out");
     }
   });
 };
-
-
-
-
 
 // Search for items
 export const searchItems = (searchParams) => {
@@ -70,12 +66,12 @@ export const viewCart = () => {
 
 // Upload a new item
 export const uploadItem = (itemData) => {
-  return fetch("/items/upload", {
+  return fetch("/items", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(itemData),
+    body: JSON.stringify(Object.fromEntries(itemData)),
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to upload item");

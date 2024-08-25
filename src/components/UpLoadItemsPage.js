@@ -39,22 +39,24 @@ function UploadItems() {
 
     const formData = new FormData();
     formData.append("name", values.name);
-    formData.append("category", values.category);
+    // formData.append("category", values.category);
     formData.append("price", values.price);
     formData.append("description", values.description);
-    formData.append("isOnsale", values.isOnsale);
+    formData.append("status", 1);
+    // formData.append("isOnsale", values.isOnsale);
+    formData.append("media", []);
+    formData.append("address", "123");
+    // if (values.image.fileList.length > 5) {
+    //   message.error("You can at most upload 5 pictures.");
+    //   return;
+    // }
 
-    if (values.image.fileList.length > 5) {
-      message.error("You can at most upload 5 pictures.");
-      return;
-    }
-
-    for (let i = 0; i < values.image.fileList.length; i++) {
-      formData.append("images", values.image.fileList[i]);
-    }
+    // for (let i = 0; i < values.image.fileList.length; i++) {
+    //   formData.append("images", values.image.fileList[i]);
+    // }
 
     try {
-      // await uploadItem(formData);
+      await uploadItem(formData);
 
       navigate("/uploadSeccess", { state: { values } });
     } catch (error) {
