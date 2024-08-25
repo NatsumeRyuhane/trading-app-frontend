@@ -10,22 +10,39 @@ import {
 } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import React, { useState } from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import { CloudUploadOutlined } from "@ant-design/icons";
 import { uploadItem } from "../utils";
 import { useNavigate } from "react-router-dom";
 
 function UploadItems() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [fileList, setFileList] = useState([]);
+
+  const uploadButton = (
+    <button style={{ border: 0, background: "none" }} type="button">
+      <CloudUploadOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </button>
+  );
+
+  function CancelUploadItem() {
+    navigate("/trade");
+  }
+
+  const handleUploadChange = (eventObj) => {
+    setFileList(eventObj.fileList);
+  };
 
   const handleSubmit = async (values) => {
-    console.log(values);
-    const formData = new FormData();
+    setLoading(true);
 
+    const formData = new FormData();
     formData.append("name", values.name);
     formData.append("category", values.category);
     formData.append("price", values.price);
     formData.append("description", values.description);
+    formData.append("isOnsale", values.isOnsale);
 
     if (values.image.fileList.length > 5) {
       message.error("You can at most upload 5 pictures.");
@@ -36,21 +53,16 @@ function UploadItems() {
       formData.append("images", values.image.fileList[i]);
     }
 
-    setLoading(true);
-
     try {
       // await uploadItem(formData);
-      navigate("/uploadSeccess");
-      // for (const [key, value] of formData) {
-      //   console.log(key, value);
-      // }
+
+      navigate("/uploadSeccess", { state: { values } });
     } catch (error) {
       message.error(error.message);
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <div>
       <div
@@ -83,9 +95,18 @@ function UploadItems() {
           <Form.Item name="name" label="Item Name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item multiple={true} name="image" label="Upload Product Image">
-            <Upload listType="picture-card" multiple={true}>
-              <div style={{ marginTop: 8 }}>Upload</div>
+          <Form.Item
+            multiple={true}
+            name="image"
+            label="Upload Product Image"
+            rules={[{ required: true }]}
+          >
+            <Upload
+              listType="picture-card"
+              multiple={true}
+              onChange={handleUploadChange}
+            >
+              {fileList.length >= 5 ? null : uploadButton}
             </Upload>
           </Form.Item>
           <div
@@ -127,9 +148,13 @@ function UploadItems() {
           >
             <TextArea rows={4} />
           </Form.Item>
-          <div>
+          <Form.Item
+            name="isOnsale"
+            valuePropName="checked"
+            stytle={{ width: 1000 }}
+          >
             <Checkbox>List the product for sale once it is approved</Checkbox>
-          </div>
+          </Form.Item>
 
           <div
             style={{
@@ -149,6 +174,7 @@ function UploadItems() {
             </Button>
             <Button
               danger
+              onClick={CancelUploadItem}
               style={{ marginLeft: 30, border: "none", fontSize: 20 }}
             >
               Cancel and Return

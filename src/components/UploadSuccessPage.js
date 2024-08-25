@@ -1,7 +1,15 @@
 import { Button } from "antd";
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function UploadSuccessPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  function handleGoBack() {
+    navigate("/trade");
+  }
+
   return (
     <div>
       <div
@@ -13,7 +21,7 @@ export default function UploadSuccessPage() {
           alignItems: "center",
         }}
       >
-        Item successfully Uploaded!{" "}
+        Item successfully Uploaded!
       </div>
       <div
         style={{
@@ -27,10 +35,10 @@ export default function UploadSuccessPage() {
           style={{
             width: "225px",
             height: "166px",
-            cursor: "pointer",
+            borderRadius: 10,
           }}
-          src="https://images.unsplash.com/photo-1556911820-1238441ed1a7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHBvdHxlbnwwfHwwfHx8MA%3D%3D"
-          alt="item"
+          src={location.state.values.image.file.thumbUrl}
+          alt={location.state.values.name}
         />
       </div>
       <div
@@ -85,6 +93,7 @@ export default function UploadSuccessPage() {
       >
         <Button
           className="buttonBlue"
+          onClick={handleGoBack}
           style={{
             fontSize: 20,
             fontweight: 500,
