@@ -39,13 +39,23 @@ function UploadItems() {
 
     const formData = new FormData();
     formData.append("name", values.name);
+
+    //need to add category from backend APi request
     // formData.append("category", values.category);
+
     formData.append("price", values.price);
     formData.append("description", values.description);
+
+    //need to discuss about status data 1,2,3... meaning
     formData.append("status", 1);
     // formData.append("isOnsale", values.isOnsale);
+
+    //need to discuss about how to store image file ex: [image.name1, image.name2,... ] or [imagesrc1, imagesrc2,...]
     formData.append("media", []);
+
+    //need to discuss about the need of type adress when upload item
     formData.append("address", "123");
+
     // if (values.image.fileList.length > 5) {
     //   message.error("You can at most upload 5 pictures.");
     //   return;
@@ -57,7 +67,6 @@ function UploadItems() {
 
     try {
       await uploadItem(formData);
-
       navigate("/uploadSeccess", { state: { values } });
     } catch (error) {
       message.error(error.message);
