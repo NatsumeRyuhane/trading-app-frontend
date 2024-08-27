@@ -1,13 +1,14 @@
-import { Button, Input } from "antd";
+import { Button, Input, Layout } from "antd";
 import React from "react";
 import ItemsDisplay from "./ItemsDisplay";
 import { SearchOutlined } from "@ant-design/icons";
+import { Content, Header } from "antd/lib/layout/layout";
 
 function MyOrderedItems() {
   return (
-    <div>
+    <Layout style={{ margin: "0 60px" }}>
       <div className="h1">My Ordered Items(5)</div>
-      <div
+      <Content
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -35,9 +36,9 @@ function MyOrderedItems() {
             Clear History
           </Button>
         </div>
-      </div>
+      </Content>
       <ItemsDisplay />
-    </div>
+    </Layout>
   );
 }
 
