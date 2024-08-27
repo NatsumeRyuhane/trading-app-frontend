@@ -1,5 +1,5 @@
 export const login = (credentials) => {
-  const loginUrl = `/login?username=${credentials.username}&password=${credentials.password}`;
+  const loginUrl = `/auth/login`;
 
   // fetch will return something called a Promise
   return fetch(loginUrl, {
@@ -7,6 +7,7 @@ export const login = (credentials) => {
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(credentials),
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to log in");
@@ -16,7 +17,7 @@ export const login = (credentials) => {
 
 // Register a new user (formerly sign up)
 export const register = (userData) => {
-  const registerUrl = "auth/register";
+  const registerUrl = "/auth/register";
 
   return fetch(registerUrl, {
     method: "POST",
@@ -28,7 +29,6 @@ export const register = (userData) => {
     if (response.status < 200 || response.status >= 300) {
       throw new Error("Fail to register");
     }
-    return response.json();
   });
 };
 
