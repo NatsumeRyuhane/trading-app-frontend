@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { login } from "../utils";
 import Register from "./Register";
+import { useNavigate } from "react-router-dom";
 
 function Login({ onSuccess }) {
   const [displayModal, setDisplayModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleCancel = () => {
     setDisplayModal(false);
@@ -21,6 +23,7 @@ function Login({ onSuccess }) {
         setDisplayModal(false);
         message.success(`Welcome back`);
         onSuccess();
+        navigate("/");
       })
       .catch((err) => {
         message.error(err.message);
@@ -103,7 +106,7 @@ function Login({ onSuccess }) {
                   { required: true, message: "Please input your Username!" },
                 ]}
               >
-                <Input prefix={<UserOutlined />} placeholder="Email Address" />
+                <Input prefix={<UserOutlined />} placeholder="Username" />
               </Form.Item>
               <Form.Item
                 name="password"
