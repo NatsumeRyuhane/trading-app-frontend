@@ -67,6 +67,7 @@ function ItemsDisplay() {
     {
       title: "Description",
       dataIndex: "description",
+      width: "30%",
     },
     {
       title: "Price",
@@ -99,7 +100,7 @@ function ItemsDisplay() {
         gap: "30px",
       }}
     >
-      <div>
+      <div style={{ minWidth: "300px" }}>
         <Button className="buttonWithoutBorder" style={{ color: "#1479FB" }}>
           Select all Items
         </Button>
@@ -107,7 +108,7 @@ function ItemsDisplay() {
           Delete all Items
         </Button>
       </div>
-      <Divider style={{ marginTop: 0 }} />
+      <Divider style={{ marginTop: 0, minWidth: "1022px" }} />
       <Table
         columns={columns}
         dataSource={itemsForTable}
