@@ -18,7 +18,13 @@ function MyOrderedItems() {
           prefix={<SearchOutlined />}
           placeholder="Search..."
           // onPressEnter={onSearch}
-          style={{ width: 300, height: 40, borderRadius: 10, margin: 10 }}
+          style={{
+            maxWidth: 300,
+            minWidth: 240,
+            height: 40,
+            borderRadius: 10,
+            margin: 10,
+          }}
         />
 
         <div>

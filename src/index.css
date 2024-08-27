@@ -84,6 +84,7 @@ code {
   font-weight: bold;
   color: black;
   margin-bottom: 30px;
+  min-width: 240px;
 }
 
 .textBold {

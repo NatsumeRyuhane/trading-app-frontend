@@ -22,7 +22,6 @@ function TradeMyItems() {
             style={{
               display: "flex",
               justifyContent: "center",
-              backgroundColor: "white",
             }}
           >
             <ItemsSummary />
@@ -52,6 +51,7 @@ function ItemsSummary() {
         justifyContent: "space-between",
         alignItems: "center",
         width: "80%",
+        minWidth: "250px",
         maxWidth: "1400px",
         marginBottom: "5%",
         flexDirection: "row",
@@ -59,13 +59,13 @@ function ItemsSummary() {
       }}
     >
       <div style={{ textAlign: "left", marginBottom: "20px" }}>
-        <div style={{ fontSize: "1vw", fontWeight: "bold" }}>
+        <div style={{ fontSize: "20px", fontWeight: "bold" }}>
           Hi, user123@gmail.com!
         </div>
-        <div style={{ fontSize: "1.5vw" }}>
+        <div style={{ fontSize: "24px" }}>
           You have uploaded 5 Items for trade in the past!
         </div>
-        <div style={{ fontSize: "1vw" }}>
+        <div style={{ fontSize: "16px" }}>
           2 Items Traded, 2 Items on Sale, 1 Items in Stock
         </div>
       </div>
@@ -73,10 +73,10 @@ function ItemsSummary() {
         type="primary"
         className="buttonBlue"
         style={{
-          fontSize: "1vw",
+          fontSize: "20px",
           width: "50%",
           maxWidth: "230px",
-          minWidth: "10px",
+          minWidth: "200px",
           height: "auto",
         }}
         onClick={handleSellNewItem}
@@ -97,9 +97,12 @@ function MyUploadedItems() {
           justifyContent: "space-between",
           alignItems: "center",
           marginTop: 20,
+          minWidth: "520px",
+          flexDirection: "row",
+          flexWrap: "wrap",
         }}
       >
-        <div>
+        <div stytle={{ minWidth: "240px", display: "inline" }}>
           <Button
             className="buttonTab"
             style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
