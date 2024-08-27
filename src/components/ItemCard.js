@@ -84,7 +84,7 @@ export function ItemCard({
             fontWeight: "bold",
           }}
         >
-          {title}
+          123{title}
         </div>
 
         <div
@@ -139,7 +139,7 @@ export function ItemCard({
               alignItems: "center", // Center text vertically
               display: "flex",
               color: "white",
-              border: "none", 
+              border: "none",
             }}
             // connect to Stripe payment page related to this item
             // onClick={() => handleCheckout(itemId)}

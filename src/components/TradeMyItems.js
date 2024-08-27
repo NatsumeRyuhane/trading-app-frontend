@@ -8,7 +8,7 @@ const { Content } = Layout;
 function TradeMyItems() {
   return (
     <div>
-      <Layout style={{ margin: "0px 120px " }}>
+      <Layout style={{ margin: "0 60px " }}>
         <div
           style={{
             display: "flex",
