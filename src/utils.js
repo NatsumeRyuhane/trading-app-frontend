@@ -12,6 +12,7 @@ export const login = (credentials) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to log in");
     }
+    return response.json();
   }); // returns a promise
 };
 
@@ -32,21 +33,9 @@ export const register = (userData) => {
   });
 };
 
-export const logout = () => {
-  const logoutUrl = "/logout";
-  return fetch(logoutUrl, {
-    method: "POST",
-    credentials: "include",
-  }).then((response) => {
-    if (response.status !== 204) {
-      throw Error("Fail to log out");
-    }
-  });
-};
-
 // Search for items
 export const searchItems = (searchParams) => {
-  return fetch(`/items?search=${searchParams}`).then((response) => {
+  return fetch(`/items/search?name=${searchParams}`).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to search items");
     }
