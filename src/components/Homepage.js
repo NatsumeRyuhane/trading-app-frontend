@@ -1,12 +1,15 @@
 import React from "react";
-import { Typography, Row, Col, Button, Card } from "antd";
+import { Typography, Row, Col, Button, Card} from "antd";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for programmatic navigation
 import ItemCard from "./ItemCard"; // For displaying item cards
 import dummyItems from "./dummyItems"; // Import dummy item data
 import Logout from "./Logout"; // Import the Logout component
 
 const { Title } = Typography;
 
+
 function Homepage({ isLoggedIn, onLogout }) {
+  const navigate = useNavigate(); // Initialize useNavigate
   // Filter items by different categories
   const kitchenItems = dummyItems.filter((item) => item.category === "Kitchen");
   const furnitureItems = dummyItems.filter(
@@ -16,6 +19,7 @@ function Homepage({ isLoggedIn, onLogout }) {
   const electronicsItems = dummyItems.filter(
     (item) => item.category === "Electronics"
   );
+  
 
   return (
     <div style={{ padding: "24px" }}>

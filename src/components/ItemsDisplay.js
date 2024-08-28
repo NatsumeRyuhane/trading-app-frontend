@@ -1,21 +1,106 @@
-import { Button, Divider, List } from "antd";
+import { Button, Divider, Layout, Space, Table } from "antd";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import dummyItems from "./dummyItems";
 
 function ItemsDisplay() {
   const [items, setItems] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       setItems(dummyItems);
     };
     fetchData();
-  }, []);
+  }, [items]);
 
+  const itemsForTable = formatItemForTable(dummyItems);
+
+  function formatItemForTable(items) {
+    const table = items.map((item) => ({
+      key: item.id,
+      image: item.imgSrc,
+      ItemName: item.title,
+      status: item.status,
+      category: item.category,
+      description: item.description,
+      price: item.price,
+    }));
+    return table;
+  }
+  const navigate = useNavigate();
+  function handleCardClick(itemId) {
+    navigate(`/item/${itemId}`);
+  }
+
+  const columns = [
+    {
+      title: "Image",
+      dataIndex: "image",
+      render: (imgSrc) => (
+        <img
+          alt={imgSrc}
+          src={imgSrc}
+          style={{
+            width: "225px",
+            height: "166px",
+            objectFit: "cover",
+            borderRadius: 10,
+          }}
+        />
+      ),
+    },
+    {
+      title: "Title",
+      dataIndex: "ItemName",
+      render: (ItemName) => (
+        <div style={{ fontSize: 20, fontWeight: "bold" }}>{ItemName}</div>
+      ),
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      render: (status) => <div style={{ fontWeight: 600 }}>{status}</div>,
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      width: "30%",
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+      render: (price) => (
+        <div style={{ fontSize: 20, fontWeight: "bold" }}>${price}</div>
+      ),
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      render: () => (
+        <Space size="middle">
+          <Button className="buttonSmall">Edit</Button>
+          <Button
+            danger
+            style={{ borderRadius: 20, margin: 5, height: 38, width: 90 }}
+          >
+            Delete
+          </Button>
+        </Space>
+      ),
+    },
+  ];
   return (
-    <div>
-      <div>
+    <Layout
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "30px",
+      }}
+    >
+      <div style={{ minWidth: "300px" }}>
         <Button className="buttonWithoutBorder" style={{ color: "#1479FB" }}>
           Select all Items
         </Button>
@@ -23,100 +108,19 @@ function ItemsDisplay() {
           Delete all Items
         </Button>
       </div>
-      <Divider style={{ marginTop: 0 }} />
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "20% 15% 9% 9% 20% 7% 20%",
-          fontSize: "16px",
-          fontWeight: 500,
-          gap: "20px",
-          marginBottom: "30px",
+      <Divider style={{ marginTop: 0, minWidth: "1022px" }} />
+      <Table
+        columns={columns}
+        dataSource={itemsForTable}
+        onRow={(record) => {
+          return {
+            onClick: () => {
+              handleCardClick(record.key);
+            },
+          };
         }}
-      >
-        <div>Image</div>
-        <div>Item Name</div>
-        <div>Status</div>
-        <div>Category</div>
-        <div>Description</div>
-        <div>Price</div>
-        <div>Actions</div>
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "30px" }}>
-        <List
-          dataSource={items}
-          renderItem={(item) => (
-            <ItemRow
-              key={item.id}
-              itemId={item.id}
-              imgSrc={item.imgSrc}
-              title={item.title}
-              status={item.status}
-              category={item.category}
-              price={item.price}
-              description={item.description}
-            />
-          )}
-        />
-      </div>
-    </div>
-  );
-}
-
-function ItemRow({
-  itemId,
-  imgSrc,
-  title,
-  status,
-  category,
-  price,
-  description,
-}) {
-  const navigate = useNavigate();
-
-  function handleCardClick(itemId) {
-    navigate(`/item/${itemId}`);
-  }
-
-  return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "20% 15% 9% 9% 20% 7% 20%",
-        alignItems: "center",
-        fontSize: "16px",
-        fontWeight: "bold",
-        fontFamily: "Arial",
-        height: 166,
-        gap: "20px",
-        marginBottom: "20px",
-      }}
-      onClick={() => handleCardClick(itemId)}
-    >
-      <img
-        style={{
-          width: "225px",
-          height: "166px",
-          cursor: "pointer",
-        }}
-        src={imgSrc}
-        alt={title}
       />
-      <div>{title}</div>
-      <div>{status}</div>
-      <div style={{ fontWeight: 400 }}>{category}</div>
-      <div style={{ fontWeight: 400, fontFamily: "Inter" }}>{description}</div>
-      <div>${price}</div>
-      <div>
-        <Button className="buttonSmall">Edit</Button>
-        <Button
-          danger
-          style={{ borderRadius: 20, margin: 5, height: 38, width: 90 }}
-        >
-          Delete
-        </Button>
-      </div>
-    </div>
+    </Layout>
   );
 }
 
