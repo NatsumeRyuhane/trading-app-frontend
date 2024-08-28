@@ -1,20 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { Layout, List, Divider } from "antd";
+import { Layout, List, Divider, message } from "antd";
 import { ItemCard } from "./ItemCard";
-import dummyItems from "./dummyItems"; // Import dummy items
-// import fetchDataBaseOnSearch from "../utils"; // Placeholder for backend communication
+import { searchItems } from "../utils";
 
 const { Content, Sider } = Layout;
 
-const SearchResult = () => {
-  const [items, setItems] = useState([]); // State to store search results
+const SearchResult = ({ query }) => {
+  const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [itemsPerRow, setItemsPerRow] = useState(4);
   const [filters, setFilters] = useState({}); // State to store filter options
 
+  const loadItems = async () => {
+    setIsLoading(true);
+
+    try {
+      const resp = await searchItems(query);
+      setItems(resp);
+    } catch (e) {
+      message.error(e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Fetch search results and set state
   useEffect(() => {
-    // Example: utils.getSearchResults(searchQuery).then(data => setItems(data));
-
     // calculate the number of items per row in list of search result based on the windowWidth
     const updateItemsPerRow = () => {
       setItemsPerRow(Math.floor((window.innerWidth - 220 - 48) / 260));
@@ -22,13 +33,6 @@ const SearchResult = () => {
 
     // initial calculation
     updateItemsPerRow();
-
-    const fetchData = async () => {
-      // Implement fetch logic here and update the items state
-      setItems(dummyItems);
-    };
-
-    fetchData();
 
     // Add event listener for window resize
     // number of items per row is recalculated dynamically as the window size changes
@@ -39,6 +43,15 @@ const SearchResult = () => {
       window.removeEventListener("resize", updateItemsPerRow);
     };
   }, []); // Empty dependency array ensures this runs only on mount and unmount
+
+  useEffect(() => {
+    // Fetch search results
+    if (query) {
+      loadItems();
+    } else {
+      setItems([]);
+    }
+  }, [query]);
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
@@ -87,20 +100,23 @@ const SearchResult = () => {
             // Calculate columns (#items per row in the list) based on window width
             column: itemsPerRow,
           }}
+          loading={isLoading}
           dataSource={items}
-          renderItem={(item) => (
-            <List.Item>
-              <ItemCard
-                key={item.id}
-                itemId={item.id}
-                layout="vertical" // Specify the layout here
-                imgSrc={item.imgSrc}
-                title={item.title}
-                price={item.price}
-                description={item.description}
-              />
-            </List.Item>
-          )}
+          renderItem={(item) => {
+            return (
+              <List.Item>
+                <ItemCard
+                  key={item.id}
+                  itemId={item.id}
+                  layout="vertical" // Specify the layout here
+                  imgSrc={item.imgSrc}
+                  title={item.name}
+                  price={item.price}
+                  description={item.description}
+                />
+              </List.Item>
+            );
+          }}
         />
       </Content>
     </Layout>
