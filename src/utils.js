@@ -33,7 +33,7 @@ export const register = (userData) => {
 };
 
 export const logout = () => {
-  const logoutUrl = "/logout";
+  const logoutUrl = "/auth/logout";
   return fetch(logoutUrl, {
     method: "POST",
     credentials: "include",

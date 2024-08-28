@@ -49,6 +49,7 @@ function Register() {
         onCancel={handleCancel}
         footer={null}
         destroyOnClose={true}
+        bodyStyle={{ padding: 0 }} // Remove outer padding
       >
         <Form
           name="normal_register"
