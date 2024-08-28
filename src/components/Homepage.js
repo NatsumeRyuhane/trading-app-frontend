@@ -1,12 +1,11 @@
 import React from "react";
-import { Typography, Row, Col, Button, Card} from "antd";
+import { Typography, Row, Col, Button, Card } from "antd";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for programmatic navigation
 import ItemCard from "./ItemCard"; // For displaying item cards
 import dummyItems from "./dummyItems"; // Import dummy item data
 import Logout from "./Logout"; // Import the Logout component
 
 const { Title } = Typography;
-
 
 function Homepage({ isLoggedIn, onLogout }) {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -19,7 +18,6 @@ function Homepage({ isLoggedIn, onLogout }) {
   const electronicsItems = dummyItems.filter(
     (item) => item.category === "Electronics"
   );
-  
 
   return (
     <div style={{ padding: "24px" }}>
@@ -90,20 +88,25 @@ function Homepage({ isLoggedIn, onLogout }) {
             </div>
           </Col>
         </Row>
-        <Row gutter={[16, 16]}>
+        <Row gutter={[16, 16]} jutify="center">
           {dummyItems.slice(0, 4).map((item) => (
-            <Col span={6} key={item.id}>
-              <Card hoverable>
-                <ItemCard
-                  layout="vertical"
-                  itemId={item.id}
-                  imgSrc={item.imgSrc}
-                  title={item.title}
-                  description={item.description}
-                  price={item.price}
-                  showCheckout={isLoggedIn} // Pass isLoggedIn to control Checkout button
-                />
-              </Card>
+            <Col
+              span={6}
+              key={item.id}
+              style={{
+                width: "100%",
+                // display: "flex",
+              }} // Ensure minimum width for each item
+            >
+              <ItemCard
+                layout="heroVertical"
+                itemId={item.id}
+                imgSrc={item.imgSrc}
+                title={item.title}
+                description={item.description}
+                price={item.price}
+                showCheckout={isLoggedIn} // Pass isLoggedIn to control Checkout button
+              />
             </Col>
           ))}
         </Row>
@@ -116,9 +119,9 @@ function Homepage({ isLoggedIn, onLogout }) {
           <Col span={6}>
             <Title level={4}>Kitchen Essentials</Title>
             {kitchenItems.map((item) => (
-              <Card hoverable style={{ marginBottom: "16px" }} key={item.id}>
+              <Card style={{ marginBottom: "16px" }} key={item.id}>
                 <ItemCard
-                  layout="vertical"
+                  layout="heroVertical"
                   itemId={item.id}
                   imgSrc={item.imgSrc}
                   title={item.title}
@@ -132,9 +135,9 @@ function Homepage({ isLoggedIn, onLogout }) {
           <Col span={6}>
             <Title level={4}>Furniture</Title>
             {furnitureItems.map((item) => (
-              <Card hoverable style={{ marginBottom: "16px" }} key={item.id}>
+              <Card style={{ marginBottom: "16px" }} key={item.id}>
                 <ItemCard
-                  layout="vertical"
+                  layout="heroVertical"
                   itemId={item.id}
                   imgSrc={item.imgSrc}
                   title={item.title}
@@ -148,9 +151,9 @@ function Homepage({ isLoggedIn, onLogout }) {
           <Col span={6}>
             <Title level={4}>Bedding</Title>
             {beddingItems.map((item) => (
-              <Card hoverable style={{ marginBottom: "16px" }} key={item.id}>
+              <Card style={{ marginBottom: "16px" }} key={item.id}>
                 <ItemCard
-                  layout="vertical"
+                  layout="heroVertical"
                   itemId={item.id}
                   imgSrc={item.imgSrc}
                   title={item.title}
@@ -164,9 +167,9 @@ function Homepage({ isLoggedIn, onLogout }) {
           <Col span={6}>
             <Title level={4}>Electronics</Title>
             {electronicsItems.map((item) => (
-              <Card hoverable style={{ marginBottom: "16px" }} key={item.id}>
+              <Card style={{ marginBottom: "16px" }} key={item.id}>
                 <ItemCard
-                  layout="vertical"
+                  layout="heroVertical"
                   itemId={item.id}
                   imgSrc={item.imgSrc}
                   title={item.title}

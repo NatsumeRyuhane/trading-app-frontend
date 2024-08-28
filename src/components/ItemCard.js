@@ -1,4 +1,5 @@
 import React from "react";
+import { Button, Card } from "antd";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export function ItemCard({
@@ -48,16 +49,17 @@ export function ItemCard({
   // Function to create a vertical item card
   function createVerticalItemCard() {
     return (
-      <div
+      <Card
+        hoverable
         style={{
-          width: "260px",
+          width: "273px",
           height: "100%",
           flexDirection: "column",
           justifyContent: "flex-start",
           alignItems: "flex-start",
           gap: "20px",
           display: "inline-flex",
-          margin: "10px",
+          margin: "20px",
           cursor: "pointer", // Change cursor to indicate clickable area
         }}
         onClick={() => handleCardClick(itemId)}
@@ -84,7 +86,7 @@ export function ItemCard({
             fontWeight: "bold",
           }}
         >
-          123{title}
+          {title}
         </div>
 
         <div
@@ -129,7 +131,7 @@ export function ItemCard({
             // window.location.href = 'https://your-stripe-payment-page-url.com';
           }}
         >
-          <div
+          <Button
             style={{
               height: 40,
               padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
@@ -144,19 +146,130 @@ export function ItemCard({
             // connect to Stripe payment page related to this item
             // onClick={() => handleCheckout(itemId)}
           >
-            Checkout
-          </div>
+            Add to Cart
+          </Button>
         </div>
-      </div>
+      </Card>
     );
   }
 
   // Other functions for different layouts
+
+  // Function to create a vertical item card
+  function createHeroVerticalItemCard() {
+    return (
+      <Card
+        hoverable
+        style={{
+          width: "308px",
+          height: "100%",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
+          gap: "20px",
+          display: "inline-flex",
+          margin: "20px",
+          cursor: "pointer", // Change cursor to indicate clickable area
+        }}
+        onClick={() => handleCardClick(itemId)}
+      >
+        <img
+          style={{
+            width: 260, // Fixed width
+            height: 200, // Fixed height
+            position: "relative",
+            background: "linear-gradient(0deg, #E0E0E0 0%, #E0E0E0 100%)", // Empty image background
+            objectFit: "cover", // Ensures the image covers the area without distortion
+            borderRadius: 10, // Adds rounded corners
+          }}
+          src={imgSrc}
+          alt={title}
+        />
+
+        <div
+          style={{
+            alignSelf: "stretch",
+            color: "black",
+            fontSize: 24,
+            fontFamily: "Arial",
+            fontWeight: "bold",
+          }}
+        >
+          {title}
+        </div>
+
+        <div
+          style={{
+            width: 260,
+            color: "#7A7A7A",
+            fontSize: 16,
+            fontFamily: "Inter",
+            fontWeight: "400",
+            letterSpacing: 0.16,
+          }}
+        >
+          {description}
+        </div>
+
+        <div
+          style={{
+            alignSelf: "stretch",
+            color: "black",
+            fontSize: 24,
+            fontFamily: "Arial",
+            fontWeight: "bold",
+          }}
+        >
+          ${price}
+        </div>
+
+        <div
+          style={{
+            // Checkout button style
+            height: 40,
+            padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
+            background: "#3A00E5",
+            borderRadius: 20,
+            justifyContent: "center",
+            alignItems: "center", // Center text vertically
+            display: "flex",
+          }}
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent click from propagating to parent div
+            // Dummy code for redirecting to Stripe payment page
+            // window.location.href = 'https://your-stripe-payment-page-url.com';
+          }}
+        >
+          <Button
+            style={{
+              height: 40,
+              padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
+              background: "#3A00E5",
+              borderRadius: 20,
+              justifyContent: "center",
+              alignItems: "center", // Center text vertically
+              display: "flex",
+              color: "white",
+              border: "none",
+            }}
+            // connect to Stripe payment page related to this item
+            // onClick={() => handleCheckout(itemId)}
+          >
+            Add to Cart
+          </Button>
+        </div>
+      </Card>
+    );
+  }
+
   // function createHorizontalItemCard() {}
 
   // Conditional rendering based on layout
   if (layout === "vertical") {
     return createVerticalItemCard();
+  }
+  if (layout === "heroVertical") {
+    return createHeroVerticalItemCard();
   }
 }
 

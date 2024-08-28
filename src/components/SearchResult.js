@@ -17,7 +17,10 @@ const SearchResult = () => {
 
     // calculate the number of items per row in list of search result based on the windowWidth
     const updateItemsPerRow = () => {
-      setItemsPerRow(Math.floor((window.innerWidth - 220 - 48) / 260));
+      // console.log("This is a message" + window.innerWidth);
+      setItemsPerRow(
+        Math.floor((window.innerWidth - 48 * 3 - 220) / (273 + 10))
+      );
     };
 
     // initial calculation
@@ -89,7 +92,13 @@ const SearchResult = () => {
           }}
           dataSource={items}
           renderItem={(item) => (
-            <List.Item>
+            <List.Item
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }} // Ensure minimum width for each item
+            >
               <ItemCard
                 key={item.id}
                 itemId={item.id}
