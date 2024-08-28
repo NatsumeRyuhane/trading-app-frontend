@@ -19,10 +19,10 @@ function Login({ onSuccess }) {
 
   const onFinish = (data) => {
     login(data)
-      .then(() => {
+      .then((resp) => {
         setDisplayModal(false);
         message.success(`Welcome back`);
-        onSuccess();
+        onSuccess(resp.token);
         navigate("/");
       })
       .catch((err) => {

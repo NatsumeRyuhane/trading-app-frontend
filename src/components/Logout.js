@@ -1,9 +1,11 @@
 import { Button, Modal, message } from "antd";
 import React, { useState } from "react";
 import { logout } from "../utils";
+import { useNavigate } from "react-router-dom";
 
 function Logout({ onLogout }) {
   const [displayModal, setDisplayModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleCancel = () => {
     setDisplayModal(false);
@@ -14,20 +16,18 @@ function Logout({ onLogout }) {
   };
 
   const handleLogout = () => {
-    logout()
-      .then(() => {
-        message.success("You have been logged out");
-        onLogout(); // Notify parent component about the logout
-        setDisplayModal(false);
-      })
-      .catch(err => {
-        message.error(err.message);
-      });
+    message.success("You have been logged out");
+    onLogout(); // Notify parent component about the logout
+    setDisplayModal(false);
+    navigate("/"); // Go back to home page after logout
   };
 
   return (
     <>
-      <Button className="loginButton" onClick={logoutOnClick} style={{
+      <Button
+        className="loginButton"
+        onClick={logoutOnClick}
+        style={{
           height: 40,
           padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
           background: "#3A00E5",
@@ -36,8 +36,9 @@ function Logout({ onLogout }) {
           alignItems: "center", // Center text vertically
           display: "flex",
           color: "white",
-          border: "none", 
-        }}>
+          border: "none",
+        }}
+      >
         Log Out
       </Button>
       <Modal
