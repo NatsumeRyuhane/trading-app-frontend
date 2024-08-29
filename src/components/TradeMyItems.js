@@ -138,7 +138,7 @@ function MyUploadedItems() {
           </Button>
         </div>
       </div>
-      <ItemsDisplay />
+      <ItemsDisplay pageName="trade" />
     </div>
   );
 }
