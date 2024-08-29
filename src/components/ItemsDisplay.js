@@ -7,19 +7,18 @@ import {
   editButton,
   reportButton,
   deleteButton,
-} from "./Buttons";
+} from "./buttons";
 
-function ItemsDisplay({ pageName }) {
-  const [items, setItems] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      setItems(dummyItems);
-    };
-    fetchData();
-  }, [items]);
+function ItemsDisplay({ pageName, items }) {
+  // const [items, setItems] = useState([]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setItems(dummyItems);
+  //   };
+  //   fetchData();
+  // }, [items]);
 
-  const itemsForTable = formatItemForTable(dummyItems);
-
+  const itemsForTable = formatItemForTable(items);
   function formatItemForTable(items) {
     const table = items.map((item) => ({
       key: item.id,

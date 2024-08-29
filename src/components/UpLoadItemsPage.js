@@ -15,7 +15,7 @@ import React, { useState } from "react";
 import { CloudUploadOutlined } from "@ant-design/icons";
 import { uploadItem } from "../utils";
 import { useNavigate } from "react-router-dom";
-import type { RadioChangeEvent } from "antd";
+import { RadioChangeEvent } from "antd";
 
 function UploadItems() {
   const navigate = useNavigate();
