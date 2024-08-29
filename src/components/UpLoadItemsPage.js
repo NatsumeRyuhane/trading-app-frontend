@@ -39,7 +39,7 @@ function UploadItems() {
     setFileList(eventObj.fileList);
   };
 
-  const onRadioChange = (e: RadioChangeEvent) => {
+  const onRadioChange = (e) => {
     setValue(e.target.value);
   };
 
