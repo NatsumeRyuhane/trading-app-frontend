@@ -2,8 +2,14 @@ import { Button, Divider, Layout, Space, Table } from "antd";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import dummyItems from "./dummyItems";
+import {
+  rateSellerButton,
+  editButton,
+  reportButton,
+  deleteButton,
+} from "./buttons";
 
-function ItemsDisplay() {
+function ItemsDisplay({ pageName }) {
   const [items, setItems] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -81,13 +87,8 @@ function ItemsDisplay() {
       dataIndex: "action",
       render: () => (
         <Space size="middle">
-          <Button className="buttonSmall">Edit</Button>
-          <Button
-            danger
-            style={{ borderRadius: 20, margin: 5, height: 38, width: 90 }}
-          >
-            Delete
-          </Button>
+          {pageName === "trade" ? editButton : rateSellerButton}
+          {pageName === "trade" ? deleteButton : reportButton}
         </Space>
       ),
     },

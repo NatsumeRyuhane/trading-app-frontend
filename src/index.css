@@ -58,16 +58,6 @@ code {
     monospace;
 }
 
-.navBar {
-  background-color: #3a00e5;
-  color: white;
-  height: 100px;
-}
-
-.navBar {
-  font-size: 20px;
-  font-weight: bold;
-}
 .banner {
   background-color: #ffe100;
   width: 100%;
@@ -124,33 +114,6 @@ code {
   font-weight: bold;
 }
 
-.buttonInNavBar {
-  border: 0;
-  font-size: 20px;
-  font-weight: noemal;
-  background-color: #3a00e5;
-  color: white;
-  box-shadow: none;
-}
-
-.buttonInNavBar:hover {
-  border: 0;
-  font-size: 20px;
-  font-weight: bold;
-  background-color: #3a00e5;
-  color: white;
-  box-shadow: none;
-}
-
-.buttonInNavBar:focus {
-  border: 0;
-  font-size: 20px;
-  font-weight: bold;
-  background-color: #3a00e5;
-  color: white;
-  box-shadow: none;
-}
-
 .buttonBlue {
   background-color: #3a00e5;
   color: white;
@@ -187,14 +150,4 @@ code {
 .buttonWithoutBorder:focus {
   border: 1.5px dashed #3a00e5;
   font-size: 14px;
-}
-
-.buttonSmall {
-  border-radius: 20px;
-  border: 1px solid #979797;
-  background-color: white;
-  font-weight: medium;
-  width: 90px;
-  height: 38px;
-  margin: 5px;
 }
