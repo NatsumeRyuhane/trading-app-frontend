@@ -3,6 +3,7 @@ import React from "react";
 import ItemsDisplay from "./ItemsDisplay";
 import { SearchOutlined } from "@ant-design/icons";
 import { Content } from "antd/lib/layout/layout";
+import dummyItems from "./dummyItems";
 
 function MyOrderedItems() {
   return (
@@ -43,7 +44,7 @@ function MyOrderedItems() {
           </Button>
         </div>
       </Content>
-      <ItemsDisplay pageName="myOrdered" />
+      <ItemsDisplay pageName="myOrdered" items={dummyItems} />
     </Layout>
   );
 }

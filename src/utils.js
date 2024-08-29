@@ -33,7 +33,6 @@ export const register = (userData) => {
   });
 };
 
-
 export const logout = () => {
   const logoutUrl = "/auth/logout";
   return fetch(logoutUrl, {
@@ -45,7 +44,6 @@ export const logout = () => {
     }
   });
 };
-
 
 // Search for items
 export const searchItems = (searchParams) => {

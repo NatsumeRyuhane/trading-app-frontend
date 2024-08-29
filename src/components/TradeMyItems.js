@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Layout, Button } from "antd";
 import ItemsDisplay from "./ItemsDisplay";
 import { useNavigate } from "react-router-dom";
+import dummyItems from "./dummyItems";
 
 const { Content } = Layout;
 
 function TradeMyItems() {
+  const status = ["On Sale", "In Stock", "Traded"];
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      setItems(dummyItems);
+    };
+    fetchData();
+  }, []);
+
+  function handleStatusFilter(status) {
+    const filteredItemList = dummyItems.filter(
+      (item) => item.status === status
+    );
+    setItems(filteredItemList);
+  }
+
   return (
     <div>
       <Layout style={{ margin: "0 60px " }}>
@@ -24,10 +41,18 @@ function TradeMyItems() {
               justifyContent: "center",
             }}
           >
-            <ItemsSummary />
+            <ItemsSummary
+              status={status}
+              handleStatusFilter={handleStatusFilter}
+              items={items}
+            />
           </div>
           <div>
-            <MyUploadedItems />
+            <MyUploadedItems
+              status={status}
+              handleStatusFilter={handleStatusFilter}
+              items={items}
+            />
           </div>
         </Content>
       </Layout>
@@ -35,7 +60,7 @@ function TradeMyItems() {
   );
 }
 
-function ItemsSummary() {
+function ItemsSummary({ status, handleStatusFilter, items }) {
   const navigate = useNavigate();
 
   const handleSellNewItem = () => {
@@ -59,11 +84,9 @@ function ItemsSummary() {
       }}
     >
       <div style={{ textAlign: "left", marginBottom: "20px" }}>
-        <div style={{ fontSize: "20px", fontWeight: "bold" }}>
-          Hi, user123@gmail.com!
-        </div>
+        <div style={{ fontSize: "20px", fontWeight: "bold" }}>Hi, user123!</div>
         <div style={{ fontSize: "24px" }}>
-          You have uploaded 5 Items for trade in the past!
+          You have uploaded {items.length} Items for trade in the past!
         </div>
         <div style={{ fontSize: "16px" }}>
           2 Items Traded, 2 Items on Sale, 1 Items in Stock
@@ -87,7 +110,7 @@ function ItemsSummary() {
   );
 }
 
-function MyUploadedItems() {
+function MyUploadedItems({ status, handleStatusFilter, items }) {
   return (
     <div>
       <div className="h1">My Uploaded Items(5)</div>
@@ -105,21 +128,24 @@ function MyUploadedItems() {
         <div stytle={{ minWidth: "240px", display: "inline" }}>
           <Button
             className="buttonTab"
+            onClick={() => handleStatusFilter(status[0])}
             style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
           >
-            On Sale
+            {status[0]}
           </Button>
           <Button
             className="buttonTab"
+            onClick={() => handleStatusFilter(status[1])}
             style={{ borderRadius: 0, borderLeft: 0, borderRight: 0 }}
           >
-            In Stock
+            {status[1]}
           </Button>
           <Button
             className="buttonTab"
+            onClick={() => handleStatusFilter(status[2])}
             style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
           >
-            Traded
+            {status[2]}
           </Button>
         </div>
         <div>
@@ -138,7 +164,7 @@ function MyUploadedItems() {
           </Button>
         </div>
       </div>
-      <ItemsDisplay pageName="trade" />
+      <ItemsDisplay pageName="trade" items={items} />
     </div>
   );
 }
