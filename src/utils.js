@@ -1,7 +1,8 @@
+import Cookies from "js-cookie";
+
 export const login = (credentials) => {
   const loginUrl = `/auth/login`;
 
-  // fetch will return something called a Promise
   return fetch(loginUrl, {
     method: "POST",
     headers: {
@@ -67,10 +68,13 @@ export const viewCart = () => {
 
 // Upload a new item
 export const uploadItem = (itemData) => {
+  const sessionToken = Cookies.get("sessionToken");
+
   return fetch("/items", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionToken}`,
     },
     body: JSON.stringify(Object.fromEntries(itemData)),
   }).then((response) => {
@@ -93,3 +97,12 @@ export const checkout = () => {
     }
   });
 };
+
+export const getAllItems = () => {
+  return fetch("/items").then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to fetch items");
+    }
+    return response.json();
+  })
+}
