@@ -10,6 +10,7 @@ import {
 import Logout from "./Logout";
 import React from "react";
 
+
 const { Header } = Layout;
 
 const HeaderMenu = ({
@@ -122,6 +123,19 @@ const HeaderMenu = ({
                 }}
               >
                 Trade My Items
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="MyCart" icon={<SwapOutlined />}>
+              <Link
+                to="/MyCart"
+                style={{
+                  color: "white",
+                  font: "Arial",
+                  fontSize: 16,
+                  fontWeight: "500",
+                }}
+              >
+                MyCart
               </Link>
             </Menu.Item>
 

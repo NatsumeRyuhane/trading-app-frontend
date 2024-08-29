@@ -13,6 +13,7 @@ import UploadItems from "./components/UpLoadItemsPage";
 import UploadSuccessPage from "./components/UploadSuccessPage";
 import HeaderMenu from "./components/HeaderMenu";
 import DiscountPromo from "./components/DiscountPromo";
+import MyCart from "./components/MyCart";
 
 const { Content } = Layout;
 const HOME_PAGE_STATE = "home";
@@ -99,6 +100,8 @@ function App() {
         <Route path="/item/:itemId" element={<ItemInformation />} />
         <Route path="/uploadItems" element={<UploadItems />} />
         <Route path="/uploadSeccess" element={<UploadSuccessPage />} />
+        <Route path="/MyCart" element={<MyCart/>} />
+
       </Routes>
     );
   };
