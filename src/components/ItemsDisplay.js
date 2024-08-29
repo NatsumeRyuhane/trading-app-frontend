@@ -7,7 +7,7 @@ import {
   editButton,
   reportButton,
   deleteButton,
-} from "./buttons";
+} from "./Buttons";
 
 function ItemsDisplay({ pageName }) {
   const [items, setItems] = useState([]);
