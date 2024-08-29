@@ -7,17 +7,22 @@ import {
   message,
   Upload,
   Select,
+  Radio,
+  Space,
 } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import React, { useState } from "react";
 import { CloudUploadOutlined } from "@ant-design/icons";
 import { uploadItem } from "../utils";
 import { useNavigate } from "react-router-dom";
+import type { RadioChangeEvent } from "antd";
 
 function UploadItems() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [fileList, setFileList] = useState([]);
+  const [value, setValue] = useState(1);
+  const [address, setAddress] = useState("");
 
   const uploadButton = (
     <button style={{ border: 0, background: "none" }} type="button">
@@ -34,36 +39,49 @@ function UploadItems() {
     setFileList(eventObj.fileList);
   };
 
-  const handleSubmit = async (values) => {
-    setLoading(true);
+  const onRadioChange = (e: RadioChangeEvent) => {
+    setValue(e.target.value);
+  };
 
+  const handleRadioInput = (e) => {
+    setAddress(e.target.value);
+  };
+
+  const handleSubmit = async (values) => {
+    console.log(values);
+    setLoading(true);
     const formData = new FormData();
     formData.append("name", values.name);
 
-    //need to add category from backend APi request
+    //TODO add category
     // formData.append("category", values.category);
 
     formData.append("price", values.price);
     formData.append("description", values.description);
 
-    //need to discuss about status data 1,2,3... meaning
-    formData.append("status", 1);
-    // formData.append("isOnsale", values.isOnsale);
+    if (values.isAvailable === true) {
+      formData.append("status", "AVAILABLE");
+    } else {
+      formData.append("status", "UNPUBLISHED");
+    }
 
     //need to discuss about how to store image file ex: [image.name1, image.name2,... ] or [imagesrc1, imagesrc2,...]
-    formData.append("media", []);
 
-    //need to discuss about the need of type adress when upload item
-    formData.append("address", "123");
+    if (!values.useDefaultAddress) {
+      formData.append("address", address);
+    } else {
+      setAddress("");
+      formData.append("address", "");
+    }
 
-    // if (values.image.fileList.length > 5) {
-    //   message.error("You can at most upload 5 pictures.");
-    //   return;
-    // }
+    if (values.image.fileList.length > 5) {
+      message.error("You can at most upload 5 pictures.");
+      return;
+    }
 
-    // for (let i = 0; i < values.image.fileList.length; i++) {
-    //   formData.append("images", values.image.fileList[i]);
-    // }
+    for (let i = 0; i < values.image.fileList.length; i++) {
+      formData.append("media", values.image.fileList[i]);
+    }
 
     try {
       await uploadItem(formData);
@@ -160,13 +178,36 @@ function UploadItems() {
             <TextArea rows={4} />
           </Form.Item>
           <Form.Item
-            name="isOnsale"
+            name="useDefaultAddress"
+            label="Pick Up Location"
+            rules={[{ required: true }]}
+          >
+            <Radio.Group onChange={onRadioChange} value={value}>
+              <Space direction="vertical">
+                <Radio value={true}> Your Address</Radio>
+                <Radio value={false}>
+                  Use Another Address
+                  {!value ? (
+                    <Input
+                      onChange={handleRadioInput}
+                      style={{ marginTop: "20px", width: "100%" }}
+                    />
+                  ) : null}
+                </Radio>
+              </Space>
+            </Radio.Group>
+          </Form.Item>
+
+          <Form.Item
+            name="isAvailable"
             valuePropName="checked"
             stytle={{ width: 1000 }}
           >
             <Checkbox>List the product for sale once it is approved</Checkbox>
           </Form.Item>
-
+          <div style={{ fontSize: 16, fontWeight: 500, color: "#7A7A7A" }}>
+            Uncheck this mark if you do not want to sell it immediately.
+          </div>
           <div
             style={{
               display: "flex",
