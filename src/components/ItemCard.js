@@ -84,7 +84,7 @@ export function ItemCard({
             fontWeight: "bold",
           }}
         >
-          123{title}
+          {title}
         </div>
 
         <div
