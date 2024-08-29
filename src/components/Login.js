@@ -74,6 +74,7 @@ function Login({ onSuccess }) {
         onCancel={handleCancel}
         footer={null}
         destroyOnClose={true}
+        bodyStyle={{ padding: 0 }} // Remove outer padding
       >
         <div
           style={{
@@ -82,8 +83,8 @@ function Login({ onSuccess }) {
             alignItems: "center",
             height: "100%",
             padding: "20px",
+            borderRadius: 20, // Add border radius here
             background: "#f0f2f5",
-            borderRadius: 10,
           }}
         >
           <div
