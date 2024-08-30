@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Layout, List, Divider } from "antd";
+import {
+  Layout,
+  List,
+  Divider,
+  Slider,
+  InputNumber,
+  Row,
+  Col,
+  Rate,
+  Dropdown,
+  Button,
+  Menu,
+} from "antd";
 import { ItemCard } from "./ItemCard";
 import dummyItems from "./dummyItems"; // Import dummy items
 import { searchItems } from "../utils"; // APIs from backend
@@ -9,7 +21,12 @@ const { Content, Sider } = Layout;
 const SearchResult = () => {
   const [items, setItems] = useState([]); // State to store search results
   const [itemsPerRow, setItemsPerRow] = useState(4);
-  const [filters, setFilters] = useState({}); // State to store filter options
+  const [filters, setFilters] = useState({
+    price: [0, 1000],
+    distance: 0,
+    rating: 0,
+    uploadTime: "all time",
+  }); // State to store filter options
 
   // Fetch search results and set state
   useEffect(() => {
@@ -25,7 +42,6 @@ const SearchResult = () => {
     updateItemsPerRow();
 
     const fetchData = async () => {
-      // Implement fetch logic here and update the items state
       // setItems(dummyItems);
 
       try {
@@ -52,9 +68,55 @@ const SearchResult = () => {
   }, []); // Empty dependency array ensures this runs only on mount and unmount
 
   const handleFilterChange = (newFilters) => {
-    setFilters(newFilters);
-    // Update search results based on filters
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+
+      ...newFilters,
+    }));
   };
+
+  const applyFilters = () => {
+    // Implement the filtering logic based on the filters state
+
+    const filteredItems = items.filter((item) => {
+      return (
+        item.price >= filters.price[0] &&
+        item.price <= filters.price[1] &&
+        item.distance <= filters.distance &&
+        item.rating >= filters.rating &&
+        (filters.uploadTime === "all time" ||
+          (filters.uploadTime === "recently uploaded" &&
+            item.uploadTime <= 1) ||
+          (filters.uploadTime === "uploaded within the past month" &&
+            item.uploadTime <= 30) ||
+          (filters.uploadTime === "uploaded within the past 4 months" &&
+            item.uploadTime <= 120))
+      );
+    });
+
+    setItems(filteredItems);
+  };
+
+  const menu = (
+    <Menu
+      onClick={({ key }) => handleFilterChange({ uploadTime: key })}
+      items={[
+        { key: "recently uploaded", label: "Recently Uploaded" },
+
+        {
+          key: "uploaded within the past month",
+          label: "Uploaded within the past month",
+        },
+
+        {
+          key: "uploaded within the past 4 months",
+          label: "Uploaded within the past 4 months",
+        },
+
+        { key: "all time", label: "All Time" },
+      ]}
+    />
+  );
 
   return (
     <Layout>
@@ -71,15 +133,78 @@ const SearchResult = () => {
         }}
       >
         {/* Add filter options here */}
-        <div>Filter Options</div>
-        {/* Filters can be added here */}
+        <div>Filter Results</div>
+
+        <div>
+          <div>Price</div>
+
+          <Slider
+            range={{
+              draggableTrack: true,
+            }}
+            defaultValue={filters.price}
+            min={0}
+            max={1000}
+            onChange={(value) => handleFilterChange({ price: value })}
+          />
+        </div>
+
+        <div>
+          <div>Pickup Distance</div>
+
+          <Row>
+            <Col span={12}>
+              <Slider
+                min={0}
+                max={20}
+                value={filters.distance}
+                onChange={(value) => handleFilterChange({ distance: value })}
+              />
+            </Col>
+
+            <Col span={4}>
+              <InputNumber
+                min={0}
+                max={20}
+                style={{ margin: "0 16px" }}
+                value={filters.distance}
+                onChange={(value) => handleFilterChange({ distance: value })}
+              />
+            </Col>
+
+            <Col span={8}>miles</Col>
+          </Row>
+        </div>
+
+        <div>
+          <div>Seller's Rating</div>
+
+          <Rate
+            value={filters.rating}
+            onChange={(value) => handleFilterChange({ rating: value })}
+          />
+        </div>
+
+        <div>
+          <div>Uploaded Time</div>
+
+          <Dropdown overlay={menu}>
+            <Button>
+              {filters.uploadTime.charAt(0).toUpperCase() +
+                filters.uploadTime.slice(1)}
+            </Button>
+          </Dropdown>
+        </div>
+
+        <Button type="primary" onClick={applyFilters}>
+          Apply Filters
+        </Button>
       </Sider>
 
       {/* Vertical Divider Line separate Filter and Scrollable Search Result */}
       <Divider
         type="vertical"
         style={{
-          //   marginTop: "114px",
           position: "fixed",
           left: "248px",
           height: "100vh",
@@ -110,7 +235,7 @@ const SearchResult = () => {
               <ItemCard
                 key={item.id}
                 itemId={item.id}
-                layout="vertical" // Specify the layout here
+                layout="vertical"
                 imgSrc={item.imgSrc}
                 title={item.title}
                 price={item.price}
