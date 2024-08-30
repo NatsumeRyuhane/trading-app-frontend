@@ -100,8 +100,7 @@ function App() {
         <Route path="/item/:itemId" element={<ItemInformation />} />
         <Route path="/uploadItems" element={<UploadItems />} />
         <Route path="/uploadSeccess" element={<UploadSuccessPage />} />
-        <Route path="/MyCart" element={<MyCart/>} />
-
+        <Route path="/MyCart" element={<MyCart />} />
       </Routes>
     );
   };

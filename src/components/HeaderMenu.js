@@ -125,7 +125,7 @@ const HeaderMenu = ({
                 Trade My Items
               </Link>
             </Menu.Item>
-            <Menu.Item key="MyCart" icon={<SwapOutlined />}>
+            <Menu.Item key="MyCart" icon={<ShoppingCartOutlined />}>
               <Link
                 to="/MyCart"
                 style={{

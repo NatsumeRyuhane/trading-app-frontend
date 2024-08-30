@@ -1,108 +1,90 @@
-import { Button, Drawer, List, message, Typography } from "antd";
-import { useEffect, useState } from "react";
-import { checkout, getCart } from "../utils";
+import { Button, Layout, Typography, message } from "antd";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import dummyItems from "./dummyItems"; // Import your dummy items
+import ItemsDisplay from "./ItemsDisplay"; // Import the ItemsDisplay component
 
+const { Content } = Layout;
 const { Text } = Typography;
 
 const MyCart = () => {
-  const [cartVisible, setCartVisible] = useState(false);
-  const [cartData, setCartData] = useState();
-  const [loading, setLoading] = useState(false);
+  const [cartData, setCartData] = useState(dummyItems);
   const [checking, setChecking] = useState(false);
+  const navigate = useNavigate();
 
-  // get ths shopping cart data
-  useEffect(() => {
-    if (!cartVisible) {
-      return;
-    }
-
-    setLoading(true);
-    getCart()
-      .then((data) => {
-        setCartData(data);
-      })
-      .catch((err) => {
-        message.error(err.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [cartVisible]);
+  // Calculate total price and other costs dynamically
+  const totalItemsPrice = cartData.reduce((total, item) => total + item.price, 0);
+  const shippingAndHandling = 2.99; // Example static shipping cost
+  const estimatedTax = totalItemsPrice * 0.09; // Example tax calculation
+  const orderTotal = totalItemsPrice + shippingAndHandling + estimatedTax;
 
   const onCheckOut = () => {
     setChecking(true);
-    checkout()
-      .then(() => {
-        message.success("Successfully checkout");
-        setCartVisible(false);
-      })
-      .catch((err) => {
-        message.error(err.message);
-      })
-      .finally(() => {
-        setChecking(false);
-      });
+    // Simulate checkout process
+    setTimeout(() => {
+      setChecking(false);
+      setCartData([]); // Clear cart after checkout
+      message.success("Successfully checked out");
+    }, 1000);
   };
 
-  const onCloseDrawer = () => {
-    setCartVisible(false);
-  };
-
-  const onOpenDrawer = () => {
-    setCartVisible(true);
-  };
 
   return (
-    <>
-      <Button type="primary" shape="round" onClick={onOpenDrawer}>
-        Cart
-      </Button>
-      <Drawer
-        title="My Shopping Cart"
-        onClose={onCloseDrawer}
-        open={cartVisible}
-        width={520}
-        footer={
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <Text
-              strong={true}
-            >{`Total price: $${cartData?.total_price}`}</Text>
-            <div>
-              <Button onClick={onCloseDrawer} style={{ marginRight: 8 }}>
-                Cancel
-              </Button>
-              <Button
-                onClick={onCheckOut}
-                type="primary"
-                loading={checking}
-                disabled={loading || cartData?.order_items.length === 0}
-              >
-                Checkout
-              </Button>
-            </div>
-          </div>
-        }
+    <Layout style={{ margin: "0 60px" }}>
+      <div className="h1">Shopping Cart ({cartData.length} Items)</div>
+      <Content
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
       >
-        <List
-          loading={loading}
-          itemLayout="horizontal"
-          dataSource={cartData?.order_items}
-          renderItem={(item) => (
-            <List.Item>
-              <List.Item.Meta
-                title={item.menu_item_name}
-                description={`$${item.price}`}
-              />
-            </List.Item>
-          )}
-        />
-      </Drawer>
-    </>
+
+        <div>
+          <Button
+            type="primary"
+            className="buttonBlue"
+            style={{ fontSize: 14, width: 130 }}
+          >
+            Edit Cart
+          </Button>
+          <Button
+            danger
+            style={{ fontSize: 14, width: 130, borderRadius: "10px" }}
+            onClick={() => setCartData([])}
+          >
+            Clear Cart
+          </Button>
+        </div>
+      </Content>
+
+      {/* Use ItemsDisplay to show cart items */}
+      <ItemsDisplay items={cartData} />
+
+      <div
+        style={{
+          marginTop: "16px",
+          padding: "20px",
+          backgroundColor: "white",
+          borderRadius: 8,
+        }}
+      >
+        <div style={{ marginBottom: 16 }}>
+          <p>Items Total: ${totalItemsPrice.toFixed(2)}</p>
+          <p>Shipping & Handling: ${shippingAndHandling.toFixed(2)}</p>
+          <p>Estimated Tax: ${estimatedTax.toFixed(2)}</p>
+        </div>
+        <Text strong={true} style={{ fontSize: 18 }}>{`Order Total: $${orderTotal.toFixed(2)}`}</Text>
+        <Button
+          onClick={onCheckOut}
+          type="primary"
+          style={{ marginTop: 20, width: "100%" }}
+          loading={checking}
+          disabled={cartData.length === 0}
+        >
+          Checkout
+        </Button>
+      </div>
+    </Layout>
   );
 };
 
