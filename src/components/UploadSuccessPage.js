@@ -37,7 +37,7 @@ export default function UploadSuccessPage() {
             height: "166px",
             borderRadius: 10,
           }}
-          src={location.state.values.image.file.thumbUrl}
+          src={URL.createObjectURL(location.state.values.image.fileList[0].originFileObj)}
           alt={location.state.values.name}
         />
       </div>

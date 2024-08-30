@@ -73,10 +73,9 @@ export const uploadItem = (itemData) => {
   return fetch("/items", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
       "Authorization": `Bearer ${sessionToken}`,
     },
-    body: JSON.stringify(Object.fromEntries(itemData)),
+    body: itemData,
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to upload item");

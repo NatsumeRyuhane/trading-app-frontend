@@ -15,7 +15,6 @@ import React, { useState } from "react";
 import { CloudUploadOutlined } from "@ant-design/icons";
 import { uploadItem } from "../utils";
 import { useNavigate } from "react-router-dom";
-import { RadioChangeEvent } from "antd";
 
 function UploadItems() {
   const navigate = useNavigate();
@@ -74,13 +73,13 @@ function UploadItems() {
       formData.append("address", "");
     }
 
-    if (values.image.fileList.length > 5) {
+    if (fileList.length > 5) {
       message.error("You can at most upload 5 pictures.");
       return;
     }
 
-    for (let i = 0; i < values.image.fileList.length; i++) {
-      formData.append("media", values.image.fileList[i]);
+    for (let i = 0; i < fileList.length; i++) {
+      formData.append("media", fileList[i].originFileObj);
     }
 
     try {
