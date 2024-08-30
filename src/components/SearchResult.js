@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Layout, List, Divider } from "antd";
 import { ItemCard } from "./ItemCard";
 import dummyItems from "./dummyItems"; // Import dummy items
-// import fetchDataBaseOnSearch from "../utils"; // Placeholder for backend communication
+import { searchItems } from "../utils"; // APIs from backend
 
 const { Content, Sider } = Layout;
 
@@ -13,8 +13,6 @@ const SearchResult = () => {
 
   // Fetch search results and set state
   useEffect(() => {
-    // Example: utils.getSearchResults(searchQuery).then(data => setItems(data));
-
     // calculate the number of items per row in list of search result based on the windowWidth
     const updateItemsPerRow = () => {
       // console.log("This is a message" + window.innerWidth);
@@ -23,12 +21,22 @@ const SearchResult = () => {
       );
     };
 
-    // initial calculation
+    // Initial calculation
     updateItemsPerRow();
 
     const fetchData = async () => {
       // Implement fetch logic here and update the items state
-      setItems(dummyItems);
+      // setItems(dummyItems);
+
+      try {
+        const searchParams = ""; // You may replace this with actual search query parameters
+
+        const data = await searchItems(searchParams);
+
+        setItems(data); // Update items state with the search results
+      } catch (error) {
+        console.error("Failed to fetch search results:", error);
+      }
     };
 
     fetchData();
