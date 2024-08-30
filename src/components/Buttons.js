@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "antd";
+import { CloudUploadOutlined } from "@ant-design/icons";
 
 export const rateSellerButton = (
   <Button
@@ -58,4 +59,11 @@ export const deleteButton = (
   >
     Delete
   </Button>
+);
+
+export const uploadButton = (
+  <button style={{ border: 0, background: "none" }} type="button">
+    <CloudUploadOutlined />
+    <div style={{ marginTop: 8 }}>Upload</div>
+  </button>
 );
