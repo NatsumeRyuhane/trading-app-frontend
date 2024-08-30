@@ -116,3 +116,14 @@ export const getAllItems = () => {
     return response.json();
   })
 }
+
+export const fetchItemById = (itemId) => {
+  const url = `/items/${itemId}`
+
+  return fetch(url).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to fetch item");
+    }
+    return response.json();
+  })
+}

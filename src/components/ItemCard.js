@@ -1,14 +1,9 @@
 import React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function ItemCard({
   layout,
-  itemId,
-  imgSrc,
-  title,
-  category,
-  price,
-  description,
+  item
 }) {
   const navigate = useNavigate();
 
@@ -18,6 +13,7 @@ export function ItemCard({
   }
 
   // handle checkout to Stripe
+  // TODO: rewrite chatgpt code
   const handleCheckout = async () => {
     try {
       // Make an API call to your backend to create a Stripe checkout session
@@ -27,8 +23,8 @@ export function ItemCard({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          price: price,
-          title: title,
+          price: item.price,
+          title: item.name,
         }),
       });
       const sessionId = await response.json();
@@ -60,7 +56,7 @@ export function ItemCard({
           margin: "10px",
           cursor: "pointer", // Change cursor to indicate clickable area
         }}
-        onClick={() => handleCardClick(itemId)}
+        onClick={() => handleCardClick(item.id)}
       >
         <img
           style={{
@@ -71,8 +67,8 @@ export function ItemCard({
             objectFit: "cover", // Ensures the image covers the area without distortion
             borderRadius: 10, // Adds rounded corners
           }}
-          src={imgSrc}
-          alt={title}
+          src={item.media_urls[0]}
+          alt={item.name}
         />
 
         <div
@@ -84,7 +80,7 @@ export function ItemCard({
             fontWeight: "bold",
           }}
         >
-          {title}
+          {item.name}
         </div>
 
         <div
@@ -97,7 +93,7 @@ export function ItemCard({
             letterSpacing: 0.16,
           }}
         >
-          {description}
+          {item.description}
         </div>
 
         <div
@@ -109,44 +105,44 @@ export function ItemCard({
             fontWeight: "bold",
           }}
         >
-          ${price}
+          ${item.price}
         </div>
 
-        <div
-          style={{
-            // Checkout button style
-            height: 40,
-            padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
-            background: "#3A00E5",
-            borderRadius: 20,
-            justifyContent: "center",
-            alignItems: "center", // Center text vertically
-            display: "flex",
-          }}
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent click from propagating to parent div
-            // Dummy code for redirecting to Stripe payment page
-            // window.location.href = 'https://your-stripe-payment-page-url.com';
-          }}
-        >
-          <div
-            style={{
-              height: 40,
-              padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
-              background: "#3A00E5",
-              borderRadius: 20,
-              justifyContent: "center",
-              alignItems: "center", // Center text vertically
-              display: "flex",
-              color: "white",
-              border: "none",
-            }}
-            // connect to Stripe payment page related to this item
-            // onClick={() => handleCheckout(itemId)}
-          >
-            Checkout
-          </div>
-        </div>
+        {/*<div*/}
+        {/*  style={{*/}
+        {/*    // Checkout button style*/}
+        {/*    height: 40,*/}
+        {/*    padding: "10px 25px", // Top/bottom: 10px, left/right: 25px*/}
+        {/*    background: "#3A00E5",*/}
+        {/*    borderRadius: 20,*/}
+        {/*    justifyContent: "center",*/}
+        {/*    alignItems: "center", // Center text vertically*/}
+        {/*    display: "flex",*/}
+        {/*  }}*/}
+        {/*  onClick={(e) => {*/}
+        {/*    e.stopPropagation(); // Prevent click from propagating to parent div*/}
+        {/*    // Dummy code for redirecting to Stripe payment page*/}
+        {/*    // window.location.href = 'https://your-stripe-payment-page-url.com';*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  <div*/}
+        {/*    style={{*/}
+        {/*      height: 40,*/}
+        {/*      padding: "10px 25px", // Top/bottom: 10px, left/right: 25px*/}
+        {/*      background: "#3A00E5",*/}
+        {/*      borderRadius: 20,*/}
+        {/*      justifyContent: "center",*/}
+        {/*      alignItems: "center", // Center text vertically*/}
+        {/*      display: "flex",*/}
+        {/*      color: "white",*/}
+        {/*      border: "none",*/}
+        {/*    }}*/}
+        {/*    // connect to Stripe payment page related to this item*/}
+        {/*    // onClick={() => handleCheckout(itemId)}*/}
+        {/*  >*/}
+        {/*    Checkout*/}
+        {/*  </div>*/}
+        {/*</div>*/}
       </div>
     );
   }
