@@ -1,33 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { StarFilled } from "@ant-design/icons";
-import dummyItems from "./dummyItems";
+import {LeftCircleFilled, RightCircleFilled, StarFilled} from "@ant-design/icons";
+import {fetchItemById} from "../utils";
+import {Carousel, message, Image} from "antd";
 
 function ItemInformation() {
   const { itemId } = useParams(); // Get the itemId from the URL
-  const [item, setItem] = useState([]);
+  const [item, setItem] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Fetch item details based on itemId
+  const loadItem = async () => {
+    setIsLoading(true);
+
+    try {
+      const fetchedItem = await fetchItemById(itemId);
+      setItem(fetchedItem)
+    } catch (e) {
+      message.error(e.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
-    // Fetch item details based on itemId
-    const fetchItemDetails = async () => {
-      try {
-        // Replace with actual API call later
-        // const response = await fetch(`/api/items/${itemId}`);
-        // const data = await response.json();
-        // setItem(data);
-
-        // Simulate fetching item details based on itemId
-        const foundItem = dummyItems.find(
-          (item) => item.id === parseInt(itemId)
-        );
-        setItem(foundItem); // Set item to the found item
-      } catch (error) {
-        console.error("Error fetching item details:", error);
-      }
-    };
-
-    fetchItemDetails();
-  }, [itemId]); // Fetch item details when itemId changes
+    loadItem()
+  }, []); // Fetch item details when itemId changes
 
   // Display loading message while item data is being fetched
   if (!item) return <div>Loading...</div>;
@@ -67,17 +65,32 @@ function ItemInformation() {
             display: "inline-flex",
           }}
         >
-          <img
+          <Carousel
             style={{
               width: 400,
               height: 300,
-              borderRadius: 20,
-              objectFit: "cover",
-              background: "linear-gradient(0deg, #E0E0E0 0%, #E0E0E0 100%)",
+              // objectFit: "cover",
+              // background: "linear-gradient(0deg, #E0E0E0 0%, #E0E0E0 100%)",
             }}
-            src={item.imgSrc || "https://via.placeholder.com/400x300"}
-            alt={item.title}
-          />
+            dots={true}
+            arrows
+            prevArrow={<LeftCircleFilled />}
+            nextArrow={<RightCircleFilled />}
+          >
+            {item.media_urls.map((url, index) => (
+              <div key={index}>
+                <Image
+                  src={url}
+                  width="100%"
+                  style={{
+                    width: 400,
+                    height: 300,
+                    borderRadius: 20,
+                  }}
+                />
+              </div>
+            ))}
+          </Carousel>
           <div
             style={{
               flexDirection: "column",
@@ -265,14 +278,14 @@ function ItemInformation() {
           <div
             style={{
               color: "black",
-              fontSize: 20,
+              fontSize: 50,
               fontFamily: "Inter",
               fontWeight: "600",
               letterSpacing: 0.2,
               wordWrap: "break-word",
             }}
           >
-            Item Description:
+            {item.name}
           </div>
           <div
             style={{
