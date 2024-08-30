@@ -72,8 +72,6 @@ function UploadItems() {
       formData.append("media", fileList[i].originFileObj);
     }
 
-    console.log(fileList[0].originFileObj);
-
     try {
       await uploadItem(formData);
       navigate("/uploadSeccess", { state: { values } });

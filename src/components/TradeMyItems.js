@@ -61,6 +61,7 @@ function TradeMyItems() {
               status={status}
               handleStatusFilter={handleStatusFilter}
               items={items}
+              allItems={allItems}
             />
           </div>
         </Content>
@@ -121,10 +122,10 @@ function ItemsSummary({ tradedItems, onSaleItems, inStockItems, allItems }) {
   );
 }
 
-function MyUploadedItems({ status, handleStatusFilter, items }) {
+function MyUploadedItems({ status, handleStatusFilter, items, allItems }) {
   return (
     <div>
-      <div className="h1">My Uploaded Items(5)</div>
+      <div className="h1">My Uploaded Items({allItems.length})</div>
       <div
         style={{
           display: "flex",

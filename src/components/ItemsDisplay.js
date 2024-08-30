@@ -1,13 +1,15 @@
-import { Button, Divider, Layout, Space, Table } from "antd";
+import { Button, Divider, Layout, message, Space, Table } from "antd";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { DeleteOutlined } from "@ant-design/icons";
 import dummyItems from "./dummyItems";
 import {
   rateSellerButton,
-  editButton,
+  EditButton,
   reportButton,
   deleteButton,
 } from "./Buttons";
+import { fetchItemById } from "../utils";
 
 function ItemsDisplay({ pageName, items }) {
   // const [items, setItems] = useState([]);
@@ -16,7 +18,31 @@ function ItemsDisplay({ pageName, items }) {
   //     setItems(dummyItems);
   //   };
   //   fetchData();
+
   // }, [items]);
+
+  const navigate = useNavigate();
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const start = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setSelectedRowKeys([]);
+      setLoading(false);
+    }, 1000);
+  };
+
+  const onSelectChange = (newSelectedRowKeys) => {
+    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+  const hasSelected = selectedRowKeys.length > 0;
 
   const itemsForTable = formatItemForTable(items);
   function formatItemForTable(items) {
@@ -31,10 +57,23 @@ function ItemsDisplay({ pageName, items }) {
     }));
     return table;
   }
-  const navigate = useNavigate();
-  function handleCardClick(itemId) {
-    navigate(`/item/${itemId}`);
-  }
+
+  // function handleCardClick(itemId) {
+  //   navigate(`/item/${itemId}`);
+  // }
+
+  const handleEdit = async (key, e) => {
+    try {
+      console.log(key);
+      //TODO:navigate to upload item page with old item data in form
+      await fetchItemById(key);
+      navigate("/uploadItems");
+    } catch (error) {
+      message.error(error.message);
+    } finally {
+    }
+    setLoading(false);
+  };
 
   const columns = [
     {
@@ -84,14 +123,23 @@ function ItemsDisplay({ pageName, items }) {
     {
       title: "Action",
       dataIndex: "action",
-      render: () => (
+      render: (_, record) => (
         <Space size="middle">
-          {pageName === "trade" ? editButton : rateSellerButton}
+          {pageName === "trade" ? (
+            <EditButton
+              onEditClick={(e) => {
+                handleEdit(record.key);
+              }}
+            />
+          ) : (
+            rateSellerButton
+          )}
           {pageName === "trade" ? deleteButton : reportButton}
         </Space>
       ),
     },
   ];
+
   return (
     <Layout
       style={{
@@ -100,25 +148,53 @@ function ItemsDisplay({ pageName, items }) {
         gap: "30px",
       }}
     >
-      <div style={{ minWidth: "300px" }}>
-        <Button className="buttonWithoutBorder" style={{ color: "#1479FB" }}>
+      {/* maybe we don't need these two button? */}
+      {/* <div style={{ minWidth: "300px" }}> 
+      <Button className="buttonWithoutBorder" style={{ color: "#1479FB" }}>
           Select all Items
         </Button>
         <Button className="buttonWithoutBorder" style={{ color: "#d10000" }}>
           Delete all Items
         </Button>
+      </div> */}
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
+      >
+        {hasSelected ? `Selected ${selectedRowKeys.length} items` : null}
+        <Button
+          icon={<DeleteOutlined style={{ color: "#D10000" }} />}
+          onClick={start}
+          disabled={!hasSelected}
+          loading={loading}
+          style={
+            hasSelected
+              ? { display: "initial", marginLeft: 10, border: "none" }
+              : { display: "none" }
+          }
+        ></Button>
       </div>
-      <Divider style={{ marginTop: 0, minWidth: "1022px" }} />
+      <Divider style={{ margin: 0, minWidth: "1022px" }} />
       <Table
+        rowSelection={{
+          type: "checkbox",
+          ...rowSelection,
+        }}
         columns={columns}
         dataSource={itemsForTable}
-        onRow={(record) => {
-          return {
-            onClick: () => {
-              handleCardClick(record.key);
-            },
-          };
-        }}
+
+        //disscuss about if we need this function :click row to get item detail
+        // onRow={(record) => {
+        //   return {
+        //     onClick: () => {
+        //       handleCardClick(record.key);
+        //     },
+        //   };
+        // }}
       />
     </Layout>
   );
