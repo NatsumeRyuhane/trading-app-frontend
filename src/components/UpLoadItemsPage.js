@@ -12,9 +12,9 @@ import {
 } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import React, { useState } from "react";
-import { CloudUploadOutlined } from "@ant-design/icons";
 import { uploadItem } from "../utils";
 import { useNavigate } from "react-router-dom";
+import { uploadButton } from "./Buttons";
 
 function UploadItems() {
   const navigate = useNavigate();
@@ -22,13 +22,6 @@ function UploadItems() {
   const [fileList, setFileList] = useState([]);
   const [value, setValue] = useState(1);
   const [address, setAddress] = useState("");
-
-  const uploadButton = (
-    <button style={{ border: 0, background: "none" }} type="button">
-      <CloudUploadOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </button>
-  );
 
   function CancelUploadItem() {
     navigate("/trade");
@@ -47,7 +40,6 @@ function UploadItems() {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
     setLoading(true);
     const formData = new FormData();
     formData.append("name", values.name);
@@ -64,8 +56,6 @@ function UploadItems() {
       formData.append("status", "UNPUBLISHED");
     }
 
-    //need to discuss about how to store image file ex: [image.name1, image.name2,... ] or [imagesrc1, imagesrc2,...]
-
     if (!values.useDefaultAddress) {
       formData.append("address", address);
     } else {
@@ -81,6 +71,8 @@ function UploadItems() {
     for (let i = 0; i < fileList.length; i++) {
       formData.append("media", fileList[i].originFileObj);
     }
+
+    console.log(fileList[0].originFileObj);
 
     try {
       await uploadItem(formData);

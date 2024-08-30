@@ -9,18 +9,26 @@ const { Content } = Layout;
 function TradeMyItems() {
   const status = ["On Sale", "In Stock", "Traded"];
   const [items, setItems] = useState([]);
+  const [allItems, setAllItems] = useState([]);
+  const [onSaleItems, setOnSaleItems] = useState([]);
+  const [inStockItems, setInStockItems] = useState([]);
+  const [tradedItems, setTradedItems] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
-      setItems(dummyItems);
+      setAllItems(dummyItems);
+      setOnSaleItems(handleStatusFilter(status[0]));
+      setInStockItems(handleStatusFilter(status[1]));
+      setTradedItems(handleStatusFilter(status[2]));
+      setItems(handleStatusFilter(status[0]));
     };
     fetchData();
   }, []);
 
   function handleStatusFilter(status) {
-    const filteredItemList = dummyItems.filter(
-      (item) => item.status === status
-    );
-    setItems(filteredItemList);
+    const filteredItems = dummyItems.filter((item) => item.status === status);
+    setItems(filteredItems);
+    return filteredItems;
   }
 
   return (
@@ -42,9 +50,10 @@ function TradeMyItems() {
             }}
           >
             <ItemsSummary
-              status={status}
-              handleStatusFilter={handleStatusFilter}
-              items={items}
+              allItems={allItems}
+              onSaleItems={onSaleItems}
+              inStockItems={inStockItems}
+              tradedItems={tradedItems}
             />
           </div>
           <div>
@@ -60,7 +69,7 @@ function TradeMyItems() {
   );
 }
 
-function ItemsSummary({ status, handleStatusFilter, items }) {
+function ItemsSummary({ tradedItems, onSaleItems, inStockItems, allItems }) {
   const navigate = useNavigate();
 
   const handleSellNewItem = () => {
@@ -84,12 +93,14 @@ function ItemsSummary({ status, handleStatusFilter, items }) {
       }}
     >
       <div style={{ textAlign: "left", marginBottom: "20px" }}>
+        {/* TODO add username variable */}
         <div style={{ fontSize: "20px", fontWeight: "bold" }}>Hi, user123!</div>
         <div style={{ fontSize: "24px" }}>
-          You have uploaded {items.length} Items for trade in the past!
+          You have uploaded {allItems.length} Items for trade in the past!
         </div>
         <div style={{ fontSize: "16px" }}>
-          2 Items Traded, 2 Items on Sale, 1 Items in Stock
+          {tradedItems.length} Items Traded, {onSaleItems.length} Items on Sale,
+          {inStockItems.length} Items in Stock
         </div>
       </div>
       <Button
