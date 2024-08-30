@@ -147,7 +147,3 @@ code {
   margin-bottom: 0;
   box-shadow: none;
 }
-.buttonWithoutBorder:focus {
-  border: 1.5px dashed #3a00e5;
-  font-size: 14px;
-}

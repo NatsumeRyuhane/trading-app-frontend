@@ -58,14 +58,13 @@ export const searchItems = (searchParams) => {
 
 export const getCart = () => {
   return fetch("/cart").then((response) => {
-  if (response.status < 200 || response.status >= 300) {
-  throw Error("Fail to get shopping cart data");
-  }
-  
-  return response.json();
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Fail to get shopping cart data");
+    }
+
+    return response.json();
   });
-  };
-  
+};
 
 // View cart contents
 export const viewCart = () => {
@@ -84,7 +83,7 @@ export const uploadItem = (itemData) => {
   return fetch("/items", {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${sessionToken}`,
+      Authorization: `Bearer ${sessionToken}`,
     },
     body: itemData,
   }).then((response) => {
@@ -114,16 +113,34 @@ export const getAllItems = () => {
       throw Error("Failed to fetch items");
     }
     return response.json();
-  })
-}
+  });
+};
 
+// export const fetchItemById = (itemId) => {
+//   const url = `/items/${itemId}`
+
+//   return fetch(url).then((response) => {
+//     if (response.status < 200 || response.status >= 300) {
+//       throw Error("Failed to fetch item");
+//     }
+//     return response.json();
+//   })
+// }
+
+//try to get item by id
 export const fetchItemById = (itemId) => {
-  const url = `/items/${itemId}`
+  const sessionToken = Cookies.get("sessionToken");
 
-  return fetch(url).then((response) => {
+  return fetch(`/items/${itemId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+    body: JSON.stringify(itemId),
+  }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
-      throw Error("Failed to fetch item");
+      throw Error("Fail to get item");
     }
     return response.json();
-  })
-}
+  });
+};

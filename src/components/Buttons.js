@@ -16,24 +16,28 @@ export const rateSellerButton = (
     Rate the seller
   </Button>
 );
-export const editButton = (
-  <Button
-    style={{
-      borderRadius: 20,
-      backgroundColor: "white",
-      fontWeight: "medium",
-      width: 90,
-      height: 38,
-      margin: 5,
-    }}
-  >
-    Edit
-  </Button>
-);
+export function EditButton({ onEditClick }) {
+  return (
+    <Button
+      onClick={onEditClick}
+      style={{
+        borderRadius: 20,
+        backgroundColor: "white",
+        fontWeight: "medium",
+        width: 90,
+        height: 38,
+        margin: 5,
+      }}
+    >
+      Edit
+    </Button>
+  );
+}
+
 export const reportButton = (
   <Button
+    type="text"
     style={{
-      border: "none",
       fontWeight: 400,
       fontSize: 14,
       width: 90,
