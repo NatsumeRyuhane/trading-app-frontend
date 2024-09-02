@@ -119,7 +119,7 @@ function ItemInformation() {
                   fontWeight: "700",
                 }}
               >
-                This Seller’s Rating:
+                {item.owner.username}
               </div>
 
               <div

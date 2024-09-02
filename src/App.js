@@ -52,8 +52,9 @@ function App() {
   //   else if (path === "/login") setSelectedMenu("login");
   // }, [window.location.pathname]);
 
-  const handleLoginSuccess = (sessionToken) => {
+  const handleLoginSuccess = (sessionToken, username) => {
     Cookies.set("sessionToken", sessionToken);
+    Cookies.set("username", username);
     setIsLoggedIn(true);
   };
 
