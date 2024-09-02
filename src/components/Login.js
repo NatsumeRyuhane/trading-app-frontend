@@ -22,7 +22,7 @@ function Login({ onSuccess }) {
       .then((resp) => {
         setDisplayModal(false);
         message.success(`Welcome back`);
-        onSuccess(resp.token);
+        onSuccess(resp.token, resp.username);
         navigate("/");
       })
       .catch((err) => {

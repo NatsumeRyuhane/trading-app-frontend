@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Layout, Button } from "antd";
+import React, {useEffect, useState} from "react";
+import {Button, Layout} from "antd";
 import ItemsDisplay from "./ItemsDisplay";
-import { useNavigate } from "react-router-dom";
-import dummyItems from "./dummyItems";
+import {useNavigate} from "react-router-dom";
+import {fetchItemsOfCurrentUser} from "../utils";
+import Cookies from "js-cookie";
 
 const { Content } = Layout;
 
 function TradeMyItems() {
-  const status = ["On Sale", "In Stock", "Traded"];
+  const STATUS = ["AVAILABLE", "UNPUBLISHED", "SOLD"];
   const [items, setItems] = useState([]);
   const [allItems, setAllItems] = useState([]);
   const [onSaleItems, setOnSaleItems] = useState([]);
@@ -16,17 +17,18 @@ function TradeMyItems() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setAllItems(dummyItems);
-      setOnSaleItems(handleStatusFilter(status[0]));
-      setInStockItems(handleStatusFilter(status[1]));
-      setTradedItems(handleStatusFilter(status[2]));
-      setItems(handleStatusFilter(status[0]));
+      const curItems = await fetchItemsOfCurrentUser();
+      setAllItems(curItems);
+      setOnSaleItems(handleStatusFilter(STATUS[0]));
+      setInStockItems(handleStatusFilter(STATUS[1]));
+      setTradedItems(handleStatusFilter(STATUS[2]));
+      setItems(allItems);
     };
     fetchData();
   }, []);
 
   function handleStatusFilter(status) {
-    const filteredItems = dummyItems.filter((item) => item.status === status);
+    const filteredItems = allItems.filter((item) => item.status === status);
     setItems(filteredItems);
     return filteredItems;
   }
@@ -58,8 +60,9 @@ function TradeMyItems() {
           </div>
           <div>
             <MyUploadedItems
-              status={status}
+              status={STATUS}
               handleStatusFilter={handleStatusFilter}
+              setItems={setItems}
               items={items}
               allItems={allItems}
             />
@@ -94,14 +97,12 @@ function ItemsSummary({ tradedItems, onSaleItems, inStockItems, allItems }) {
       }}
     >
       <div style={{ textAlign: "left", marginBottom: "20px" }}>
-        {/* TODO add username variable */}
-        <div style={{ fontSize: "20px", fontWeight: "bold" }}>Hi, user123!</div>
+        <div style={{ fontSize: "20px", fontWeight: "bold" }}>Hi, {Cookies.get("username")}!</div>
         <div style={{ fontSize: "24px" }}>
           You have uploaded {allItems.length} Items for trade in the past!
         </div>
         <div style={{ fontSize: "16px" }}>
-          {tradedItems.length} Items Traded, {onSaleItems.length} Items on Sale,
-          {inStockItems.length} Items in Stock
+          {tradedItems.length} Items Traded, {onSaleItems.length} Items on Sale, {inStockItems.length} Items in Stock
         </div>
       </div>
       <Button
@@ -122,10 +123,10 @@ function ItemsSummary({ tradedItems, onSaleItems, inStockItems, allItems }) {
   );
 }
 
-function MyUploadedItems({ status, handleStatusFilter, items, allItems }) {
+function MyUploadedItems({ status, handleStatusFilter, setItems, items, allItems }) {
   return (
     <div>
-      <div className="h1">My Uploaded Items({allItems.length})</div>
+      <div className="h1">My Uploaded Items ({allItems.length})</div>
       <div
         style={{
           display: "flex",
@@ -137,27 +138,34 @@ function MyUploadedItems({ status, handleStatusFilter, items, allItems }) {
           flexWrap: "wrap",
         }}
       >
-        <div stytle={{ minWidth: "240px", display: "inline" }}>
+        <div style={{ minWidth: "240px", display: "inline" }}>
+          <Button
+            className="buttonTab"
+            onClick={() => setItems(allItems)}
+            style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+          >
+            All
+          </Button>
           <Button
             className="buttonTab"
             onClick={() => handleStatusFilter(status[0])}
             style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
           >
-            {status[0]}
+            On Sale
           </Button>
           <Button
             className="buttonTab"
             onClick={() => handleStatusFilter(status[1])}
             style={{ borderRadius: 0, borderLeft: 0, borderRight: 0 }}
           >
-            {status[1]}
+            In Stock
           </Button>
           <Button
             className="buttonTab"
             onClick={() => handleStatusFilter(status[2])}
             style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
           >
-            {status[2]}
+            Traded
           </Button>
         </div>
         <div>

@@ -143,3 +143,19 @@ export const fetchItemById = (itemId) => {
     return response.json();
   });
 };
+
+export const fetchItemsOfCurrentUser = () => {
+  const sessionToken = Cookies.get("sessionToken");
+
+  return fetch("/items/mine", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    }
+  }).then(response => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to fetch items");
+    }
+    return response.json();
+  })
+}
