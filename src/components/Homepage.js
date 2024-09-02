@@ -13,7 +13,7 @@ function Homepage({ isLoggedIn, onLogout }) {
   return (
     <div style={{ padding: "24px" }}>
       {/* Promotion Section */}
-      <Promotion isLoggedIn={isLoggedIn} />
+      {/*<Promotion isLoggedIn={isLoggedIn} />*/}
 
       {/* Lightening Deal Section */}
       <LightningDeal isLoggedIn={isLoggedIn} />
