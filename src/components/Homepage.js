@@ -33,7 +33,7 @@ function Homepage({ isLoggedIn, onLogout }) {
               style={{ textAlign: "center" }}
             >
               <img
-                src="https://placekitten.com/200/200" // Replace with your category image
+                src="https://www.loveandoliveoil.com/wp-content/uploads/2017/09/kitchen-essentialsH.jpg" // Replace with your category image
                 alt="Kitchen Essentials"
                 style={{
                   width: "100%",
