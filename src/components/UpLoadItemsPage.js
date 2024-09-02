@@ -44,8 +44,7 @@ function UploadItems() {
     const formData = new FormData();
     formData.append("name", values.name);
 
-    //TODO add category
-    // formData.append("category", values.category);
+    formData.append("category", values.category);
 
     formData.append("price", values.price);
     formData.append("description", values.description);
