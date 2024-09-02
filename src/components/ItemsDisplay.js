@@ -48,8 +48,8 @@ function ItemsDisplay({ pageName, items }) {
   function formatItemForTable(items) {
     const table = items.map((item) => ({
       key: item.id,
-      image: item.imgSrc,
-      ItemName: item.title,
+      image: item.media_urls ? item.media_urls[0] : null,
+      ItemName: item.name,  // TODO: Make this column wider!
       status: item.status,
       category: item.category,
       description: item.description,
@@ -93,7 +93,7 @@ function ItemsDisplay({ pageName, items }) {
       ),
     },
     {
-      title: "Title",
+      title: "Name",
       dataIndex: "ItemName",
       render: (ItemName) => (
         <div style={{ fontSize: 20, fontWeight: "bold" }}>{ItemName}</div>
