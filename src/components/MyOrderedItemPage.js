@@ -27,22 +27,6 @@ function MyOrderedItems() {
             margin: 10,
           }}
         />
-
-        <div>
-          <Button
-            type="primary"
-            className="buttonBlue"
-            style={{ fontSize: 14, width: 130 }}
-          >
-            Edit All
-          </Button>
-          <Button
-            danger
-            style={{ fontSize: 14, width: 130, borderRadius: "10px" }}
-          >
-            Clear History
-          </Button>
-        </div>
       </Content>
       <ItemsDisplay pageName="myOrdered" items={dummyItems} />
     </Layout>

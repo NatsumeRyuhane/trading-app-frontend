@@ -64,7 +64,7 @@ const LightningDeal = ({ isLoggedIn }) => {
       <Row gutter={[16, 16]} style={{ paddingTop: "16px" }}>
         {items.map((item) => (
           <Col span={6} key={item.id}>
-            <Card hoverable className="card-hover-effect" actions={isLoggedIn && [<CheckoutButton />]}>
+            <Card hoverable className="card-hover-effect">
               <ItemCard
                 layout="vertical"
                 item={item}

@@ -117,7 +117,7 @@ function App() {
           setSearchQuery={setSearchQuery}
         />
 
-        <DiscountPromo />
+        {/*<DiscountPromo />*/}
 
         <Layout style={{ padding: "24px", marginTop: "114px" }}>
           <Content

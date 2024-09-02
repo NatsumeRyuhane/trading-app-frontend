@@ -168,21 +168,6 @@ function MyUploadedItems({ status, handleStatusFilter, setItems, items, allItems
             Traded
           </Button>
         </div>
-        <div>
-          <Button
-            type="primary"
-            className="buttonBlue"
-            style={{ fontSize: 14, width: 130 }}
-          >
-            Edit All
-          </Button>
-          <Button
-            danger
-            style={{ fontSize: 14, width: 130, borderRadius: "10px" }}
-          >
-            Delete All
-          </Button>
-        </div>
       </div>
       <ItemsDisplay pageName="trade" items={items} />
     </div>
