@@ -11,7 +11,7 @@ import {
 } from "./Buttons";
 import { fetchItemById } from "../utils";
 
-function ItemsDisplay({ pageName, items }) {
+function TransactionsDisplay({ pageName, orders }) {
   // const [items, setItems] = useState([]);
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -44,16 +44,15 @@ function ItemsDisplay({ pageName, items }) {
   };
   const hasSelected = selectedRowKeys.length > 0;
 
-  const itemsForTable = formatItemForTable(items);
-  function formatItemForTable(items) {
-    const table = items.map((item) => ({
-      key: item.id,
-      image: item.media_urls ? item.media_urls[0] : null,
-      ItemName: item.name,  // TODO: Make this column wider!
-      status: item.status,
-      category: item.category,
-      description: item.description,
-      price: item.price,
+  const itemsForTable = formatItemForTable(orders);
+  function formatItemForTable(orders) {
+    const table = orders.map((order) => ({
+      key: order.id,
+      image: order.item.media_urls ? order.item.media_urls[0] : null,
+      itemName: order.item.name,
+      status: order.status,
+      sellerContact: order.seller.username,  // TODO: Replace this field with seller contact
+      price: order.item.price,
     }));
     return table;
   }
@@ -94,9 +93,10 @@ function ItemsDisplay({ pageName, items }) {
     },
     {
       title: "Name",
-      dataIndex: "ItemName",
-      render: (ItemName) => (
-        <div style={{ fontSize: 20, fontWeight: "bold" }}>{ItemName}</div>
+      dataIndex: "itemName",
+      width: "15%",
+      render: (itemName) => (
+        <div style={{ fontSize: 20, fontWeight: "bold" }}>{itemName}</div>
       ),
     },
     {
@@ -105,13 +105,9 @@ function ItemsDisplay({ pageName, items }) {
       render: (status) => <div style={{ fontWeight: 600 }}>{status}</div>,
     },
     {
-      title: "Category",
-      dataIndex: "category",
-    },
-    {
-      title: "Description",
-      dataIndex: "description",
-      width: "30%",
+      title: "Seller Contact",
+      dataIndex: "sellerContact",
+      width: "15%",
     },
     {
       title: "Price",
@@ -132,7 +128,7 @@ function ItemsDisplay({ pageName, items }) {
               }}
             />
           ) : (
-            rateSellerButton
+            record.status === "CONFIRMED" && rateSellerButton
           )}
           {pageName === "trade" ? deleteButton : reportButton}
         </Space>
@@ -149,7 +145,7 @@ function ItemsDisplay({ pageName, items }) {
       }}
     >
       {/* maybe we don't need these two button? */}
-      {/* <div style={{ minWidth: "300px" }}> 
+      {/* <div style={{ minWidth: "300px" }}>
       <Button className="buttonWithoutBorder" style={{ color: "#1479FB" }}>
           Select all Items
         </Button>
@@ -200,4 +196,4 @@ function ItemsDisplay({ pageName, items }) {
   );
 }
 
-export default ItemsDisplay;
+export default TransactionsDisplay;

@@ -60,6 +60,7 @@ function App() {
 
   const handleLogout = () => {
     Cookies.remove("sessionToken");
+    Cookies.remove("username");
     setIsLoggedIn(false);
   };
 
