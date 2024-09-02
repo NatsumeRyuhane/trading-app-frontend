@@ -3,6 +3,7 @@ import ItemCard from "./ItemCard";
 import React, {useEffect, useState} from "react";
 import {getAllItems} from "../utils";
 import CheckoutButton from "./CheckoutButton";
+import Cookies from "js-cookie";
 
 const {Title} = Typography
 
@@ -12,10 +13,11 @@ const LightningDeal = ({ isLoggedIn }) => {
 
   const loadItems = async () => {
     setIsLoading(true);
+    const username = Cookies.get("username");
 
     try {
       const resp = await getAllItems();
-      setItems(resp);
+      setItems(resp.filter((item) => item.owner.username !== username));
     } catch (e) {
       message.error(e);
     } finally {
