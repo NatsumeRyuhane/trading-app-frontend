@@ -84,21 +84,21 @@ const HeaderMenu = ({
               />
             </Menu.Item>
 
-            <Menu.Item key="buy" icon={<ShoppingOutlined />}>
-              <Link
-                to="/search"
-                style={{
-                  color: "white",
-                  font: "Arial",
-                  fontSize: 16,
-                  fontWeight: "500",
-                }}
-              >
-                Buy
-              </Link>
-            </Menu.Item>
+            {/*<Menu.Item key="buy" icon={<ShoppingOutlined />}>*/}
+            {/*  <Link*/}
+            {/*    to="/search"*/}
+            {/*    style={{*/}
+            {/*      color: "white",*/}
+            {/*      font: "Arial",*/}
+            {/*      fontSize: 16,*/}
+            {/*      fontWeight: "500",*/}
+            {/*    }}*/}
+            {/*  >*/}
+            {/*    Buy*/}
+            {/*  </Link>*/}
+            {/*</Menu.Item>*/}
 
-            <Menu.Item key="myOrdered" icon={<ShoppingCartOutlined />}>
+            <Menu.Item key="myOrdered" icon={<ShoppingOutlined />}>
               <Link
                 to="/myOrdered"
                 style={{
