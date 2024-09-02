@@ -136,7 +136,6 @@ export const fetchItemById = (itemId) => {
     headers: {
       Authorization: `Bearer ${sessionToken}`,
     },
-    body: JSON.stringify(itemId),
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get item");
