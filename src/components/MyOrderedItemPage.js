@@ -1,34 +1,47 @@
 import { Button, Input, Layout } from "antd";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import ItemsDisplay from "./ItemsDisplay";
 import { SearchOutlined } from "@ant-design/icons";
 import { Content } from "antd/lib/layout/layout";
 import dummyItems from "./dummyItems";
+import TransactionsDisplay from "./TransactionsDisplay";
+import {fetchTransactionsAsBuyer} from "../utils";
 
 function MyOrderedItems() {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const myOrders = await fetchTransactionsAsBuyer();
+      setOrders(myOrders);
+    }
+    fetchOrders();
+  }, []);
+
   return (
     <Layout style={{ margin: "0 60px" }}>
-      <div className="h1">My Ordered Items(5)</div>
-      <Content
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <Input
-          prefix={<SearchOutlined />}
-          placeholder="Search..."
-          // onPressEnter={onSearch}
-          style={{
-            maxWidth: 300,
-            minWidth: 240,
-            height: 40,
-            borderRadius: 10,
-            margin: 10,
-          }}
-        />
-      </Content>
-      <ItemsDisplay pageName="myOrdered" items={dummyItems} />
+      <div className="h1">{`My Ordered Items (${orders.length})`}</div>
+      {/*<Content*/}
+      {/*  style={{*/}
+      {/*    display: "flex",*/}
+      {/*    justifyContent: "space-between",*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  {// TODO: Implement search}*/}
+      {/*  <Input*/}
+      {/*    prefix={<SearchOutlined />}*/}
+      {/*    placeholder="Search..."*/}
+      {/*    // onPressEnter={onSearch}*/}
+      {/*    style={{*/}
+      {/*      maxWidth: 300,*/}
+      {/*      minWidth: 240,*/}
+      {/*      height: 40,*/}
+      {/*      borderRadius: 10,*/}
+      {/*      margin: 10,*/}
+      {/*    }}*/}
+      {/*  />*/}
+      {/*</Content>*/}
+      <TransactionsDisplay pageName="myOrdered" orders={orders} />
     </Layout>
   );
 }
