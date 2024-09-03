@@ -13,6 +13,7 @@ import UploadItems from "./components/UpLoadItemsPage";
 import UploadSuccessPage from "./components/UploadSuccessPage";
 import HeaderMenu from "./components/HeaderMenu";
 import MyCart from "./components/MyCart";
+import ItemDisplayByCategory from "./components/ItemDisplayByCategory";
 
 const { Content } = Layout;
 const HOME_PAGE_STATE = "home";
@@ -105,6 +106,7 @@ function App() {
         <Route path="/uploadItems" element={<UploadItems />} />
         <Route path="/uploadSeccess" element={<UploadSuccessPage />} />
         <Route path="/MyCart" element={<MyCart />} />
+        <Route path="/byCategory" element={<ItemDisplayByCategory />} />
       </Routes>
     );
   };
