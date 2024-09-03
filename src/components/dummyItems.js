@@ -38,7 +38,7 @@ const dummyItems = [
     imgSrc:
       "https://images.unsplash.com/photo-1640003145136-f998284e11de?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1hdHRyZXNzfGVufDB8fDB8fHww",
     title: "Mattress id 4",
-    status: "In Progress",
+    status: "Ongoing Trade",
     category: "Bedding",
     price: 236,
     description:

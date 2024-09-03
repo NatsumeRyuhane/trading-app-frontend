@@ -13,7 +13,7 @@ function TradeMyItems() {
     onSale: "On Sale",
     inStock: "In Stock",
     sold: "Sold",
-    inProgress: "In Progress",
+    ongoingTrade: "Ongoing Trade",
   };
 
   const [items, setItems] = useState([]);
@@ -21,22 +21,18 @@ function TradeMyItems() {
   const [onSaleItems, setOnSaleItems] = useState([]);
   const [inStockItems, setInStockItems] = useState([]);
   const [soldItems, setSoldItems] = useState([]);
-  const [inProgressItems, setInProgressItems] = useState([]);
+  const [ongoingTradeItems, setOngoingTradeItems] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      // change data source. Need to deal with status name consistence
-      // const curItems = await fetchItemsOfCurrentUser();
-      const curItems = dummyItems; // Replace with await fetchItemsOfCurrentUser() in production
+      const curItems = await fetchItemsOfCurrentUser();
+      // const curItems = dummyItems;
       setAllItems(curItems);
 
-      // Filter items after setting the allItems state
       setOnSaleItems(filterItemStatus(curItems, status.onSale));
       setInStockItems(filterItemStatus(curItems, status.inStock));
       setSoldItems(filterItemStatus(curItems, status.sold));
-      setInProgressItems(filterItemStatus(curItems, status.inProgress));
-
-      // Initialize with all items shown
+      setOngoingTradeItems(filterItemStatus(curItems, status.ongoingTrade));
       setItems(curItems);
     };
     fetchData();
@@ -74,7 +70,7 @@ function TradeMyItems() {
               onSaleItems={onSaleItems}
               inStockItems={inStockItems}
               soldItems={soldItems}
-              inProgressItems={inProgressItems}
+              ongoingTradeItems={ongoingTradeItems}
             />
           </div>
           <div>
@@ -97,7 +93,7 @@ function ItemsSummary({
   onSaleItems,
   inStockItems,
   allItems,
-  inProgressItems,
+  ongoingTradeItems,
 }) {
   const navigate = useNavigate();
 
@@ -131,8 +127,8 @@ function ItemsSummary({
         </div>
         <div style={{ fontSize: "16px" }}>
           {onSaleItems.length} Items On Sale, {inStockItems.length} Items In
-          Stock, {soldItems.length} Items Sold, {inProgressItems.length} Items
-          In Progress
+          Stock, {soldItems.length} Items Sold, {ongoingTradeItems.length} Items
+          Ongoing Trade
         </div>
       </div>
       <Button
@@ -209,7 +205,7 @@ function MyUploadedItems({
           </Button>
           <Button
             className="buttonTab"
-            onClick={() => handleStatusClick(status.inProgress)}
+            onClick={() => handleStatusClick(status.ongoingTrade)}
             style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
           >
             Ongoing Trade
