@@ -12,7 +12,6 @@ import ItemInformation from "./components/ItemInformation";
 import UploadItems from "./components/UpLoadItemsPage";
 import UploadSuccessPage from "./components/UploadSuccessPage";
 import HeaderMenu from "./components/HeaderMenu";
-import DiscountPromo from "./components/DiscountPromo";
 import MyCart from "./components/MyCart";
 
 const { Content } = Layout;
@@ -62,7 +61,6 @@ function App() {
     Cookies.remove("sessionToken");
     Cookies.remove("username");
     setIsLoggedIn(false);
-    document.location.reload();
   };
 
   const renderContent = () => {
@@ -100,7 +98,10 @@ function App() {
           path="/search"
           element={<SearchResult items={searchResults} query={searchQuery} />}
         />
-        <Route path="/item/:itemId" element={<ItemInformation />} />
+        <Route
+          path="/item/:itemId"
+          element={<ItemInformation isLoggedIn={isLoggedIn} />}
+        />
         <Route path="/uploadItems" element={<UploadItems />} />
         <Route path="/uploadSeccess" element={<UploadSuccessPage />} />
         <Route path="/MyCart" element={<MyCart />} />
