@@ -250,18 +250,6 @@ function ItemInformation() {
           </div>
           <div
             style={{
-              width: 364,
-              color: "#7A7A7A",
-              fontSize: 18,
-              fontFamily: "Inter",
-              fontWeight: "400",
-              letterSpacing: 0.16,
-            }}
-          >
-            estimated tax to be collected: ${item.tax || "2.58"}
-          </div>
-          <div
-            style={{
               padding: "10px 30px",
               background: "#3A00E5",
               borderRadius: 30,

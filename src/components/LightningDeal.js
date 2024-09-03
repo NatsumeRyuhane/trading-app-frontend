@@ -44,24 +44,6 @@ const LightningDeal = ({ isLoggedIn }) => {
             Lightening Deal
           </Title>
         </Col>
-        <Col>
-          <div
-            style={{
-              height: 40,
-              padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
-              background: "#3A00E5",
-              borderRadius: 20,
-              justifyContent: "center",
-              alignItems: "center", // Center text vertically
-              display: "flex",
-              color: "white",
-              cursor: "pointer",
-            }}
-            onClick={() => window.location.reload()}
-          >
-            Refresh
-          </div>
-        </Col>
       </Row>
       <Row gutter={[16, 16]} style={{ paddingTop: "16px" }}>
         {items.map((item) => (
