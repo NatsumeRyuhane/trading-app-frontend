@@ -67,7 +67,7 @@ export function ItemCard({
             objectFit: "cover", // Ensures the image covers the area without distortion
             borderRadius: 10, // Adds rounded corners
           }}
-          src={item.media_urls[0]}
+          src={item.media_urls ? item.media_urls[0] : null}
           alt={item.name}
         />
 

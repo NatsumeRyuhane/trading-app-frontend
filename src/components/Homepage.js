@@ -1,8 +1,7 @@
 import React from "react";
-import {Typography, Row, Col, Card} from "antd";
+import { Typography, Row, Col, Card } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./Homepage.css";
-import Promotion from "./Promotion";
 import LightningDeal from "./LightningDeal";
 
 const { Title } = Typography;
@@ -33,10 +32,12 @@ function Homepage({ isLoggedIn, onLogout }) {
               style={{ textAlign: "center" }}
             >
               <img
-                src="https://placekitten.com/200/200" // Replace with your category image
+                src="https://www.loveandoliveoil.com/wp-content/uploads/2017/09/kitchen-essentialsH.jpg" // Replace with your category image
                 alt="Kitchen Essentials"
                 style={{
-                  width: "100%",
+                  width: "70%",
+                  height: "80%",
+                  objectFit: "cover",
                   borderRadius: "10px",
                   marginBottom: "8px",
                 }}
@@ -54,10 +55,12 @@ function Homepage({ isLoggedIn, onLogout }) {
               style={{ textAlign: "center" }}
             >
               <img
-                src="https://placekitten.com/200/201" // Replace with your category image
+                src="https://www.sleepcheapmattresses.com/wp-content/uploads/2023/02/Coaster-Bedroom-Furniture-1.jpeg" // Replace with your category image
                 alt="Furniture"
                 style={{
-                  width: "100%",
+                  width: "58%",
+                  height: "80%",
+                  objectFit: "cover",
                   borderRadius: "10px",
                   marginBottom: "8px",
                 }}
@@ -75,10 +78,12 @@ function Homepage({ isLoggedIn, onLogout }) {
               style={{ textAlign: "center" }}
             >
               <img
-                src="https://placekitten.com/200/202" // Replace with your category image
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ09dDDRtJeRvkgUVPKYvyA5dexA_YpPc2zyw&s" // Replace with your category image
                 alt="Electronics"
                 style={{
-                  width: "100%",
+                  width: "58%",
+                  height: "100%",
+                  objectFit: "cover",
                   borderRadius: "10px",
                   marginBottom: "8px",
                 }}
@@ -96,10 +101,12 @@ function Homepage({ isLoggedIn, onLogout }) {
               style={{ textAlign: "center" }}
             >
               <img
-                src="https://placekitten.com/200/203" // Replace with your category image
+                src="https://images.herzindagi.info/image/2018/Nov/lights-decor-wedding.jpg" // Replace with your category image
                 alt="Lighting & Decor"
                 style={{
-                  width: "100%",
+                  width: "70%",
+                  height: "100%",
+                  objectFit: "cover",
                   borderRadius: "10px",
                   marginBottom: "8px",
                 }}
@@ -117,10 +124,12 @@ function Homepage({ isLoggedIn, onLogout }) {
               style={{ textAlign: "center" }}
             >
               <img
-                src="https://placekitten.com/200/204" // Replace with your category image
+                src="https://img.fruugo.com/product/1/30/716586301_max.jpg" // Replace with your category image
                 alt="Bedding"
                 style={{
-                  width: "100%",
+                  width: "57%",
+                  height: "60%",
+                  objectFit: "cover",
                   borderRadius: "10px",
                   marginBottom: "8px",
                 }}
@@ -138,10 +147,12 @@ function Homepage({ isLoggedIn, onLogout }) {
               style={{ textAlign: "center" }}
             >
               <img
-                src="https://placekitten.com/200/205" // Replace with your category image
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRd9iYQX7Nc3SGxqvBvsuz9FvOIDH4TdFDetA&s" // Replace with your category image
                 alt="Home Organizing"
                 style={{
                   width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
                   borderRadius: "10px",
                   marginBottom: "8px",
                 }}

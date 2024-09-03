@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {LeftCircleFilled, RightCircleFilled, StarFilled} from "@ant-design/icons";
-import {fetchItemById} from "../utils";
-import {Carousel, message, Image} from "antd";
+import {
+  LeftCircleFilled,
+  RightCircleFilled,
+  StarFilled,
+  UserOutlined,
+} from "@ant-design/icons";
+import { fetchItemById } from "../utils";
+import { Carousel, message, Image, Button } from "antd";
+import { CheckoutButton } from "./Buttons";
 
-function ItemInformation() {
+function ItemInformation({ isLoggedIn }) {
   const { itemId } = useParams(); // Get the itemId from the URL
   const [item, setItem] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -15,16 +21,16 @@ function ItemInformation() {
 
     try {
       const fetchedItem = await fetchItemById(itemId);
-      setItem(fetchedItem)
+      setItem(fetchedItem);
     } catch (e) {
       message.error(e.message);
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    loadItem()
+    loadItem();
   }, []); // Fetch item details when itemId changes
 
   // Display loading message while item data is being fetched
@@ -112,6 +118,8 @@ function ItemInformation() {
             >
               <div
                 style={{
+                  display: "flex",
+                  columnGap: "15px",
                   alignSelf: "stretch",
                   color: "black",
                   fontSize: 24,
@@ -119,6 +127,7 @@ function ItemInformation() {
                   fontWeight: "700",
                 }}
               >
+                <UserOutlined className="site-form-item-icon" />
                 {item.owner.username}
               </div>
 
@@ -248,40 +257,7 @@ function ItemInformation() {
           >
             ${item.price}
           </div>
-          <div
-            style={{
-              width: 364,
-              color: "#7A7A7A",
-              fontSize: 18,
-              fontFamily: "Inter",
-              fontWeight: "400",
-              letterSpacing: 0.16,
-            }}
-          >
-            estimated tax to be collected: ${item.tax || "2.58"}
-          </div>
-          <div
-            style={{
-              padding: "10px 30px",
-              background: "#3A00E5",
-              borderRadius: 30,
-              justifyContent: "center",
-              alignItems: "center",
-              display: "inline-flex",
-            }}
-          >
-            <div
-              style={{
-                color: "white",
-                fontSize: 20,
-                fontFamily: "Arial",
-                fontWeight: "550",
-                letterSpacing: 0.2,
-              }}
-            >
-              Checkout
-            </div>
-          </div>
+          <CheckoutButton item={item} isLoggedIn={isLoggedIn} />
         </div>
       </div>
     </div>

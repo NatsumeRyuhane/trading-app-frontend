@@ -118,13 +118,8 @@ export const getAllItems = () => {
 
 //try to get item by id
 export const fetchItemById = (itemId) => {
-  const sessionToken = Cookies.get("sessionToken");
-
   return fetch(`/items/${itemId}`, {
     method: "GET",
-    headers: {
-      Authorization: `Bearer ${sessionToken}`,
-    },
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get item");
@@ -140,11 +135,46 @@ export const fetchItemsOfCurrentUser = () => {
     method: "GET",
     headers: {
       Authorization: `Bearer ${sessionToken}`,
-    }
-  }).then(response => {
+    },
+  }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Failed to fetch items");
     }
     return response.json();
-  })
-}
+  });
+};
+
+export const fetchTransactionsAsBuyer = () => {
+  const sessionToken = Cookies.get("sessionToken");
+
+  return fetch(`/transactions/buyer`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to fetch transactions");
+    }
+    return response.json();
+  });
+};
+
+export const createTransaction = (item) => {
+  const sessionToken = Cookies.get("sessionToken");
+  const url = `/transactions?${new URLSearchParams({
+    sellerId: item.owner.id,
+    itemId: item.id,
+  }).toString()}`;
+
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to create transaction");
+    }
+  });
+};

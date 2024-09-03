@@ -98,20 +98,6 @@ const HeaderMenu = ({
             {/*  </Link>*/}
             {/*</Menu.Item>*/}
 
-            <Menu.Item key="myOrdered" icon={<ShoppingOutlined />}>
-              <Link
-                to="/myOrdered"
-                style={{
-                  color: "white",
-                  font: "Arial",
-                  fontSize: 16,
-                  fontWeight: "500",
-                }}
-              >
-                My Purchased
-              </Link>
-            </Menu.Item>
-
             <Menu.Item key="trade" icon={<SwapOutlined />}>
               <Link
                 to="/trade"
@@ -123,6 +109,19 @@ const HeaderMenu = ({
                 }}
               >
                 Trade My Items
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="myOrdered" icon={<ShoppingOutlined />}>
+              <Link
+                to="/myOrdered"
+                style={{
+                  color: "white",
+                  font: "Arial",
+                  fontSize: 16,
+                  fontWeight: "500",
+                }}
+              >
+                My Purchased
               </Link>
             </Menu.Item>
             <Menu.Item key="MyCart" icon={<ShoppingCartOutlined />}>

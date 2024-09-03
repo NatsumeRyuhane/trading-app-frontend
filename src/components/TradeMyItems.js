@@ -132,7 +132,7 @@ function ItemsSummary({
         <div style={{ fontSize: "16px" }}>
           {onSaleItems.length} Items On Sale, {inStockItems.length} Items In
           Stock, {soldItems.length} Items Sold, {inProgressItems.length} Items
-          In Progress,
+          In Progress
         </div>
       </div>
       <Button
@@ -212,7 +212,7 @@ function MyUploadedItems({
             onClick={() => handleStatusClick(status.inProgress)}
             style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
           >
-            In Progress
+            Ongoing Trade
           </Button>
         </div>
       </div>
