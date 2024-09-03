@@ -26,6 +26,7 @@ function TradeMyItems() {
   const [ongoingTradeItems, setOngoingTradeItems] = useState([]);
 
   useEffect(() => {
+    //switch to frontend dummyItem for test
     const fetchData = async () => {
       // const curItems = await fetchItemsOfCurrentUser();
       const curItems = dummyItems;
@@ -41,7 +42,13 @@ function TradeMyItems() {
 
   // Filter function
   function filterItemStatus(items, status) {
-    return items.filter((item) => item.status === status);
+    let filteredItems = [];
+    if (!status) {
+      filteredItems = allItems;
+    } else {
+      filteredItems = items.filter((item) => item.status === status);
+    }
+    return filteredItems;
   }
 
   function handleStatusClick(status) {
@@ -174,7 +181,7 @@ function MyUploadedItems({
         <div style={{ minWidth: "240px" }}>
           <Button
             className="buttonTab"
-            onClick={() => setItems(allItems)}
+            onClick={() => handleStatusClick()}
             style={{
               borderTopRightRadius: 0,
               borderBottomRightRadius: 0,
