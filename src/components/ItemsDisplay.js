@@ -148,16 +148,6 @@ function ItemsDisplay({ pageName, items }) {
         gap: "30px",
       }}
     >
-      {/* maybe we don't need these two button? */}
-      {/* <div style={{ minWidth: "300px" }}> 
-      <Button className="buttonWithoutBorder" style={{ color: "#1479FB" }}>
-          Select all Items
-        </Button>
-        <Button className="buttonWithoutBorder" style={{ color: "#d10000" }}>
-          Delete all Items
-        </Button>
-      </div> */}
-
       <div
         style={{
           display: "flex",

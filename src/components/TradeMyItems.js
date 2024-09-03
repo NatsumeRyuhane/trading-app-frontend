@@ -4,35 +4,51 @@ import ItemsDisplay from "./ItemsDisplay";
 import { useNavigate } from "react-router-dom";
 import { fetchItemsOfCurrentUser } from "../utils";
 import Cookies from "js-cookie";
+import dummyItems from "./dummyItems";
 
 const { Content } = Layout;
 
 function TradeMyItems() {
-  const STATUS = ["AVAILABLE", "UNPUBLISHED", "ONGOING_TRADE", "SOLD"];
+  const status = {
+    onSale: "On Sale",
+    inStock: "In Stock",
+    sold: "Sold",
+    inProgress: "In Progress",
+  };
+
   const [items, setItems] = useState([]);
   const [allItems, setAllItems] = useState([]);
   const [onSaleItems, setOnSaleItems] = useState([]);
   const [inStockItems, setInStockItems] = useState([]);
-  const [ongoingTradeItems, setOngoingTradeItems] = useState([]);
-  const [tradedItems, setTradedItems] = useState([]);
+  const [soldItems, setSoldItems] = useState([]);
+  const [inProgressItems, setInProgressItems] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const curItems = await fetchItemsOfCurrentUser();
+      // change data source. Need to deal with status name consistence
+      // const curItems = await fetchItemsOfCurrentUser();
+      const curItems = dummyItems; // Replace with await fetchItemsOfCurrentUser() in production
       setAllItems(curItems);
-      setOnSaleItems(handleStatusFilter(STATUS[0]));
-      setInStockItems(handleStatusFilter(STATUS[1]));
-      setOngoingTradeItems(handleStatusFilter(STATUS[2]));
-      setTradedItems(handleStatusFilter(STATUS[3]));
-      setItems(allItems);
+
+      // Filter items after setting the allItems state
+      setOnSaleItems(filterItemStatus(curItems, status.onSale));
+      setInStockItems(filterItemStatus(curItems, status.inStock));
+      setSoldItems(filterItemStatus(curItems, status.sold));
+      setInProgressItems(filterItemStatus(curItems, status.inProgress));
+
+      // Initialize with all items shown
+      setItems(curItems);
     };
     fetchData();
   }, []);
 
-  function handleStatusFilter(status) {
-    const filteredItems = allItems.filter((item) => item.status === status);
-    setItems(filteredItems);
-    return filteredItems;
+  // Filter function
+  function filterItemStatus(items, status) {
+    return items.filter((item) => item.status === status);
+  }
+
+  function handleStatusClick(status) {
+    setItems(filterItemStatus(allItems, status));
   }
 
   return (
@@ -57,13 +73,14 @@ function TradeMyItems() {
               allItems={allItems}
               onSaleItems={onSaleItems}
               inStockItems={inStockItems}
-              tradedItems={tradedItems}
+              soldItems={soldItems}
+              inProgressItems={inProgressItems}
             />
           </div>
           <div>
             <MyUploadedItems
-              status={STATUS}
-              handleStatusFilter={handleStatusFilter}
+              status={status}
+              handleStatusClick={handleStatusClick}
               setItems={setItems}
               items={items}
               allItems={allItems}
@@ -75,12 +92,19 @@ function TradeMyItems() {
   );
 }
 
-function ItemsSummary({ tradedItems, onSaleItems, inStockItems, allItems }) {
+function ItemsSummary({
+  soldItems,
+  onSaleItems,
+  inStockItems,
+  allItems,
+  inProgressItems,
+}) {
   const navigate = useNavigate();
 
   const handleSellNewItem = () => {
     navigate("/uploadItems");
   };
+
   return (
     <div
       style={{
@@ -106,8 +130,9 @@ function ItemsSummary({ tradedItems, onSaleItems, inStockItems, allItems }) {
           You have uploaded {allItems.length} Items for trade in the past!
         </div>
         <div style={{ fontSize: "16px" }}>
-          {tradedItems.length} Items Traded, {onSaleItems.length} Items on Sale,{" "}
-          {inStockItems.length} Items in Stock
+          {onSaleItems.length} Items On Sale, {inStockItems.length} Items In
+          Stock, {soldItems.length} Items Sold, {inProgressItems.length} Items
+          In Progress
         </div>
       </div>
       <Button
@@ -130,7 +155,7 @@ function ItemsSummary({ tradedItems, onSaleItems, inStockItems, allItems }) {
 
 function MyUploadedItems({
   status,
-  handleStatusFilter,
+  handleStatusClick,
   setItems,
   items,
   allItems,
@@ -149,41 +174,45 @@ function MyUploadedItems({
           flexWrap: "wrap",
         }}
       >
-        <div style={{ minWidth: "240px", display: "inline" }}>
+        <div style={{ minWidth: "240px" }}>
           <Button
             className="buttonTab"
             onClick={() => setItems(allItems)}
-            style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+            style={{
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+              borderRight: 0,
+            }}
           >
             All
           </Button>
           <Button
             className="buttonTab"
-            onClick={() => handleStatusFilter(status[0])}
-            style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+            onClick={() => handleStatusClick(status.onSale)}
+            style={{ borderRadius: 0 }}
           >
             On Sale
           </Button>
           <Button
             className="buttonTab"
-            onClick={() => handleStatusFilter(status[1])}
+            onClick={() => handleStatusClick(status.inStock)}
             style={{ borderRadius: 0, borderLeft: 0, borderRight: 0 }}
           >
             In Stock
           </Button>
           <Button
             className="buttonTab"
-            onClick={() => handleStatusFilter(status[2])}
-            style={{ borderRadius: 0, borderLeft: 0, borderRight: 0 }}
+            onClick={() => handleStatusClick(status.sold)}
+            style={{ borderRadius: 0, borderRight: 0 }}
           >
-            Ongoing Trade
+            Sold
           </Button>
           <Button
             className="buttonTab"
-            onClick={() => handleStatusFilter(status[3])}
+            onClick={() => handleStatusClick(status.inProgress)}
             style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
           >
-            Traded
+            Ongoing Trade
           </Button>
         </div>
       </div>
