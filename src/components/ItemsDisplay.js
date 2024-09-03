@@ -6,8 +6,10 @@ import dummyItems from "./dummyItems";
 import {
   RateSellerButton,
   EditButton,
-  reportButton,
-  deleteButton,
+  ReportButton,
+  DeleteButton,
+  PublishButton,
+  CancelButton,
 } from "./Buttons";
 import { fetchItemById } from "../utils";
 
@@ -35,7 +37,6 @@ function ItemsDisplay({ pageName, items }) {
   };
 
   const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
   };
   const rowSelection = {
@@ -48,8 +49,8 @@ function ItemsDisplay({ pageName, items }) {
   function formatItemForTable(items) {
     const table = items.map((item) => ({
       key: item.id,
-      image: item.media_urls ? item.media_urls[0] : null,
-      ItemName: item.name,  // TODO: Make this column wider!
+      image: item.imgSrc,
+      ItemName: item.title,
       status: item.status,
       category: item.category,
       description: item.description,
@@ -61,6 +62,32 @@ function ItemsDisplay({ pageName, items }) {
   // function handleCardClick(itemId) {
   //   navigate(`/item/${itemId}`);
   // }
+
+  //TODO complete action buttons by status
+  function changeActionByStatus(status) {
+    if (status === "On Sale") {
+      return (
+        <div>
+          {/* <EditButton /> */}
+          <DeleteButton />
+        </div>
+      );
+    } else if (status === "In Stock") {
+      return (
+        <div>
+          <PublishButton />
+          <DeleteButton />
+        </div>
+      );
+    } else if (status === "Ongoing Trade") {
+      return (
+        <div>
+          <CancelButton />
+          <DeleteButton />
+        </div>
+      );
+    }
+  }
 
   const handleEdit = async (key, e) => {
     try {
@@ -93,7 +120,7 @@ function ItemsDisplay({ pageName, items }) {
       ),
     },
     {
-      title: "Name",
+      title: "Title",
       dataIndex: "ItemName",
       render: (ItemName) => (
         <div style={{ fontSize: 20, fontWeight: "bold" }}>{ItemName}</div>
@@ -125,7 +152,9 @@ function ItemsDisplay({ pageName, items }) {
       dataIndex: "action",
       render: (_, record) => (
         <Space size="middle">
-          {pageName === "trade" ? (
+          {changeActionByStatus(record.status)}
+
+          {/* {pageName === "trade" ? (
             <EditButton
               onEditClick={(e) => {
                 handleEdit(record.key);
@@ -133,8 +162,8 @@ function ItemsDisplay({ pageName, items }) {
             />
           ) : (
             RateSellerButton
-          )}
-          {pageName === "trade" ? deleteButton : reportButton}
+          )} */}
+          {/* {pageName === "trade" ? DeleteButton : ReportButton} */}
         </Space>
       ),
     },

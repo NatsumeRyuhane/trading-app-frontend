@@ -4,20 +4,39 @@ import { CloudUploadOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { createTransaction } from "../utils";
 
-export const RateSellerButton = (
-  <Button
-    default
-    style={{
-      borderRadius: 20,
-      backgroundColor: "#3a00e5",
-      color: "white",
-      width: 128,
-      height: 38,
-    }}
-  >
-    Rate the seller
-  </Button>
-);
+export function RateSellerButton() {
+  return (
+    <Button
+      default
+      style={{
+        borderRadius: 20,
+        backgroundColor: "#3a00e5",
+        color: "white",
+        width: 128,
+        height: 38,
+      }}
+    >
+      Rate the seller
+    </Button>
+  );
+}
+
+export function PublishButton() {
+  return (
+    <Button
+      default
+      style={{
+        borderRadius: 20,
+        backgroundColor: "#3a00e5",
+        color: "white",
+        width: 128,
+        height: 38,
+      }}
+    >
+      Publish
+    </Button>
+  );
+}
 
 export function EditButton({ onEditClick }) {
   return (
@@ -37,22 +56,25 @@ export function EditButton({ onEditClick }) {
   );
 }
 
-export const reportButton = (
-  <Button
-    type="text"
-    style={{
-      fontWeight: 400,
-      fontSize: 14,
-      width: 90,
-      height: 38,
-      margin: 5,
-      color: "#D10000",
-    }}
-  >
-    Report
-  </Button>
-);
-export const deleteButton = (
+export function ReportButton() {
+  return (
+    <Button
+      type="text"
+      style={{
+        fontWeight: 400,
+        fontSize: 14,
+        width: 90,
+        height: 38,
+        margin: 5,
+        color: "#D10000",
+      }}
+    >
+      Report
+    </Button>
+  );
+}
+
+export function DeleteButton() {
   <Button
     style={{
       borderRadius: 20,
@@ -65,8 +87,24 @@ export const deleteButton = (
     }}
   >
     Delete
-  </Button>
-);
+  </Button>;
+}
+
+export function CancelButton() {
+  <Button
+    style={{
+      borderRadius: 20,
+      border: "1.5px solid  #D10000",
+      fontSize: 14,
+      margin: 5,
+      height: 38,
+      width: 90,
+      color: "#D10000",
+    }}
+  >
+    Cancel
+  </Button>;
+}
 
 export const uploadButton = (
   <button style={{ border: 0, background: "none" }} type="button">
