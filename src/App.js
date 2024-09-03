@@ -62,6 +62,7 @@ function App() {
     Cookies.remove("sessionToken");
     Cookies.remove("username");
     setIsLoggedIn(false);
+    document.location.reload();
   };
 
   const renderContent = () => {
