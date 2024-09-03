@@ -28,8 +28,8 @@ function TradeMyItems() {
   useEffect(() => {
     //switch to frontend dummyItem for test
     const fetchData = async () => {
-      // const curItems = await fetchItemsOfCurrentUser();
-      const curItems = dummyItems;
+      const curItems = await fetchItemsOfCurrentUser();
+      formateStatusApiName(curItems);
       setAllItems(curItems);
       setOnSaleItems(filterItemStatus(curItems, status.onSale));
       setInStockItems(filterItemStatus(curItems, status.inStock));
@@ -39,6 +39,20 @@ function TradeMyItems() {
     };
     fetchData();
   }, []);
+
+  function formateStatusApiName(itemsFromBackend) {
+    itemsFromBackend.map((item) => {
+      if (item.status === "AVAILABLE") {
+        item.status = "On Sale";
+      } else if (item.status === "UNPUBLISHED") {
+        item.status = "In Stock";
+      } else if (item.status === "ONGOING_TRADE") {
+        item.status = "Ongoing Trade";
+      } else if (item.status === "SOLD") {
+        item.status = "Sold";
+      }
+    });
+  }
 
   // Filter function
   function filterItemStatus(items, status) {

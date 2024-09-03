@@ -50,8 +50,8 @@ function ItemsDisplay({ pageName, items }) {
   function formatItemForTable(items) {
     const table = items.map((item) => ({
       key: item.id,
-      image: item.imgSrc,
-      ItemName: item.title,
+      image: item.media_urls[0],
+      ItemName: item.name,
       status: item.status,
       category: item.category,
       description: item.description,
