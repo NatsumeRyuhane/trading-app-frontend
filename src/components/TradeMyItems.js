@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { fetchItemsOfCurrentUser } from "../utils";
 import Cookies from "js-cookie";
 import dummyItems from "./dummyItems";
+import { EditButton } from "./Buttons";
 
 const { Content } = Layout;
 
+// TODO discuss about names for consistency
 function TradeMyItems() {
   const status = {
     onSale: "On Sale",
@@ -25,10 +27,9 @@ function TradeMyItems() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const curItems = await fetchItemsOfCurrentUser();
-      // const curItems = dummyItems;
+      // const curItems = await fetchItemsOfCurrentUser();
+      const curItems = dummyItems;
       setAllItems(curItems);
-
       setOnSaleItems(filterItemStatus(curItems, status.onSale));
       setInStockItems(filterItemStatus(curItems, status.inStock));
       setSoldItems(filterItemStatus(curItems, status.sold));
@@ -212,7 +213,7 @@ function MyUploadedItems({
           </Button>
         </div>
       </div>
-      <ItemsDisplay pageName="trade" items={items} />
+      <ItemsDisplay pageName="trade" items={items} status={status} />
     </div>
   );
 }

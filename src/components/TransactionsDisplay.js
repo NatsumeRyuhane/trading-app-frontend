@@ -6,8 +6,8 @@ import dummyItems from "./dummyItems";
 import {
   RateSellerButton,
   EditButton,
-  reportButton,
-  deleteButton,
+  ReportButton,
+  DeleteButton,
 } from "./Buttons";
 import { fetchItemById } from "../utils";
 
@@ -51,7 +51,7 @@ function TransactionsDisplay({ pageName, orders }) {
       image: order.item.media_urls ? order.item.media_urls[0] : null,
       itemName: order.item.name,
       status: order.status,
-      sellerContact: order.seller.username,  // TODO: Replace this field with seller contact
+      sellerContact: order.seller.username, // TODO: Replace this field with seller contact
       price: order.item.price,
     }));
     return table;
@@ -130,7 +130,7 @@ function TransactionsDisplay({ pageName, orders }) {
           ) : (
             record.status === "CONFIRMED" && RateSellerButton
           )}
-          {pageName === "trade" ? deleteButton : reportButton}
+          {pageName === "trade" ? DeleteButton : ReportButton}
         </Space>
       ),
     },
