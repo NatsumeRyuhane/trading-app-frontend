@@ -1,18 +1,19 @@
-import React, {useEffect, useState} from "react";
-import {Button, Layout} from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Layout } from "antd";
 import ItemsDisplay from "./ItemsDisplay";
-import {useNavigate} from "react-router-dom";
-import {fetchItemsOfCurrentUser} from "../utils";
+import { useNavigate } from "react-router-dom";
+import { fetchItemsOfCurrentUser } from "../utils";
 import Cookies from "js-cookie";
 
 const { Content } = Layout;
 
 function TradeMyItems() {
-  const STATUS = ["AVAILABLE", "UNPUBLISHED", "SOLD"];
+  const STATUS = ["AVAILABLE", "UNPUBLISHED", "ONGOING_TRADE", "SOLD"];
   const [items, setItems] = useState([]);
   const [allItems, setAllItems] = useState([]);
   const [onSaleItems, setOnSaleItems] = useState([]);
   const [inStockItems, setInStockItems] = useState([]);
+  const [ongoingTradeItems, setOngoingTradeItems] = useState([]);
   const [tradedItems, setTradedItems] = useState([]);
 
   useEffect(() => {
@@ -21,7 +22,8 @@ function TradeMyItems() {
       setAllItems(curItems);
       setOnSaleItems(handleStatusFilter(STATUS[0]));
       setInStockItems(handleStatusFilter(STATUS[1]));
-      setTradedItems(handleStatusFilter(STATUS[2]));
+      setOngoingTradeItems(handleStatusFilter(STATUS[2]));
+      setTradedItems(handleStatusFilter(STATUS[3]));
       setItems(allItems);
     };
     fetchData();
@@ -97,12 +99,15 @@ function ItemsSummary({ tradedItems, onSaleItems, inStockItems, allItems }) {
       }}
     >
       <div style={{ textAlign: "left", marginBottom: "20px" }}>
-        <div style={{ fontSize: "20px", fontWeight: "bold" }}>Hi, {Cookies.get("username")}!</div>
+        <div style={{ fontSize: "20px", fontWeight: "bold" }}>
+          Hi, {Cookies.get("username")}!
+        </div>
         <div style={{ fontSize: "24px" }}>
           You have uploaded {allItems.length} Items for trade in the past!
         </div>
         <div style={{ fontSize: "16px" }}>
-          {tradedItems.length} Items Traded, {onSaleItems.length} Items on Sale, {inStockItems.length} Items in Stock
+          {tradedItems.length} Items Traded, {onSaleItems.length} Items on Sale,{" "}
+          {inStockItems.length} Items in Stock
         </div>
       </div>
       <Button
@@ -123,7 +128,13 @@ function ItemsSummary({ tradedItems, onSaleItems, inStockItems, allItems }) {
   );
 }
 
-function MyUploadedItems({ status, handleStatusFilter, setItems, items, allItems }) {
+function MyUploadedItems({
+  status,
+  handleStatusFilter,
+  setItems,
+  items,
+  allItems,
+}) {
   return (
     <div>
       <div className="h1">My Uploaded Items ({allItems.length})</div>
@@ -163,6 +174,13 @@ function MyUploadedItems({ status, handleStatusFilter, setItems, items, allItems
           <Button
             className="buttonTab"
             onClick={() => handleStatusFilter(status[2])}
+            style={{ borderRadius: 0, borderLeft: 0, borderRight: 0 }}
+          >
+            Ongoing Trade
+          </Button>
+          <Button
+            className="buttonTab"
+            onClick={() => handleStatusFilter(status[3])}
             style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
           >
             Traded

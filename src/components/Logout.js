@@ -19,7 +19,12 @@ function Logout({ onLogout }) {
     message.success("You have been logged out");
     onLogout(); // Notify parent component about the logout
     setDisplayModal(false);
-    navigate("/"); // Go back to home page after logout
+
+    if (window.location.pathname === "/") {
+      window.location.reload(); // Reload if already on homepage when logging out
+    } else {
+      navigate("/"); // Go back to homepage after logout
+    }
   };
 
   return (
@@ -50,7 +55,12 @@ function Logout({ onLogout }) {
       >
         <div style={{ textAlign: "center", padding: "20px 0" }}>
           <p>Are you sure you want to log out?</p>
-          <Button type="primary" onClick={handleLogout}>
+          <Button
+            type="primary"
+            shape="round"
+            onClick={handleLogout}
+            style={{ background: "#3A00E5" }}
+          >
             Yes, Log Out
           </Button>
         </div>

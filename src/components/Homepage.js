@@ -2,7 +2,6 @@ import React from "react";
 import { Typography, Row, Col, Card } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./Homepage.css";
-import Promotion from "./Promotion";
 import LightningDeal from "./LightningDeal";
 
 const { Title } = Typography;

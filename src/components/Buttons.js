@@ -1,8 +1,10 @@
 import React from "react";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { CloudUploadOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { createTransaction } from "../utils";
 
-export const rateSellerButton = (
+export const RateSellerButton = (
   <Button
     default
     style={{
@@ -16,6 +18,7 @@ export const rateSellerButton = (
     Rate the seller
   </Button>
 );
+
 export function EditButton({ onEditClick }) {
   return (
     <Button
@@ -71,3 +74,43 @@ export const uploadButton = (
     <div style={{ marginTop: 8 }}>Upload</div>
   </button>
 );
+
+export const CheckoutButton = ({ item, isLoggedIn }) => {
+  const navigate = useNavigate();
+
+  const handleCheckout = async () => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      try {
+        await createTransaction(item);
+        message.success("Order created!");
+        navigate("/myOrdered");
+      } catch (error) {
+        message.error(error.message);
+      }
+    }
+  };
+
+  return (
+    <Button
+      type="primary"
+      shape="round"
+      size="large"
+      style={{
+        color: "white",
+        background: "#3A00E5",
+        justifyContent: "center",
+        alignItems: "center",
+        display: "inline-flex",
+        fontSize: 18,
+        fontFamily: "Arial",
+        fontWeight: "550",
+        letterSpacing: 0.2,
+      }}
+      onClick={handleCheckout}
+    >
+      Checkout
+    </Button>
+  );
+};

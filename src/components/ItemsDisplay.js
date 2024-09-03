@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
 import dummyItems from "./dummyItems";
 import {
-  rateSellerButton,
+  RateSellerButton,
   EditButton,
   reportButton,
   deleteButton,
@@ -132,7 +132,7 @@ function ItemsDisplay({ pageName, items }) {
               }}
             />
           ) : (
-            rateSellerButton
+            RateSellerButton
           )}
           {pageName === "trade" ? deleteButton : reportButton}
         </Space>
