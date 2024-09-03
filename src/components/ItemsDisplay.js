@@ -10,6 +10,7 @@ import {
   DeleteButton,
   PublishButton,
   CancelButton,
+  ConfirmTradeButton,
 } from "./Buttons";
 import { fetchItemById } from "../utils";
 
@@ -63,12 +64,12 @@ function ItemsDisplay({ pageName, items }) {
   //   navigate(`/item/${itemId}`);
   // }
 
-  //TODO complete action buttons by status
-  function changeActionByStatus(status) {
+  //TODO complete action buttons function
+  function changeActionByStatus(status, record) {
     if (status === "On Sale") {
       return (
         <div>
-          {/* <EditButton /> */}
+          <EditButton />
           <DeleteButton />
         </div>
       );
@@ -82,8 +83,8 @@ function ItemsDisplay({ pageName, items }) {
     } else if (status === "Ongoing Trade") {
       return (
         <div>
+          <ConfirmTradeButton />
           <CancelButton />
-          <DeleteButton />
         </div>
       );
     }
@@ -93,6 +94,7 @@ function ItemsDisplay({ pageName, items }) {
     try {
       console.log(key);
       //TODO:navigate to upload item page with old item data in form
+      //TODO delete sold action
       await fetchItemById(key);
       navigate("/uploadItems");
     } catch (error) {
@@ -152,8 +154,8 @@ function ItemsDisplay({ pageName, items }) {
       dataIndex: "action",
       render: (_, record) => (
         <Space size="middle">
+          {/* {changeActionByStatus(record.status)} */}
           {changeActionByStatus(record.status)}
-
           {/* {pageName === "trade" ? (
             <EditButton
               onEditClick={(e) => {
@@ -163,7 +165,6 @@ function ItemsDisplay({ pageName, items }) {
           ) : (
             RateSellerButton
           )} */}
-          {/* {pageName === "trade" ? DeleteButton : ReportButton} */}
         </Space>
       ),
     },

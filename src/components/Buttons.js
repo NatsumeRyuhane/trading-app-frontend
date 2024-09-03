@@ -29,11 +29,28 @@ export function PublishButton() {
         borderRadius: 20,
         backgroundColor: "#3a00e5",
         color: "white",
-        width: 128,
+        width: 90,
         height: 38,
       }}
     >
       Publish
+    </Button>
+  );
+}
+
+export function ConfirmTradeButton() {
+  return (
+    <Button
+      default
+      style={{
+        borderRadius: 20,
+        backgroundColor: "#3a00e5",
+        color: "white",
+        width: 128,
+        height: 38,
+      }}
+    >
+      Confirm Trade
     </Button>
   );
 }
@@ -75,35 +92,39 @@ export function ReportButton() {
 }
 
 export function DeleteButton() {
-  <Button
-    style={{
-      borderRadius: 20,
-      border: "1.5px solid  #D10000",
-      fontSize: 14,
-      margin: 5,
-      height: 38,
-      width: 90,
-      color: "#D10000",
-    }}
-  >
-    Delete
-  </Button>;
+  return (
+    <Button
+      style={{
+        borderRadius: 20,
+        border: "1.5px solid  #D10000",
+        fontSize: 14,
+        margin: 5,
+        height: 38,
+        width: 90,
+        color: "#D10000",
+      }}
+    >
+      Delete
+    </Button>
+  );
 }
 
 export function CancelButton() {
-  <Button
-    style={{
-      borderRadius: 20,
-      border: "1.5px solid  #D10000",
-      fontSize: 14,
-      margin: 5,
-      height: 38,
-      width: 90,
-      color: "#D10000",
-    }}
-  >
-    Cancel
-  </Button>;
+  return (
+    <Button
+      style={{
+        borderRadius: 20,
+        border: "1.5px solid  #D10000",
+        fontSize: 14,
+        margin: 5,
+        height: 38,
+        width: 90,
+        color: "#D10000",
+      }}
+    >
+      Cancel
+    </Button>
+  );
 }
 
 export const uploadButton = (
