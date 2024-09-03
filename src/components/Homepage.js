@@ -28,7 +28,9 @@ function Homepage({ isLoggedIn, onLogout }) {
             <Card
               hoverable
               className="category-card"
-              onClick={() => navigate("/search?category=Kitchen Essentials")}
+              onClick={() => {
+                navigate("/byCategory", { state: { category: "KITCHEN" } });
+              }}
               style={{ textAlign: "center" }}
             >
               <img
