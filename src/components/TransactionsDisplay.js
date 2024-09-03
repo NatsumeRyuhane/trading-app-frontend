@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
 import dummyItems from "./dummyItems";
 import {
-  rateSellerButton,
+  RateSellerButton,
   EditButton,
   reportButton,
   deleteButton,
@@ -128,7 +128,7 @@ function TransactionsDisplay({ pageName, orders }) {
               }}
             />
           ) : (
-            record.status === "CONFIRMED" && rateSellerButton
+            record.status === "CONFIRMED" && RateSellerButton
           )}
           {pageName === "trade" ? deleteButton : reportButton}
         </Space>
