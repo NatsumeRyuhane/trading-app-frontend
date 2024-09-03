@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, List, Divider, message } from "antd";
+import { Layout, List, Divider, message, Card } from "antd";
 import { ItemCard } from "./ItemCard";
 import { searchItems } from "../utils";
 
@@ -105,15 +105,12 @@ const SearchResult = ({ query }) => {
           renderItem={(item) => {
             return (
               <List.Item>
-                <ItemCard
-                  key={item.id}
-                  itemId={item.id}
-                  layout="vertical" // Specify the layout here
-                  imgSrc={item.imgSrc}
-                  title={item.name}
-                  price={item.price}
-                  description={item.description}
-                />
+                <Card hoverable className="card-hover-effect">
+                  <ItemCard
+                    layout="vertical" // Specify the layout here
+                    item={item}
+                  />
+                </Card>
               </List.Item>
             );
           }}
