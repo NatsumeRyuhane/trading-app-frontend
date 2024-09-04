@@ -10,6 +10,7 @@ import MyOrderedItems from "./components/MyOrderedItemPage";
 import SearchResult from "./components/SearchResult";
 import ItemInformation from "./components/ItemInformation";
 import UploadItems from "./components/UpLoadItemsPage";
+import UpdateItems from "./components/UpdateItemsPage";
 import UploadSuccessPage from "./components/UploadSuccessPage";
 import HeaderMenu from "./components/HeaderMenu";
 import MyCart from "./components/MyCart";
@@ -104,6 +105,7 @@ function App() {
           element={<ItemInformation isLoggedIn={isLoggedIn} />}
         />
         <Route path="/uploadItems" element={<UploadItems />} />
+        <Route path="/updateItems" element={<UpdateItems />} />
         <Route path="/uploadSeccess" element={<UploadSuccessPage />} />
         <Route path="/MyCart" element={<MyCart />} />
         <Route path="/byCategory" element={<ItemDisplayByCategory />} />

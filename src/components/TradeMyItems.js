@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Layout } from "antd";
+import { Button, Layout, message } from "antd";
 import ItemsDisplay from "./ItemsDisplay";
 import { useNavigate } from "react-router-dom";
-import { fetchItemsOfCurrentUser } from "../utils";
+import { fetchItemsOfCurrentUser, deleteItem } from "../utils";
 import Cookies from "js-cookie";
 import { EditButton } from "./Buttons";
 
 const { Content } = Layout;
 
-// TODO discuss about names for consistency
 function TradeMyItems() {
   const status = {
     onSale: "On Sale",
@@ -23,10 +22,11 @@ function TradeMyItems() {
   const [inStockItems, setInStockItems] = useState([]);
   const [soldItems, setSoldItems] = useState([]);
   const [ongoingTradeItems, setOngoingTradeItems] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    //switch to frontend dummyItem for test
-    const fetchData = async () => {
+  const refetch = async () => {
+    setLoading(true);
+    try {
       const curItems = await fetchItemsOfCurrentUser();
       formateStatusApiName(curItems);
       setAllItems(curItems);
@@ -35,8 +35,15 @@ function TradeMyItems() {
       setSoldItems(filterItemStatus(curItems, status.sold));
       setOngoingTradeItems(filterItemStatus(curItems, status.ongoingTrade));
       setItems(curItems);
-    };
-    fetchData();
+    } catch (error) {
+      message.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    refetch();
   }, []);
 
   function formateStatusApiName(itemsFromBackend) {
@@ -53,7 +60,6 @@ function TradeMyItems() {
     });
   }
 
-  // Filter function
   function filterItemStatus(items, status) {
     let filteredItems = [];
     if (!status) {
@@ -66,6 +72,32 @@ function TradeMyItems() {
 
   function handleStatusClick(status) {
     setItems(filterItemStatus(allItems, status));
+  }
+
+  function handleDelete(key) {
+    setLoading(true);
+    deleteItem(key)
+      .then(() => refetch())
+      .catch((error) => {
+        message.error(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  //TODO : fifnish multiple delete
+
+  function handleMultipleDeletion(key) {
+    setLoading(true);
+    deleteItem(key)
+      .then(() => refetch())
+      .catch((error) => {
+        message.error(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   return (
@@ -98,6 +130,7 @@ function TradeMyItems() {
             <MyUploadedItems
               status={status}
               handleStatusClick={handleStatusClick}
+              handleDelete={handleDelete}
               setItems={setItems}
               items={items}
               allItems={allItems}
@@ -176,6 +209,7 @@ function MyUploadedItems({
   setItems,
   items,
   allItems,
+  handleDelete,
 }) {
   return (
     <div>
@@ -233,7 +267,12 @@ function MyUploadedItems({
           </Button>
         </div>
       </div>
-      <ItemsDisplay pageName="trade" items={items} status={status} />
+      <ItemsDisplay
+        pageName="trade"
+        items={items}
+        status={status}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 }

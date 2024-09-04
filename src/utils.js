@@ -56,7 +56,7 @@ export const searchItems = (searchParams) => {
   });
 };
 
-export const getCart = () => {
+export const viewCart = () => {
   return fetch("/cart").then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get shopping cart data");
@@ -66,11 +66,18 @@ export const getCart = () => {
   });
 };
 
-// View cart contents
-export const viewCart = () => {
-  return fetch("/cart").then((response) => {
+// get cart contents
+export const getCart = () => {
+  const sessionToken = Cookies.get("sessionToken");
+
+  return fetch("/cart", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+  }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
-      throw Error("Fail to get cart data");
+      throw Error("Failed to fetch items");
     }
     return response.json();
   });
@@ -207,4 +214,41 @@ export const confirmTransaction = (id) => {
       throw Error("Failed to confirm transaction");
     }
   });
+};
+
+export const deleteItem = (id) => {
+  const sessionToken = Cookies.get("sessionToken");
+  const url = `/items/${id}`;
+  return fetch(url, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+  }).then((response) => {
+    if (response.status >= 300) {
+      throw Error("Failed to delete item");
+    }
+  });
+};
+
+export const fetchItemsByCategory = (category) => {
+  return fetch(`/items/category?category=${category}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error("Failed to fetch items by category");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (!Array.isArray(data)) {
+        return []; // Return an empty array if data is not an array
+      }
+      return data;
+    })
+    .catch((error) => {
+      console.error("Error fetching items by category:", error);
+      return []; // Return an empty array in case of error
+    });
 };

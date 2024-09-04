@@ -37,7 +37,9 @@ export default function UploadSuccessPage() {
             height: "166px",
             borderRadius: 10,
           }}
-          src={URL.createObjectURL(location.state.values.image.fileList[0].originFileObj)}
+          src={URL.createObjectURL(
+            location.state.values.image.fileList[0].originFileObj
+          )}
           alt={location.state.values.name}
         />
       </div>
@@ -51,7 +53,7 @@ export default function UploadSuccessPage() {
           margin: 20,
         }}
       >
-        Once approved, you can find your item in{" "}
+        Once approved, you can find your item in
         <span style={{ fontWeight: 600 }}>Trade My Item</span> page.
       </div>
       <div

@@ -2,11 +2,8 @@ import { Button, Divider, Layout, message, Space, Table } from "antd";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
-import dummyItems from "./dummyItems";
 import {
-  RateSellerButton,
   EditButton,
-  ReportButton,
   DeleteButton,
   PublishButton,
   CancelButton,
@@ -14,27 +11,15 @@ import {
 } from "./Buttons";
 import { fetchItemById } from "../utils";
 
-function ItemsDisplay({ pageName, items }) {
-  // const [items, setItems] = useState([]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setItems(dummyItems);
-  //   };
-  //   fetchData();
-
-  // }, [items]);
-
+function ItemsDisplay({ items, handleDelete }) {
   const navigate = useNavigate();
-
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const start = () => {
+  const handleMultipleDeletion = () => {
     setLoading(true);
-    setTimeout(() => {
-      setSelectedRowKeys([]);
-      setLoading(false);
-    }, 1000);
+    setSelectedRowKeys([]);
+    setLoading(false);
   };
 
   const onSelectChange = (newSelectedRowKeys) => {
@@ -61,27 +46,23 @@ function ItemsDisplay({ pageName, items }) {
     return table;
   }
 
-  // function handleCardClick(itemId) {
-  //   navigate(`/item/${itemId}`);
-  // }
-
   //TODO complete action buttons function
-  function changeActionByStatus(status, record) {
-    if (status === "On Sale") {
+  function changeActionByStatus(record) {
+    if (record.status === "On Sale") {
       return (
         <div>
-          <EditButton />
-          <DeleteButton />
+          <EditButton onEditClick={() => handleEdit(record.key)} />
+          <DeleteButton onDeleteClick={() => handleDelete(record.key)} />
         </div>
       );
-    } else if (status === "In Stock") {
+    } else if (record.status === "In Stock") {
       return (
         <div>
           <PublishButton itemInfo={record} />
           <DeleteButton />
         </div>
       );
-    } else if (status === "Ongoing Trade") {
+    } else if (record.status === "Ongoing Trade") {
       return (
         <div>
           <ConfirmTradeButton itemInfo={record} />
@@ -91,13 +72,12 @@ function ItemsDisplay({ pageName, items }) {
     }
   }
 
-  const handleEdit = async (key, e) => {
+  const handleEdit = async (key) => {
     try {
-      console.log(key);
       //TODO:navigate to upload item page with old item data in form
-      //TODO delete sold action
-      await fetchItemById(key);
-      navigate("/uploadItems");
+
+      const itemData = await fetchItemById(key);
+      navigate("/UpdateItems", { state: { itemData } });
     } catch (error) {
       message.error(error.message);
     } finally {
@@ -189,7 +169,7 @@ function ItemsDisplay({ pageName, items }) {
         {hasSelected ? `Selected ${selectedRowKeys.length} items` : null}
         <Button
           icon={<DeleteOutlined style={{ color: "#D10000" }} />}
-          onClick={start}
+          onClick={handleMultipleDeletion}
           disabled={!hasSelected}
           loading={loading}
           style={
