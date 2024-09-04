@@ -185,7 +185,36 @@ export const createTransaction = (item) => {
     }
   });
 };
-<<<<<<< Updated upstream
+
+export const publishItem = (id) => {
+  const url = `/items/${id}?${new URLSearchParams({
+    status: "AVAILABLE",
+  })}`;
+
+  fetch(url, {
+    method: "PATCH",
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to publish item");
+    }
+  });
+};
+
+export const confirmTransaction = (id) => {
+  const sessionToken = Cookies.get("sessionToken");
+  const url = `/transactions/${id}/confirmed`;
+
+  return fetch(url, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to confirm transaction");
+    }
+  });
+};
 
 export const deleteItem = (id) => {
   const sessionToken = Cookies.get("sessionToken");
@@ -201,7 +230,7 @@ export const deleteItem = (id) => {
     }
   });
 };
-=======
+
 export const fetchItemsByCategory = (category) => {
   return fetch(`/items/category?category=${category}`, {
     method: "GET",
@@ -223,4 +252,3 @@ export const fetchItemsByCategory = (category) => {
       return []; // Return an empty array in case of error
     });
 };
->>>>>>> Stashed changes

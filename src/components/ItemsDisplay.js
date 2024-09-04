@@ -32,6 +32,7 @@ function ItemsDisplay({ items, handleDelete }) {
   const hasSelected = selectedRowKeys.length > 0;
 
   const itemsForTable = formatItemForTable(items);
+
   function formatItemForTable(items) {
     const table = items.map((item) => ({
       key: item.id,
@@ -57,14 +58,14 @@ function ItemsDisplay({ items, handleDelete }) {
     } else if (record.status === "In Stock") {
       return (
         <div>
-          <PublishButton />
-          <DeleteButton onDeleteClick={() => handleDelete(record.key)} />
+          <PublishButton itemInfo={record} />
+          <DeleteButton />
         </div>
       );
     } else if (record.status === "Ongoing Trade") {
       return (
         <div>
-          <ConfirmTradeButton />
+          <ConfirmTradeButton itemInfo={record} />
           <CancelButton />
         </div>
       );
@@ -133,7 +134,19 @@ function ItemsDisplay({ items, handleDelete }) {
       title: "Action",
       dataIndex: "action",
       render: (_, record) => (
-        <Space size="middle">{changeActionByStatus(record)}</Space>
+        <Space size="middle">
+          {/* {changeActionByStatus(record.status)} */}
+          {changeActionByStatus(record.status, record)}
+          {/* {pageName === "trade" ? (
+            <EditButton
+              onEditClick={(e) => {
+                handleEdit(record.key);
+              }}
+            />
+          ) : (
+            RateSellerButton
+          )} */}
+        </Space>
       ),
     },
   ];
