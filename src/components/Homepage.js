@@ -29,7 +29,7 @@ function Homepage({ isLoggedIn, onLogout }) {
               hoverable
               className="category-card"
               onClick={() => {
-                navigate("/byCategory", { state: { category: "KITECHEN" } });
+                navigate("/byCategory", { state: { category: "KITCHEN" } });
               }}
               style={{ textAlign: "center" }}
             >
@@ -54,7 +54,7 @@ function Homepage({ isLoggedIn, onLogout }) {
               hoverable
               className="category-card"
               onClick={() => {
-                navigate("/byCategory", { state: { category: "Furniture" } });
+                navigate("/byCategory", { state: { category: "FURNITURE" } });
               }}
               style={{ textAlign: "center" }}
             >
@@ -79,7 +79,7 @@ function Homepage({ isLoggedIn, onLogout }) {
               hoverable
               className="category-card"
               onClick={() => {
-                navigate("/byCategory", { state: { category: "Electronics" } });
+                navigate("/byCategory", { state: { category: "ELECTRONICS" } });
               }}
               style={{ textAlign: "center" }}
             >
@@ -105,7 +105,7 @@ function Homepage({ isLoggedIn, onLogout }) {
               className="category-card"
               onClick={() => {
                 navigate("/byCategory", {
-                  state: { category: "Lighting & Decor" },
+                  state: { category: "LIGHTING" },
                 });
               }}
               style={{ textAlign: "center" }}
@@ -131,7 +131,7 @@ function Homepage({ isLoggedIn, onLogout }) {
               hoverable
               className="category-card"
               onClick={() => {
-                navigate("/byCategory", { state: { category: "Bedding" } });
+                navigate("/byCategory", { state: { category: "BEDDING" } });
               }}
               style={{ textAlign: "center" }}
             >
@@ -157,7 +157,7 @@ function Homepage({ isLoggedIn, onLogout }) {
               className="category-card"
               onClick={() => {
                 navigate("/byCategory", {
-                  state: { category: "HomeOrganizing" },
+                  state: { category: "ORGANIZING" },
                 });
               }}
               style={{ textAlign: "center" }}
