@@ -1,26 +1,32 @@
 import { Button, Layout, Typography, message } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import dummyItems from "./dummyItems"; // Import your dummy items
-import ItemsDisplay from "./ItemsDisplay"; // Import the ItemsDisplay component
+import ItemsDisplay from "./ItemsDisplay";
+import { fetchCartItems } from "../utils"; // Import the ItemsDisplay component
 
 const { Content } = Layout;
 const { Text } = Typography;
 
 const MyCart = () => {
-  const [cartData, setCartData] = useState(dummyItems);
+  const [cartData, setCartData] = useState([]);
   const [checking, setChecking] = useState(false);
   const navigate = useNavigate();
 
-  // Calculate total price and other costs dynamically
-  const totalItemsPrice = cartData.reduce(
-    (total, item) => total + item.price,
-    0
-  );
-  const shippingAndHandling = 2.99; // Example static shipping cost
-  const estimatedTax = totalItemsPrice * 0.09; // Example tax calculation
-  const orderTotal = totalItemsPrice + shippingAndHandling + estimatedTax;
+  const fetchData = async () => {
+    try {
+      const cartItemEntries = await fetchCartItems();
+      setCartData(cartItemEntries.map((entry) => entry.item));
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // FIXME
   const onCheckOut = () => {
     setChecking(true);
     // Simulate checkout process
@@ -69,15 +75,6 @@ const MyCart = () => {
           borderRadius: 8,
         }}
       >
-        <div style={{ marginBottom: 16 }}>
-          <p>Items Total: ${totalItemsPrice.toFixed(2)}</p>
-          <p>Shipping & Handling: ${shippingAndHandling.toFixed(2)}</p>
-          <p>Estimated Tax: ${estimatedTax.toFixed(2)}</p>
-        </div>
-        <Text
-          strong={true}
-          style={{ fontSize: 18 }}
-        >{`Order Total: $${orderTotal.toFixed(2)}`}</Text>
         <Button
           onClick={onCheckOut}
           type="primary"
