@@ -4,12 +4,10 @@ import ItemsDisplay from "./ItemsDisplay";
 import { useNavigate } from "react-router-dom";
 import { fetchItemsOfCurrentUser, deleteItem } from "../utils";
 import Cookies from "js-cookie";
-import dummyItems from "./dummyItems";
 import { EditButton } from "./Buttons";
 
 const { Content } = Layout;
 
-// TODO discuss about names for consistency
 function TradeMyItems() {
   const status = {
     onSale: "On Sale",
@@ -45,7 +43,7 @@ function TradeMyItems() {
   };
 
   useEffect(() => {
-    refetch(); // Fetch data on component mount
+    refetch();
   }, []);
 
   function formateStatusApiName(itemsFromBackend) {
@@ -62,7 +60,6 @@ function TradeMyItems() {
     });
   }
 
-  // Filter function
   function filterItemStatus(items, status) {
     let filteredItems = [];
     if (!status) {

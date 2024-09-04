@@ -12,18 +12,22 @@ import {
 } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import React, { useState } from "react";
-import { uploadItem } from "../utils";
-import { useNavigate } from "react-router-dom";
+import { deleteItem, uploadItem } from "../utils";
+import { useLocation, useNavigate } from "react-router-dom";
 import { uploadButton } from "./Buttons";
 
 function UpdateItems() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const data = location.state.itemData;
   const [loading, setLoading] = useState(false);
   const [fileList, setFileList] = useState([]);
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(() => {
+    return data.address ? false : true;
+  });
   const [address, setAddress] = useState("");
 
-  function CancelUploadItem() {
+  function CancelUpdateItem() {
     navigate("/trade");
   }
 
@@ -41,11 +45,11 @@ function UpdateItems() {
 
   const handleSubmit = async (values) => {
     setLoading(true);
+    deleteItem(data.id);
+
     const formData = new FormData();
     formData.append("name", values.name);
-
     formData.append("category", values.category.toUpperCase());
-
     formData.append("price", values.price);
     formData.append("description", values.description);
 
@@ -102,16 +106,19 @@ function UpdateItems() {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 10 }}
           layout="horizontal"
-          name="uploadItem"
+          name="updateItem"
           className="textBold"
           style={{
             width: 600,
           }}
           onFinish={handleSubmit}
-          //test data
+          //set prefilled data
           initialValues={{
-            price: 159,
-            description: "86",
+            name: data.name,
+            category: data.category.toLowerCase(),
+            price: data.price,
+            description: data.description,
+            // TODO: image: data.media_urls,
           }}
         >
           <Form.Item name="name" label="Item Name" rules={[{ required: true }]}>
@@ -173,7 +180,9 @@ function UpdateItems() {
           <Form.Item
             name="useDefaultAddress"
             label="Pick Up Location"
-            rules={[{ required: true }]}
+            rules={[
+              { required: true, message: "Please select a pick-up location" },
+            ]}
           >
             <Radio.Group onChange={onRadioChange} value={value}>
               <Space direction="vertical">
@@ -184,6 +193,8 @@ function UpdateItems() {
                     <Input
                       onChange={handleRadioInput}
                       style={{ marginTop: "20px", width: "100%" }}
+                      //set prefilled address for radio
+                      value={data.address}
                     />
                   ) : null}
                 </Radio>
@@ -219,7 +230,7 @@ function UpdateItems() {
             </Button>
             <Button
               danger
-              onClick={CancelUploadItem}
+              onClick={CancelUpdateItem}
               style={{ marginLeft: 30, border: "none", fontSize: 20 }}
             >
               Cancel and Return
