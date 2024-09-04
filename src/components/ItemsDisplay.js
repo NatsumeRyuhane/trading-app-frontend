@@ -39,7 +39,7 @@ function ItemsDisplay({ items, handleDelete }) {
       image: item.media_urls[0],
       ItemName: item.name,
       status: item.status,
-      category: item.category,
+      category: item.category.toLowerCase(),
       description: item.description,
       price: item.price,
     }));
@@ -59,7 +59,7 @@ function ItemsDisplay({ items, handleDelete }) {
       return (
         <div>
           <PublishButton itemInfo={record} />
-          <DeleteButton />
+          <DeleteButton onDeleteClick={() => handleDelete(record.key)} />
         </div>
       );
     } else if (record.status === "Ongoing Trade") {
@@ -134,19 +134,7 @@ function ItemsDisplay({ items, handleDelete }) {
       title: "Action",
       dataIndex: "action",
       render: (_, record) => (
-        <Space size="middle">
-          {/* {changeActionByStatus(record.status)} */}
-          {changeActionByStatus(record.status, record)}
-          {/* {pageName === "trade" ? (
-            <EditButton
-              onEditClick={(e) => {
-                handleEdit(record.key);
-              }}
-            />
-          ) : (
-            RateSellerButton
-          )} */}
-        </Space>
+        <Space size="middle">{changeActionByStatus(record)}</Space>
       ),
     },
   ];
