@@ -103,7 +103,7 @@ function ItemsDisplay({ items, handleDelete }) {
       ),
     },
     {
-      title: "Title",
+      title: "Name",
       dataIndex: "ItemName",
       render: (ItemName) => (
         <div style={{ fontSize: 20, fontWeight: "bold" }}>{ItemName}</div>

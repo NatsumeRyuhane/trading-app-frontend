@@ -56,18 +56,7 @@ export const searchItems = (searchParams) => {
   });
 };
 
-export const viewCart = () => {
-  return fetch("/cart").then((response) => {
-    if (response.status < 200 || response.status >= 300) {
-      throw Error("Fail to get shopping cart data");
-    }
-
-    return response.json();
-  });
-};
-
-// get cart contents
-export const getCart = () => {
+export const fetchCartItems = () => {
   const sessionToken = Cookies.get("sessionToken");
 
   return fetch("/cart", {
@@ -77,7 +66,7 @@ export const getCart = () => {
     },
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
-      throw Error("Failed to fetch items");
+      throw Error("Fail to get shopping cart data");
     }
     return response.json();
   });
