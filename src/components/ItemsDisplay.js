@@ -17,11 +17,8 @@ function ItemsDisplay({ items, handleDelete }) {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  //TODO : fifnish multiple delete
-
   const handleMultipleDeletion = () => {
     setLoading(true);
-    console.log();
     setSelectedRowKeys([]);
     setLoading(false);
   };
@@ -49,16 +46,12 @@ function ItemsDisplay({ items, handleDelete }) {
     return table;
   }
 
-  // function handleCardClick(itemId) {
-  //   navigate(`/item/${itemId}`);
-  // }
-
   //TODO complete action buttons function
   function changeActionByStatus(record) {
     if (record.status === "On Sale") {
       return (
         <div>
-          <EditButton />
+          <EditButton onEditClick={() => handleEdit(record.key)} />
           <DeleteButton onDeleteClick={() => handleDelete(record.key)} />
         </div>
       );
@@ -79,11 +72,13 @@ function ItemsDisplay({ items, handleDelete }) {
     }
   }
 
-  const handleEdit = async (key, e) => {
+  const handleEdit = async (key) => {
     try {
       //TODO:navigate to upload item page with old item data in form
-      await fetchItemById(key);
-      navigate("/uploadItems");
+
+      const itemData = await fetchItemById(key);
+      console.log(itemData);
+      navigate("/UpdateItems");
     } catch (error) {
       message.error(error.message);
     } finally {
@@ -140,18 +135,7 @@ function ItemsDisplay({ items, handleDelete }) {
       title: "Action",
       dataIndex: "action",
       render: (_, record) => (
-        <Space size="middle">
-          {changeActionByStatus(record)}
-          {/* {pageName === "trade" ? (
-            <EditButton
-              onEditClick={(e) => {
-                handleEdit(record.key);
-              }}
-            />
-          ) : (
-            RateSellerButton
-          )} */}
-        </Space>
+        <Space size="middle">{changeActionByStatus(record)}</Space>
       ),
     },
   ];

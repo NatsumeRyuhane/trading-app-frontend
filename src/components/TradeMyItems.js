@@ -26,21 +26,6 @@ function TradeMyItems() {
   const [ongoingTradeItems, setOngoingTradeItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   //switch to frontend dummyItem for test
-  //   const fetchData = async () => {
-  //     const curItems = await fetchItemsOfCurrentUser();
-  //     formateStatusApiName(curItems);
-  //     setAllItems(curItems);
-  //     setOnSaleItems(filterItemStatus(curItems, status.onSale));
-  //     setInStockItems(filterItemStatus(curItems, status.inStock));
-  //     setSoldItems(filterItemStatus(curItems, status.sold));
-  //     setOngoingTradeItems(filterItemStatus(curItems, status.ongoingTrade));
-  //     setItems(curItems);
-  //   };
-  //   fetchData();
-  // }, []);
-
   const refetch = async () => {
     setLoading(true);
     try {
