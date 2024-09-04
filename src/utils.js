@@ -178,3 +178,18 @@ export const createTransaction = (item) => {
     }
   });
 };
+
+export const deleteItem = (id) => {
+  const sessionToken = Cookies.get("sessionToken");
+  const url = `/items/${id}`;
+  return fetch(url, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+  }).then((response) => {
+    if (response.status >= 300) {
+      throw Error("Failed to delete item");
+    }
+  });
+};

@@ -91,9 +91,10 @@ export function ReportButton() {
   );
 }
 
-export function DeleteButton() {
+export function DeleteButton({ onDeleteClick }) {
   return (
     <Button
+      onClick={onDeleteClick}
       style={{
         borderRadius: 20,
         border: "1.5px solid  #D10000",

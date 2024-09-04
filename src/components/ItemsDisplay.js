@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
 import dummyItems from "./dummyItems";
 import {
-  RateSellerButton,
   EditButton,
-  ReportButton,
   DeleteButton,
   PublishButton,
   CancelButton,
@@ -14,27 +12,18 @@ import {
 } from "./Buttons";
 import { fetchItemById } from "../utils";
 
-function ItemsDisplay({ pageName, items }) {
-  // const [items, setItems] = useState([]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setItems(dummyItems);
-  //   };
-  //   fetchData();
-
-  // }, [items]);
-
+function ItemsDisplay({ items, handleDelete }) {
   const navigate = useNavigate();
-
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const start = () => {
+  //TODO : fifnish multiple delete
+
+  const handleMultipleDeletion = () => {
     setLoading(true);
-    setTimeout(() => {
-      setSelectedRowKeys([]);
-      setLoading(false);
-    }, 1000);
+    console.log();
+    setSelectedRowKeys([]);
+    setLoading(false);
   };
 
   const onSelectChange = (newSelectedRowKeys) => {
@@ -65,22 +54,22 @@ function ItemsDisplay({ pageName, items }) {
   // }
 
   //TODO complete action buttons function
-  function changeActionByStatus(status, record) {
-    if (status === "On Sale") {
+  function changeActionByStatus(record) {
+    if (record.status === "On Sale") {
       return (
         <div>
           <EditButton />
-          <DeleteButton />
+          <DeleteButton onDeleteClick={() => handleDelete(record.key)} />
         </div>
       );
-    } else if (status === "In Stock") {
+    } else if (record.status === "In Stock") {
       return (
         <div>
           <PublishButton />
-          <DeleteButton />
+          <DeleteButton onDeleteClick={() => handleDelete(record.key)} />
         </div>
       );
-    } else if (status === "Ongoing Trade") {
+    } else if (record.status === "Ongoing Trade") {
       return (
         <div>
           <ConfirmTradeButton />
@@ -92,9 +81,7 @@ function ItemsDisplay({ pageName, items }) {
 
   const handleEdit = async (key, e) => {
     try {
-      console.log(key);
       //TODO:navigate to upload item page with old item data in form
-      //TODO delete sold action
       await fetchItemById(key);
       navigate("/uploadItems");
     } catch (error) {
@@ -154,8 +141,7 @@ function ItemsDisplay({ pageName, items }) {
       dataIndex: "action",
       render: (_, record) => (
         <Space size="middle">
-          {/* {changeActionByStatus(record.status)} */}
-          {changeActionByStatus(record.status)}
+          {changeActionByStatus(record)}
           {/* {pageName === "trade" ? (
             <EditButton
               onEditClick={(e) => {
@@ -188,7 +174,7 @@ function ItemsDisplay({ pageName, items }) {
         {hasSelected ? `Selected ${selectedRowKeys.length} items` : null}
         <Button
           icon={<DeleteOutlined style={{ color: "#D10000" }} />}
-          onClick={start}
+          onClick={handleMultipleDeletion}
           disabled={!hasSelected}
           loading={loading}
           style={
