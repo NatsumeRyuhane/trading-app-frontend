@@ -47,6 +47,7 @@ function ItemsDisplay({ pageName, items }) {
   const hasSelected = selectedRowKeys.length > 0;
 
   const itemsForTable = formatItemForTable(items);
+
   function formatItemForTable(items) {
     const table = items.map((item) => ({
       key: item.id,
@@ -76,14 +77,14 @@ function ItemsDisplay({ pageName, items }) {
     } else if (status === "In Stock") {
       return (
         <div>
-          <PublishButton />
+          <PublishButton itemInfo={record} />
           <DeleteButton />
         </div>
       );
     } else if (status === "Ongoing Trade") {
       return (
         <div>
-          <ConfirmTradeButton />
+          <ConfirmTradeButton itemInfo={record} />
           <CancelButton />
         </div>
       );
@@ -155,7 +156,7 @@ function ItemsDisplay({ pageName, items }) {
       render: (_, record) => (
         <Space size="middle">
           {/* {changeActionByStatus(record.status)} */}
-          {changeActionByStatus(record.status)}
+          {changeActionByStatus(record.status, record)}
           {/* {pageName === "trade" ? (
             <EditButton
               onEditClick={(e) => {

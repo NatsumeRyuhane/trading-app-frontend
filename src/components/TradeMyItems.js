@@ -4,7 +4,6 @@ import ItemsDisplay from "./ItemsDisplay";
 import { useNavigate } from "react-router-dom";
 import { fetchItemsOfCurrentUser } from "../utils";
 import Cookies from "js-cookie";
-import dummyItems from "./dummyItems";
 import { EditButton } from "./Buttons";
 
 const { Content } = Layout;

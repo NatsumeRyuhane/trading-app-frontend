@@ -2,7 +2,7 @@ import React from "react";
 import { Button, message } from "antd";
 import { CloudUploadOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { createTransaction } from "../utils";
+import { createTransaction, publishItem } from "../utils";
 
 export function RateSellerButton() {
   return (
@@ -21,7 +21,7 @@ export function RateSellerButton() {
   );
 }
 
-export function PublishButton() {
+export function PublishButton({ itemInfo, fetchData }) {
   return (
     <Button
       default
@@ -32,13 +32,23 @@ export function PublishButton() {
         width: 90,
         height: 38,
       }}
+      onClick={() => {
+        try {
+          publishItem(itemInfo.key);
+          window.location.reload();
+          // TODO: This message currently doesn't show because we refresh the page to reload items. Find better way to refresh items
+          message.success("Item published! You can see it in the On Sale tab");
+        } catch (error) {
+          message.error(error.message);
+        }
+      }}
     >
       Publish
     </Button>
   );
 }
 
-export function ConfirmTradeButton() {
+export function ConfirmTradeButton({ itemInfo }) {
   return (
     <Button
       default
@@ -49,6 +59,7 @@ export function ConfirmTradeButton() {
         width: 128,
         height: 38,
       }}
+      onClick={() => console.log(itemInfo)}
     >
       Confirm Trade
     </Button>
