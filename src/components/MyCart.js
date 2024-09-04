@@ -13,7 +13,10 @@ const MyCart = () => {
   const navigate = useNavigate();
 
   // Calculate total price and other costs dynamically
-  const totalItemsPrice = cartData.reduce((total, item) => total + item.price, 0);
+  const totalItemsPrice = cartData.reduce(
+    (total, item) => total + item.price,
+    0
+  );
   const shippingAndHandling = 2.99; // Example static shipping cost
   const estimatedTax = totalItemsPrice * 0.09; // Example tax calculation
   const orderTotal = totalItemsPrice + shippingAndHandling + estimatedTax;
@@ -28,7 +31,6 @@ const MyCart = () => {
     }, 1000);
   };
 
-
   return (
     <Layout style={{ margin: "0 60px" }}>
       <div className="h1">Shopping Cart ({cartData.length} Items)</div>
@@ -38,7 +40,6 @@ const MyCart = () => {
           justifyContent: "space-between",
         }}
       >
-
         <div>
           <Button
             type="primary"
@@ -58,7 +59,7 @@ const MyCart = () => {
       </Content>
 
       {/* Use ItemsDisplay to show cart items */}
-      <ItemsDisplay items={cartData} />
+      <ItemsDisplay items={cartData} handleDelete={() => {}} />
 
       <div
         style={{
@@ -73,7 +74,10 @@ const MyCart = () => {
           <p>Shipping & Handling: ${shippingAndHandling.toFixed(2)}</p>
           <p>Estimated Tax: ${estimatedTax.toFixed(2)}</p>
         </div>
-        <Text strong={true} style={{ fontSize: 18 }}>{`Order Total: $${orderTotal.toFixed(2)}`}</Text>
+        <Text
+          strong={true}
+          style={{ fontSize: 18 }}
+        >{`Order Total: $${orderTotal.toFixed(2)}`}</Text>
         <Button
           onClick={onCheckOut}
           type="primary"
