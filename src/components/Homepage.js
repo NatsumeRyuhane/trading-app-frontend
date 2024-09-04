@@ -29,7 +29,7 @@ function Homepage({ isLoggedIn, onLogout }) {
               hoverable
               className="category-card"
               onClick={() => {
-                navigate("/byCategory", { state: { category: "KITCHEN" } });
+                navigate("/byCategory", { state: { category: "KITECHEN" } });
               }}
               style={{ textAlign: "center" }}
             >
@@ -53,7 +53,9 @@ function Homepage({ isLoggedIn, onLogout }) {
             <Card
               hoverable
               className="category-card"
-              onClick={() => navigate("/search?category=Furniture")}
+              onClick={() => {
+                navigate("/byCategory", { state: { category: "Furniture" } });
+              }}
               style={{ textAlign: "center" }}
             >
               <img
@@ -76,7 +78,9 @@ function Homepage({ isLoggedIn, onLogout }) {
             <Card
               hoverable
               className="category-card"
-              onClick={() => navigate("/search?category=Electronics")}
+              onClick={() => {
+                navigate("/byCategory", { state: { category: "Electronics" } });
+              }}
               style={{ textAlign: "center" }}
             >
               <img
@@ -99,7 +103,11 @@ function Homepage({ isLoggedIn, onLogout }) {
             <Card
               hoverable
               className="category-card"
-              onClick={() => navigate("/search?category=Lighting & Decor")}
+              onClick={() => {
+                navigate("/byCategory", {
+                  state: { category: "Lighting & Decor" },
+                });
+              }}
               style={{ textAlign: "center" }}
             >
               <img
@@ -122,7 +130,9 @@ function Homepage({ isLoggedIn, onLogout }) {
             <Card
               hoverable
               className="category-card"
-              onClick={() => navigate("/search?category=Bedding")}
+              onClick={() => {
+                navigate("/byCategory", { state: { category: "Bedding" } });
+              }}
               style={{ textAlign: "center" }}
             >
               <img
@@ -145,7 +155,11 @@ function Homepage({ isLoggedIn, onLogout }) {
             <Card
               hoverable
               className="category-card"
-              onClick={() => navigate("/search?category=Home Organizing")}
+              onClick={() => {
+                navigate("/byCategory", {
+                  state: { category: "HomeOrganizing" },
+                });
+              }}
               style={{ textAlign: "center" }}
             >
               <img
