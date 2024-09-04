@@ -86,7 +86,7 @@ function TradeMyItems() {
       });
   }
 
-  //TODO : fifnish multiple delete
+  //TODO : finish multiple delete
 
   function handleMultipleDeletion(key) {
     setLoading(true);
