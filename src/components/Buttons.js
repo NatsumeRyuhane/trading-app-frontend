@@ -2,7 +2,7 @@ import React from "react";
 import { Button, message } from "antd";
 import { CloudUploadOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { createTransaction, publishItem } from "../utils";
+import { confirmTransaction, createTransaction, publishItem } from "../utils";
 
 export function RateSellerButton() {
   return (
@@ -48,7 +48,7 @@ export function PublishButton({ itemInfo, fetchData }) {
   );
 }
 
-export function ConfirmTradeButton({ itemInfo }) {
+export function ConfirmTradeButton({ itemInfo: transactionInfo }) {
   return (
     <Button
       default
@@ -59,7 +59,15 @@ export function ConfirmTradeButton({ itemInfo }) {
         width: 128,
         height: 38,
       }}
-      onClick={() => console.log(itemInfo)}
+      onClick={() => {
+        try {
+          confirmTransaction(transactionInfo.key);
+          window.location.reload();
+          message.success("Trade complete! Now give the seller a rating!");
+        } catch (error) {
+          message.error(error.message);
+        }
+      }}
     >
       Confirm Trade
     </Button>

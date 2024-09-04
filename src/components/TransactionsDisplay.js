@@ -8,6 +8,8 @@ import {
   EditButton,
   ReportButton,
   DeleteButton,
+  ConfirmTradeButton,
+  CancelButton,
 } from "./Buttons";
 import { fetchItemById } from "../utils";
 
@@ -45,6 +47,7 @@ function TransactionsDisplay({ pageName, orders }) {
   const hasSelected = selectedRowKeys.length > 0;
 
   const itemsForTable = formatItemForTable(orders);
+
   function formatItemForTable(orders) {
     const table = orders.map((order) => ({
       key: order.id,
@@ -72,6 +75,19 @@ function TransactionsDisplay({ pageName, orders }) {
     } finally {
     }
     setLoading(false);
+  };
+
+  const formatStatus = (status) => {
+    switch (status) {
+      case "PENDING":
+        return "Pending Seller Confirmation";
+      case "APPROVED":
+        return "Seller Confirmed";
+      case "CONFIRMED":
+        return "Trade Complete";
+      default:
+        return status;
+    }
   };
 
   const columns = [
@@ -102,7 +118,9 @@ function TransactionsDisplay({ pageName, orders }) {
     {
       title: "Status",
       dataIndex: "status",
-      render: (status) => <div style={{ fontWeight: 600 }}>{status}</div>,
+      render: (status) => (
+        <div style={{ fontWeight: 600 }}>{formatStatus(status)}</div>
+      ),
     },
     {
       title: "Seller Contact",
@@ -121,16 +139,13 @@ function TransactionsDisplay({ pageName, orders }) {
       dataIndex: "action",
       render: (_, record) => (
         <Space size="middle">
-          {pageName === "trade" ? (
-            <EditButton
-              onEditClick={(e) => {
-                handleEdit(record.key);
-              }}
-            />
-          ) : (
-            record.status === "CONFIRMED" && RateSellerButton
+          {record.status === "CONFIRMED" && <RateSellerButton />}
+          {record.status !== "CONFIRMED" && (
+            <div>
+              <ConfirmTradeButton itemInfo={record} />
+              <CancelButton />
+            </div>
           )}
-          {pageName === "trade" ? DeleteButton : ReportButton}
         </Space>
       ),
     },

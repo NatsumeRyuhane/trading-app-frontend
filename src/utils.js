@@ -192,3 +192,19 @@ export const publishItem = (id) => {
     }
   });
 };
+
+export const confirmTransaction = (id) => {
+  const sessionToken = Cookies.get("sessionToken");
+  const url = `/transactions/${id}/confirmed`;
+
+  return fetch(url, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to confirm transaction");
+    }
+  });
+};
