@@ -72,6 +72,7 @@ function UploadItems() {
     }
 
     try {
+      setLoading(true);
       await uploadItem(formData);
       navigate("/uploadSeccess", { state: { values } });
     } catch (error) {
