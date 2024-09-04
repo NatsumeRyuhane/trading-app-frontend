@@ -2,7 +2,6 @@ import { Button, Divider, Layout, message, Space, Table } from "antd";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
-import dummyItems from "./dummyItems";
 import {
   EditButton,
   DeleteButton,
@@ -77,8 +76,7 @@ function ItemsDisplay({ items, handleDelete }) {
       //TODO:navigate to upload item page with old item data in form
 
       const itemData = await fetchItemById(key);
-      console.log(itemData);
-      navigate("/UpdateItems");
+      navigate("/UpdateItems", { state: { itemData } });
     } catch (error) {
       message.error(error.message);
     } finally {
