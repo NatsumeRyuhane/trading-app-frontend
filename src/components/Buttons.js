@@ -4,7 +4,7 @@ import { CloudUploadOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { confirmTransaction, createTransaction, publishItem } from "../utils";
 
-export function RateSellerButton() {
+export function RateSellerButton({ transactionId }) {
   return (
     <Button
       default
@@ -48,7 +48,7 @@ export function PublishButton({ itemInfo, fetchData }) {
   );
 }
 
-export function ConfirmTradeButton({ itemInfo: transactionInfo }) {
+export function ConfirmTradeButton({ transactionId }) {
   return (
     <Button
       default
@@ -61,7 +61,7 @@ export function ConfirmTradeButton({ itemInfo: transactionInfo }) {
       }}
       onClick={() => {
         try {
-          confirmTransaction(transactionInfo.key);
+          confirmTransaction(transactionId);
           window.location.reload();
           message.success("Trade complete! Now give the seller a rating!");
         } catch (error) {

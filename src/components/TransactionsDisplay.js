@@ -1,16 +1,8 @@
 import { Button, Divider, Layout, message, Space, Table } from "antd";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
-import dummyItems from "./dummyItems";
-import {
-  RateSellerButton,
-  EditButton,
-  ReportButton,
-  DeleteButton,
-  ConfirmTradeButton,
-  CancelButton,
-} from "./Buttons";
+import { RateSellerButton, ConfirmTradeButton, CancelButton } from "./Buttons";
 import { fetchItemById } from "../utils";
 
 function TransactionsDisplay({ pageName, orders }) {
@@ -139,10 +131,12 @@ function TransactionsDisplay({ pageName, orders }) {
       dataIndex: "action",
       render: (_, record) => (
         <Space size="middle">
-          {record.status === "CONFIRMED" && <RateSellerButton />}
+          {record.status === "CONFIRMED" && (
+            <RateSellerButton transactionId={record.key} />
+          )}
           {record.status !== "CONFIRMED" && (
             <div>
-              <ConfirmTradeButton itemInfo={record} />
+              <ConfirmTradeButton transactionId={record.key} />
               <CancelButton />
             </div>
           )}
