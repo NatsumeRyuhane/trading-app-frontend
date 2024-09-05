@@ -1,37 +1,37 @@
-import { Button, Form, Input, message, Modal } from 'antd';
-import React, { useState } from 'react';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { register } from '../utils';
-
+import { Button, Form, Input, message, Modal } from "antd";
+import React, { useState } from "react";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { register } from "../utils";
 
 function Register() {
-  const [displayModal, setDisplayModal] = useState(false)
-
+  const [displayModal, setDisplayModal] = useState(false);
 
   const handleCancel = () => {
-    setDisplayModal(false)
-  }
-
+    setDisplayModal(false);
+  };
 
   const signupOnClick = () => {
-    setDisplayModal(true)
-  }
-
+    setDisplayModal(true);
+  };
 
   const onFinish = (data) => {
     register(data)
       .then(() => {
-        setDisplayModal(false)
-        message.success('Successfully signed up');
-      }).catch((err) => {
-        message.error(err.message);
+        setDisplayModal(false);
+        message.success("Successfully signed up");
       })
-  }
-
+      .catch((err) => {
+        message.error(err.message);
+      });
+  };
 
   return (
     <>
-      <Button shape="round" type="primary" onClick={signupOnClick} style={{
+      <Button
+        shape="round"
+        type="primary"
+        onClick={signupOnClick}
+        style={{
           height: 40,
           padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
           background: "#3A00E5",
@@ -40,9 +40,11 @@ function Register() {
           alignItems: "center", // Center text vertically
           display: "flex",
           color: "white",
-          border: "none", 
-        }}>
-        Register</Button>
+          border: "none",
+        }}
+      >
+        Register
+      </Button>
       <Modal
         title="Register"
         open={displayModal}
@@ -59,65 +61,69 @@ function Register() {
         >
           <Form.Item
             name="username"
-            rules={[{ required: true, message: 'Please input your Username!' }]}
+            rules={[{ required: true, message: "Please input your Username!" }]}
           >
             <Input prefix={<UserOutlined />} placeholder="Username" />
           </Form.Item>
           <Form.Item
             name="password"
-            rules={[{ required: true, message: 'Please input your Password!' }]}
+            rules={[{ required: true, message: "Please input your Password!" }]}
           >
-            <Input.Password
-              prefix={<LockOutlined />}
-              placeholder="Password"
-            />
+            <Input.Password prefix={<LockOutlined />} placeholder="Password" />
           </Form.Item>
           <Form.Item
             name="first_name"
-            rules={[{ required: true, message: 'Please input your Firstname!' }]}
+            rules={[
+              { required: true, message: "Please input your first name!" },
+            ]}
           >
-            <Input
-              placeholder="firstname"
-            />
+            <Input placeholder="First name" />
           </Form.Item>
           <Form.Item
             name="last_name"
-            rules={[{ required: true, message: 'Please input your Lastname!' }]}
+            rules={[
+              { required: true, message: "Please input your last name!" },
+            ]}
           >
-            <Input
-              placeholder="lastname"
-            />
+            <Input placeholder="Last name" />
           </Form.Item>
           <Form.Item
             name="address"
-            rules={[{ required: true, message: 'Please input your Address!' }]}
+            rules={[{ required: true, message: "Please input your Address!" }]}
           >
-            <Input
-              placeholder="Address"
-            />
+            <Input placeholder="Address" />
+          </Form.Item>
+          <Form.Item
+            name="phone_number"
+            rules={[
+              { required: true, message: "Please input your phone number!" },
+            ]}
+          >
+            <Input placeholder="Phone number" />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{
-          height: 40,
-          padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
-          background: "#3A00E5",
-          borderRadius: 20,
-          justifyContent: "center",
-          alignItems: "center", // Center text vertically
-          display: "flex",
-          color: "white",
-          border: "none", 
-        }}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{
+                height: 40,
+                padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
+                background: "#3A00E5",
+                borderRadius: 20,
+                justifyContent: "center",
+                alignItems: "center", // Center text vertically
+                display: "flex",
+                color: "white",
+                border: "none",
+              }}
+            >
               Register
             </Button>
           </Form.Item>
         </Form>
       </Modal>
     </>
-
-
-  )
+  );
 }
-
 
 export default Register;
