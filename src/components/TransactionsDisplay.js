@@ -46,7 +46,7 @@ function TransactionsDisplay({ pageName, orders }) {
       image: order.item.media_urls ? order.item.media_urls[0] : null,
       itemName: order.item.name,
       status: order.status,
-      sellerContact: order.seller.phone_number,
+      sellerContact: order.seller.username, // TODO: Replace this field with seller contact
       price: order.item.price,
     }));
     return table;
