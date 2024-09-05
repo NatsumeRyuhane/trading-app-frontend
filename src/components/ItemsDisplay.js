@@ -8,11 +8,12 @@ import {
   PublishButton,
   CancelButton,
 } from "./Buttons";
+import { useNavigate } from "react-router-dom";
 
 function ItemsDisplay({ items, handleDelete, handleEdit }) {
+  const navigate = useNavigate();
   //table format setting
   const itemsForTable = formatItemForTable(items);
-
   function formatItemForTable(items) {
     const table = items.map((item) => ({
       key: item.id,
@@ -45,6 +46,10 @@ function ItemsDisplay({ items, handleDelete, handleEdit }) {
     });
   }
 
+  // function handleCardClick(key) {
+  //   navigate("/item/{key}");
+  // }
+
   //TODO complete action buttons function
   function changeActionByStatus(record) {
     if (record.status === "On Sale") {
@@ -75,6 +80,7 @@ function ItemsDisplay({ items, handleDelete, handleEdit }) {
     {
       title: "Image",
       dataIndex: "image",
+      width: "15%",
       render: (imgSrc) => (
         <img
           alt={imgSrc}
@@ -91,6 +97,7 @@ function ItemsDisplay({ items, handleDelete, handleEdit }) {
     {
       title: "Name",
       dataIndex: "ItemName",
+      width: "15%",
       render: (ItemName) => (
         <div style={{ fontSize: 20, fontWeight: "bold" }}>{ItemName}</div>
       ),
@@ -107,7 +114,7 @@ function ItemsDisplay({ items, handleDelete, handleEdit }) {
     {
       title: "Description",
       dataIndex: "description",
-      width: "30%",
+      width: "25%",
     },
     {
       title: "Price",
@@ -161,7 +168,6 @@ function ItemsDisplay({ items, handleDelete, handleEdit }) {
         }}
         columns={columns}
         dataSource={itemsForTable}
-
         //disscuss about if we need this function :click row to get item detail
         // onRow={(record) => {
         //   return {

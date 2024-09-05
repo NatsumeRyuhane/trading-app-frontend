@@ -27,10 +27,12 @@ export function PublishButton({ itemInfo, fetchData }) {
       default
       style={{
         borderRadius: 20,
+        border: "1.5px solid  #3a00e5",
         backgroundColor: "#3a00e5",
         color: "white",
         width: 90,
         height: 38,
+        margin: 5,
       }}
       onClick={() => {
         try {

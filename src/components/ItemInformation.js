@@ -76,7 +76,6 @@ function ItemInformation({ isLoggedIn }) {
               width: 400,
               height: 300,
               // objectFit: "cover",
-              // background: "linear-gradient(0deg, #E0E0E0 0%, #E0E0E0 100%)",
             }}
             dots={true}
             arrows
@@ -92,6 +91,7 @@ function ItemInformation({ isLoggedIn }) {
                     width: 400,
                     height: 300,
                     borderRadius: 20,
+                    objectFit: "cover",
                   }}
                 />
               </div>
@@ -102,7 +102,7 @@ function ItemInformation({ isLoggedIn }) {
               flexDirection: "column",
               justifyContent: "flex-start",
               alignItems: "flex-start",
-              //   gap: 20,
+              // gap: 20,
               display: "flex",
             }}
           >
@@ -153,7 +153,6 @@ function ItemInformation({ isLoggedIn }) {
 
                 <div
                   style={{
-                    alignSelf: "stretch",
                     color: "#7A7A7A",
                     fontSize: 18,
                     fontFamily: "Inter",
