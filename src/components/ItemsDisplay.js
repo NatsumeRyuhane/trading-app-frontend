@@ -1,7 +1,7 @@
-import { Button, Divider, Layout, message, Space, Table } from "antd";
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Button, Divider, Layout, Space, Table } from "antd";
+import React, { useState } from "react";
 import { DeleteOutlined } from "@ant-design/icons";
+
 import {
   EditButton,
   DeleteButton,
@@ -9,30 +9,10 @@ import {
   CancelButton,
   ConfirmTradeButton,
 } from "./Buttons";
-import { fetchItemById } from "../utils";
 
-function ItemsDisplay({ items, handleDelete }) {
-  const navigate = useNavigate();
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const handleMultipleDeletion = () => {
-    setLoading(true);
-    setSelectedRowKeys([]);
-    setLoading(false);
-  };
-
-  const onSelectChange = (newSelectedRowKeys) => {
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
-  const hasSelected = selectedRowKeys.length > 0;
-
+function ItemsDisplay({ items, handleDelete, handleEdit }) {
+  //table format setting
   const itemsForTable = formatItemForTable(items);
-
   function formatItemForTable(items) {
     const table = items.map((item) => ({
       key: item.id,
@@ -44,6 +24,23 @@ function ItemsDisplay({ items, handleDelete }) {
       price: item.price,
     }));
     return table;
+  }
+
+  //row selection
+  //TODO clear selection message
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const onSelectChange = (newSelectedRowKeys) => {
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+  const hasSelected = selectedRowKeys.length > 0;
+  function getMultipleToDelete() {
+    selectedRowKeys.forEach((key) => {
+      handleDelete(key);
+    });
   }
 
   //TODO complete action buttons function
@@ -59,6 +56,7 @@ function ItemsDisplay({ items, handleDelete }) {
       return (
         <div>
           <PublishButton itemInfo={record} />
+          <EditButton onEditClick={() => handleEdit(record.key)} />
           <DeleteButton onDeleteClick={() => handleDelete(record.key)} />
         </div>
       );
@@ -71,19 +69,6 @@ function ItemsDisplay({ items, handleDelete }) {
       );
     }
   }
-
-  const handleEdit = async (key) => {
-    try {
-      //TODO:navigate to upload item page with old item data in form
-
-      const itemData = await fetchItemById(key);
-      navigate("/UpdateItems", { state: { itemData } });
-    } catch (error) {
-      message.error(error.message);
-    } finally {
-    }
-    setLoading(false);
-  };
 
   const columns = [
     {
@@ -157,9 +142,8 @@ function ItemsDisplay({ items, handleDelete }) {
         {hasSelected ? `Selected ${selectedRowKeys.length} items` : null}
         <Button
           icon={<DeleteOutlined style={{ color: "#D10000" }} />}
-          onClick={handleMultipleDeletion}
+          onClick={getMultipleToDelete}
           disabled={!hasSelected}
-          loading={loading}
           style={
             hasSelected
               ? { display: "initial", marginLeft: 10, border: "none" }

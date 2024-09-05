@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Button, Layout, message } from "antd";
 import ItemsDisplay from "./ItemsDisplay";
 import { useNavigate } from "react-router-dom";
-import { fetchItemsOfCurrentUser, deleteItem } from "../utils";
+import { fetchItemsOfCurrentUser, deleteItem, fetchItemById } from "../utils";
 import Cookies from "js-cookie";
-import { EditButton } from "./Buttons";
 
 const { Content } = Layout;
 
@@ -23,7 +22,7 @@ function TradeMyItems() {
   const [soldItems, setSoldItems] = useState([]);
   const [ongoingTradeItems, setOngoingTradeItems] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const refetch = async () => {
     setLoading(true);
     try {
@@ -86,6 +85,16 @@ function TradeMyItems() {
       });
   }
 
+  const handleEdit = async (key) => {
+    try {
+      const itemData = await fetchItemById(key);
+      navigate("/UpdateItems", { state: { itemData } });
+    } catch (error) {
+      message.error(error.message);
+    } finally {
+    }
+    setLoading(false);
+  };
   //TODO : finish multiple delete
 
   function handleMultipleDeletion(key) {
@@ -131,6 +140,7 @@ function TradeMyItems() {
               status={status}
               handleStatusClick={handleStatusClick}
               handleDelete={handleDelete}
+              handleEdit={handleEdit}
               setItems={setItems}
               items={items}
               allItems={allItems}
@@ -210,6 +220,7 @@ function MyUploadedItems({
   items,
   allItems,
   handleDelete,
+  handleEdit,
 }) {
   return (
     <div>
@@ -272,6 +283,7 @@ function MyUploadedItems({
         items={items}
         status={status}
         handleDelete={handleDelete}
+        handleEdit={handleEdit}
       />
     </div>
   );
