@@ -1,16 +1,8 @@
 import { Button, Divider, Layout, message, Space, Table } from "antd";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
-import dummyItems from "./dummyItems";
-import {
-  RateSellerButton,
-  EditButton,
-  ReportButton,
-  DeleteButton,
-  ConfirmTradeButton,
-  CancelButton,
-} from "./Buttons";
+import { RateSellerButton, ConfirmTradeButton, CancelButton } from "./Buttons";
 import { fetchItemById } from "../utils";
 
 function TransactionsDisplay({ pageName, orders }) {
@@ -79,12 +71,12 @@ function TransactionsDisplay({ pageName, orders }) {
 
   const formatStatus = (status) => {
     switch (status) {
-      case "PENDING":
-        return "Pending Seller Confirmation";
-      case "APPROVED":
-        return "Seller Confirmed";
+      case "IN_PROGRESS":
+        return "Trade in Progress";
       case "CONFIRMED":
         return "Trade Complete";
+      case "CANCELED":
+        return "Trade Canceled";
       default:
         return status;
     }
@@ -139,10 +131,12 @@ function TransactionsDisplay({ pageName, orders }) {
       dataIndex: "action",
       render: (_, record) => (
         <Space size="middle">
-          {record.status === "CONFIRMED" && <RateSellerButton />}
+          {record.status === "CONFIRMED" && (
+            <RateSellerButton transactionId={record.key} />
+          )}
           {record.status !== "CONFIRMED" && (
             <div>
-              <ConfirmTradeButton itemInfo={record} />
+              <ConfirmTradeButton transactionId={record.key} />
               <CancelButton />
             </div>
           )}
