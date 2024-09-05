@@ -79,12 +79,12 @@ function TransactionsDisplay({ pageName, orders }) {
 
   const formatStatus = (status) => {
     switch (status) {
-      case "PENDING":
-        return "Pending Seller Confirmation";
-      case "APPROVED":
-        return "Seller Confirmed";
+      case "IN_PROGRESS":
+        return "Trade in Progress";
       case "CONFIRMED":
         return "Trade Complete";
+      case "CANCELED":
+        return "Trade Canceled";
       default:
         return status;
     }

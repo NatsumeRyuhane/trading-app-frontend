@@ -7,12 +7,12 @@ import {
   DeleteButton,
   PublishButton,
   CancelButton,
-  ConfirmTradeButton,
 } from "./Buttons";
 
 function ItemsDisplay({ items, handleDelete, handleEdit }) {
   //table format setting
   const itemsForTable = formatItemForTable(items);
+
   function formatItemForTable(items) {
     const table = items.map((item) => ({
       key: item.id,
@@ -37,6 +37,7 @@ function ItemsDisplay({ items, handleDelete, handleEdit }) {
     onChange: onSelectChange,
   };
   const hasSelected = selectedRowKeys.length > 0;
+
   function getMultipleToDelete() {
     selectedRowKeys.forEach((key) => {
       handleDelete(key);
@@ -64,7 +65,6 @@ function ItemsDisplay({ items, handleDelete, handleEdit }) {
     } else if (record.status === "Ongoing Trade") {
       return (
         <div>
-          <ConfirmTradeButton itemInfo={record} />
           <CancelButton />
         </div>
       );
