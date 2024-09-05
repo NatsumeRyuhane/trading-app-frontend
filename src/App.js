@@ -15,6 +15,7 @@ import UploadSuccessPage from "./components/UploadSuccessPage";
 import HeaderMenu from "./components/HeaderMenu";
 import MyCart from "./components/MyCart";
 import ItemDisplayByCategory from "./components/ItemDisplayByCategory";
+import Register from "./components/Register";
 
 const { Content } = Layout;
 const HOME_PAGE_STATE = "home";
@@ -109,6 +110,7 @@ function App() {
         <Route path="/uploadSeccess" element={<UploadSuccessPage />} />
         <Route path="/MyCart" element={<MyCart />} />
         <Route path="/byCategory" element={<ItemDisplayByCategory />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     );
   };
