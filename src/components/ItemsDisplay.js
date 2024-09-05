@@ -40,6 +40,7 @@ function ItemsDisplay({ items, handleDelete, handleEdit }) {
   function getMultipleToDelete() {
     selectedRowKeys.forEach((key) => {
       handleDelete(key);
+      setSelectedRowKeys([]);
     });
   }
 
@@ -137,6 +138,7 @@ function ItemsDisplay({ items, handleDelete, handleEdit }) {
           display: "flex",
           justifyContent: "flex-start",
           alignItems: "center",
+          marginTop: 30,
         }}
       >
         {hasSelected ? `Selected ${selectedRowKeys.length} items` : null}
