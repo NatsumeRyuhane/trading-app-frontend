@@ -57,7 +57,7 @@ function Register() {
               label="Username"
               {...labelStyle}
               rules={[
-                { required: true, message: "Please input your Username!" },
+                { required: true, message: "Please input your username!" },
               ]}
             >
               <Input
@@ -71,7 +71,7 @@ function Register() {
               label="Password"
               {...labelStyle}
               rules={[
-                { required: true, message: "Please input your Password!" },
+                { required: true, message: "Please input your password!" },
               ]}
             >
               <Input.Password
@@ -85,7 +85,7 @@ function Register() {
               label="First Name"
               {...labelStyle}
               rules={[
-                { required: true, message: "Please input your Firstname!" },
+                { required: true, message: "Please input your first name!" },
               ]}
             >
               <Input placeholder="Firstname" />
@@ -95,7 +95,7 @@ function Register() {
               label="Last Name"
               {...labelStyle}
               rules={[
-                { required: true, message: "Please input your Lastname!" },
+                { required: true, message: "Please input your last name!" },
               ]}
             >
               <Input placeholder="Lastname" />
@@ -105,10 +105,20 @@ function Register() {
               label="Address"
               {...labelStyle}
               rules={[
-                { required: true, message: "Please input your Address!" },
+                { required: true, message: "Please input your address!" },
               ]}
             >
               <Input placeholder="Address" />
+            </Form.Item>
+            <Form.Item
+              name="phone_number"
+              label="Phone Number"
+              {...labelStyle}
+              rules={[
+                { required: true, message: "Please input your phone number!" },
+              ]}
+            >
+              <Input placeholder="Phone number" />
             </Form.Item>
             <Form.Item>
               <Button
