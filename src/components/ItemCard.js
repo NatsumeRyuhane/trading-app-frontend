@@ -1,10 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export function ItemCard({
-  layout,
-  item
-}) {
+export function ItemCard({ layout, item }) {
   const navigate = useNavigate();
 
   // Reusable handler for navigation
