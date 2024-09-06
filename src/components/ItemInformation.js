@@ -6,22 +6,24 @@ import {
   StarFilled,
   UserOutlined,
 } from "@ant-design/icons";
-import { fetchItemById } from "../utils";
-import { Carousel, message, Image, Button } from "antd";
+import { fetchItemById, getUserRating } from "../utils";
+import { Carousel, message, Image } from "antd";
 import { CheckoutButton } from "./Buttons";
 
 function ItemInformation({ isLoggedIn }) {
   const { itemId } = useParams(); // Get the itemId from the URL
   const [item, setItem] = useState(null);
+  const [ratingData, setRatingData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   // Fetch item details based on itemId
-  const loadItem = async () => {
+  const loadData = async () => {
     setIsLoading(true);
 
     try {
       const fetchedItem = await fetchItemById(itemId);
       setItem(fetchedItem);
+      setRatingData(await getUserRating(fetchedItem.owner.id));
     } catch (e) {
       message.error(e.message);
     } finally {
@@ -30,11 +32,11 @@ function ItemInformation({ isLoggedIn }) {
   };
 
   useEffect(() => {
-    loadItem();
+    loadData();
   }, []); // Fetch item details when itemId changes
 
   // Display loading message while item data is being fetched
-  if (!item) return <div>Loading...</div>;
+  if (!item || !ratingData) return <div>Loading...</div>;
 
   // rate the seller after "Rate this Seller" button is clicked
   function handleRateThisSeller(itemId) {}
@@ -148,7 +150,9 @@ function ItemInformation({ isLoggedIn }) {
                     fontWeight: "600",
                   }}
                 >
-                  {item.rating || "4.5"}
+                  {ratingData.rating > 0
+                    ? ratingData.rating.toFixed(1)
+                    : "No ratings yet"}
                 </div>
 
                 <div
@@ -160,7 +164,8 @@ function ItemInformation({ isLoggedIn }) {
                     letterSpacing: 0.16,
                   }}
                 >
-                  (based on {item.ratingCount || "16"} ratings)
+                  {ratingData.num_ratings > 0 &&
+                    `(based on ${ratingData.num_ratings} ratings)`}
                 </div>
               </div>
             </div>
