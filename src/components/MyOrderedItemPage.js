@@ -16,27 +16,7 @@ function MyOrderedItems() {
 
   return (
     <Layout style={{ margin: "0 60px" }}>
-      <div className="h1">{`My Ordered Items (${orders.length})`}</div>
-      {/*<Content*/}
-      {/*  style={{*/}
-      {/*    display: "flex",*/}
-      {/*    justifyContent: "space-between",*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  {// TODO: Implement search}*/}
-      {/*  <Input*/}
-      {/*    prefix={<SearchOutlined />}*/}
-      {/*    placeholder="Search..."*/}
-      {/*    // onPressEnter={onSearch}*/}
-      {/*    style={{*/}
-      {/*      maxWidth: 300,*/}
-      {/*      minWidth: 240,*/}
-      {/*      height: 40,*/}
-      {/*      borderRadius: 10,*/}
-      {/*      margin: 10,*/}
-      {/*    }}*/}
-      {/*  />*/}
-      {/*</Content>*/}
+      <div className="h1">{`My Ordered (${orders.length})`}</div>
       <TransactionsDisplay pageName="myOrdered" orders={orders} />
     </Layout>
   );

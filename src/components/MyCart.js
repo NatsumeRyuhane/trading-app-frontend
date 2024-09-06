@@ -1,16 +1,13 @@
 import { Button, Layout, message, Space, Table, Divider } from "antd";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { fetchCartItems, deleteCartItem } from "../utils"; // Import the ItemsDisplay component
 import { DeleteOutlined } from "@ant-design/icons";
 import { CartCheckoutButton, CheckoutButton, ClearCartButton } from "./Buttons";
 
 const MyCart = () => {
   const [cartData, setCartData] = useState([]);
-  const [checking, setChecking] = useState(false);
   const [itemsForTable, setItemsForTable] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const refetch = async () => {
     setLoading(true);
@@ -126,7 +123,7 @@ const MyCart = () => {
 
   return (
     <Layout style={{ margin: "0 60px" }}>
-      <div className="h1">Shopping Cart ({cartData.length} Items)</div>
+      <div className="h1">My Cart ({cartData.length} Items)</div>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <ClearCartButton onClearClick={() => clearCart()} />
       </div>

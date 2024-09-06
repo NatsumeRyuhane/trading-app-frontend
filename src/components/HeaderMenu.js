@@ -10,7 +10,6 @@ import {
 import Logout from "./Logout";
 import React from "react";
 
-
 const { Header } = Layout;
 
 const HeaderMenu = ({
@@ -121,7 +120,7 @@ const HeaderMenu = ({
                   fontWeight: "500",
                 }}
               >
-                My Purchased
+                My Ordered
               </Link>
             </Menu.Item>
             <Menu.Item key="MyCart" icon={<ShoppingCartOutlined />}>
@@ -134,7 +133,7 @@ const HeaderMenu = ({
                   fontWeight: "500",
                 }}
               >
-                MyCart
+                My Cart
               </Link>
             </Menu.Item>
 
