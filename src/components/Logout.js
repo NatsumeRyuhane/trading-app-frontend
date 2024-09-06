@@ -33,22 +33,16 @@ function Logout({ onLogout }) {
         className="loginButton"
         onClick={logoutOnClick}
         style={{
-          height: 40,
-          padding: "10px 25px", // Top/bottom: 10px, left/right: 25px
-          background: "#3A00E5",
-          borderRadius: 20,
-          justifyContent: "center",
-          alignItems: "center", // Center text vertically
-          display: "flex",
-          color: "white",
-          border: "none",
+          backgroundColor: "#FFE100",
+          borderRadius: "10px",
+          color: "black",
         }}
       >
-        Log Out
+        Logout
       </Button>
       <Modal
-        title="Log Out"
-        visible={displayModal}
+        title="Logout"
+        open={displayModal}
         onCancel={handleCancel}
         footer={null}
         destroyOnClose={true}
@@ -61,7 +55,7 @@ function Logout({ onLogout }) {
             onClick={handleLogout}
             style={{ background: "#3A00E5" }}
           >
-            Yes, Log Out
+            Yes, Logout
           </Button>
         </div>
       </Modal>
