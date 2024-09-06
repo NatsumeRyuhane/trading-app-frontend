@@ -202,6 +202,22 @@ export const createMultipleTransactions = (items) => {
   }
 };
 
+export const cancelTransaction = (transactionId) => {
+  const sessionToken = Cookies.get("sessionToken");
+  const url = `/transactions/${transactionId}/canceled`;
+
+  return fetch(url, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to cancel transaction");
+    }
+  });
+};
+
 export const addToCart = (item) => {
   console.log(item);
   const sessionToken = Cookies.get("sessionToken");
@@ -335,6 +351,23 @@ export const getUserRating = (userId) => {
   return fetch(url).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Failed to fetch user rating");
+    }
+    return response.json();
+  });
+};
+
+export const getActiveTransactionByItemId = (itemId) => {
+  const sessionToken = Cookies.get("sessionToken");
+
+  const url = `/transactions?itemId=${itemId}`;
+  return fetch(url, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to fetch transaction using item id");
     }
     return response.json();
   });

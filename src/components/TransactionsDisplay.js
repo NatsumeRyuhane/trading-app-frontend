@@ -135,10 +135,10 @@ function TransactionsDisplay({ pageName, orders }) {
           {record.status === "CONFIRMED" && !record.rating && (
             <RateSellerButton transactionId={record.key} />
           )}
-          {record.status !== "CONFIRMED" && (
+          {record.status !== "CONFIRMED" && record.status !== "CANCELED" && (
             <div>
               <ConfirmTradeButton transactionId={record.key} />
-              <CancelButton />
+              <CancelButton transactionId={record.key} />
             </div>
           )}
         </Space>

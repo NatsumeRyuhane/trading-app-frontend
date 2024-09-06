@@ -95,6 +95,7 @@ function TradeMyItems() {
     }
     setLoading(false);
   };
+
   //TODO : finish multiple delete
 
   function handleMultipleDeletion(key) {
@@ -144,6 +145,7 @@ function TradeMyItems() {
               setItems={setItems}
               items={items}
               allItems={allItems}
+              refetch={refetch}
             />
           </div>
         </Content>
@@ -221,6 +223,7 @@ function MyUploadedItems({
   allItems,
   handleDelete,
   handleEdit,
+  refetch,
 }) {
   return (
     <div>
@@ -284,6 +287,7 @@ function MyUploadedItems({
         status={status}
         handleDelete={handleDelete}
         handleEdit={handleEdit}
+        refetch={refetch}
       />
     </div>
   );

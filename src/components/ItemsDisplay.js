@@ -7,13 +7,15 @@ import {
   DeleteButton,
   PublishButton,
   CancelButton,
+  CancelOngoingTradeItemButton,
 } from "./Buttons";
 import { useNavigate } from "react-router-dom";
 
-function ItemsDisplay({ items, handleDelete, handleEdit }) {
+function ItemsDisplay({ items, handleDelete, handleEdit, refetch }) {
   const navigate = useNavigate();
   //table format setting
   const itemsForTable = formatItemForTable(items);
+
   function formatItemForTable(items) {
     const table = items.map((item) => ({
       key: item.id,
@@ -69,7 +71,7 @@ function ItemsDisplay({ items, handleDelete, handleEdit }) {
     } else if (record.status === "Ongoing Trade") {
       return (
         <div>
-          <CancelButton />
+          <CancelOngoingTradeItemButton itemId={record.key} refetch={refetch} />
         </div>
       );
     }
