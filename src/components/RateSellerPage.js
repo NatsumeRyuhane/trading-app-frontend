@@ -143,9 +143,7 @@ const RateSellerPage = () => {
               style={{
                 width: "100%",
                 height: 40,
-                background: "#3A00E5",
                 borderRadius: 20,
-                color: "white",
                 border: "none",
               }}
             >
