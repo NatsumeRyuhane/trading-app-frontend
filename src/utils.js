@@ -191,6 +191,16 @@ export const createTransaction = (item) => {
   });
 };
 
+export const createTransactionsForMultipleItems = async (items) => {
+  try {
+    items.forEach((item) => {
+      createTransaction(item);
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const addToCart = (item) => {
   console.log(item);
   const sessionToken = Cookies.get("sessionToken");
@@ -301,5 +311,21 @@ export const getUserRating = (userId) => {
       throw Error("Failed to fetch user rating");
     }
     return response.json();
+  });
+};
+
+export const deleteCartItems = (cartItemIds) => {
+  const sessionToken = Cookies.get("sessionToken");
+  cartItemIds.forEach((id) => {
+    fetch(`/cart/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${sessionToken}`,
+      },
+    }).then((response) => {
+      if (response.status < 200 || response.status >= 300) {
+        throw Error("Failed to delete cart items");
+      }
+    });
   });
 };

@@ -10,10 +10,17 @@ import {
 } from "./Buttons";
 import { useNavigate } from "react-router-dom";
 
-function ItemsDisplay({ items, handleDelete, handleEdit }) {
+function ItemsDisplay({
+  items,
+  handleDelete,
+  handleEdit,
+  selectedRowKeys,
+  setSelectedRowKeys,
+}) {
   const navigate = useNavigate();
   //table format setting
   const itemsForTable = formatItemForTable(items);
+
   function formatItemForTable(items) {
     const table = items.map((item) => ({
       key: item.id,
@@ -29,15 +36,14 @@ function ItemsDisplay({ items, handleDelete, handleEdit }) {
 
   //row selection
   //TODO clear selection message
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
   const rowSelection = {
-    selectedRowKeys,
+    selectedRows: selectedRowKeys,
     onChange: onSelectChange,
   };
-  const hasSelected = selectedRowKeys.length > 0;
+  const hasSelected = setSelectedRowKeys.length > 0;
 
   function getMultipleToDelete() {
     selectedRowKeys.forEach((key) => {

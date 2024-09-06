@@ -1,16 +1,19 @@
-import { Button, Layout, Typography, message } from "antd";
+import { Button, Layout, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import dummyItems from "./dummyItems"; // Import your dummy items
 import ItemsDisplay from "./ItemsDisplay";
-import { fetchCartItems } from "../utils"; // Import the ItemsDisplay component
+import {
+  createTransactionsForMultipleItems,
+  deleteCartItems,
+  fetchCartItems,
+} from "../utils";
 
 const { Content } = Layout;
-const { Text } = Typography;
 
 const MyCart = () => {
   const [cartData, setCartData] = useState([]);
-  const [checking, setChecking] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const navigate = useNavigate();
 
   const fetchData = async () => {
@@ -26,15 +29,23 @@ const MyCart = () => {
     fetchData();
   }, []);
 
-  // FIXME
   const onCheckOut = () => {
-    setChecking(true);
-    // Simulate checkout process
-    setTimeout(() => {
-      setChecking(false);
-      setCartData([]); // Clear cart after checkout
-      message.success("Successfully checked out");
-    }, 1000);
+    setIsLoading(true);
+
+    const idsToCheckout = new Set(selectedRowKeys);
+    try {
+      createTransactionsForMultipleItems(
+        cartData.filter((item) => idsToCheckout.has(item.id)),
+      ).then(() => {
+        deleteCartItems(selectedRowKeys);
+        setSelectedRowKeys([]);
+      });
+      message.success("Orders created!").then(navigate("/myOrdered"));
+    } catch (e) {
+      message.error(e.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -65,7 +76,12 @@ const MyCart = () => {
       </Content>
 
       {/* Use ItemsDisplay to show cart items */}
-      <ItemsDisplay items={cartData} handleDelete={() => {}} />
+      <ItemsDisplay
+        items={cartData}
+        handleDelete={() => {}}
+        selectedRowKeys={selectedRowKeys}
+        setSelectedRowKeys={setSelectedRowKeys}
+      />
 
       <div
         style={{
@@ -79,7 +95,7 @@ const MyCart = () => {
           onClick={onCheckOut}
           type="primary"
           style={{ marginTop: 20, width: "100%" }}
-          loading={checking}
+          loading={isLoading}
           disabled={cartData.length === 0}
         >
           Checkout
