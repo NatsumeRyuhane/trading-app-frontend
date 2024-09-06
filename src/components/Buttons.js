@@ -143,6 +143,25 @@ export function DeleteButton({ onDeleteClick }) {
   );
 }
 
+export function ClearCartButton({ onClearClick }) {
+  return (
+    <Button
+      onClick={onClearClick}
+      style={{
+        borderRadius: 20,
+        border: "1.5px solid  #D10000",
+        fontSize: 14,
+        margin: 5,
+        height: 38,
+        width: 90,
+        color: "#D10000",
+      }}
+    >
+      Clear Cart
+    </Button>
+  );
+}
+
 export function CancelButton() {
   return (
     <Button

@@ -255,6 +255,21 @@ export const deleteItem = (id) => {
   });
 };
 
+export const deleteCartItem = (id) => {
+  const sessionToken = Cookies.get("sessionToken");
+  const url = `/cart/${id}`;
+  return fetch(url, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+  }).then((response) => {
+    if (response.status >= 300) {
+      throw Error("Failed to remove item from shopping cart");
+    }
+  });
+};
+
 export const fetchItemsByCategory = (category) => {
   return fetch(`/items/category?category=${category}`, {
     method: "GET",
