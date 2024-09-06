@@ -7,6 +7,8 @@ import {
   createTransaction,
   publishItem,
   addToCart,
+  createMultipleTransactions,
+  deleteMultipleCartItems,
 } from "../utils";
 
 export function RateSellerButton({ transactionId, setSelectedTransaction }) {
@@ -201,6 +203,46 @@ export const CheckoutButton = ({ item, isLoggedIn }) => {
       } catch (error) {
         message.error(error.message);
       }
+    }
+  };
+
+  return (
+    <Button
+      type="primary"
+      shape="round"
+      size="large"
+      style={{
+        color: "white",
+        background: "#3A00E5",
+        justifyContent: "center",
+        alignItems: "center",
+        display: "inline-flex",
+        fontSize: 18,
+        fontFamily: "Arial",
+        fontWeight: "550",
+        letterSpacing: 0.2,
+      }}
+      onClick={handleCheckout}
+    >
+      Checkout
+    </Button>
+  );
+};
+
+export const CartCheckoutButton = ({ items, selectedRowKeys }) => {
+  const navigate = useNavigate();
+
+  const handleCheckout = async () => {
+    const idsToCheckout = new Set(selectedRowKeys);
+    try {
+      await createMultipleTransactions(
+        items.filter((item) => idsToCheckout.has(item.id)),
+      );
+      await deleteMultipleCartItems(selectedRowKeys);
+      message.success("Order created!");
+      navigate("/myOrdered");
+    } catch (error) {
+      message.error(error.message);
     }
   };
 
