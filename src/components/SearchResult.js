@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Layout, List, Divider, message, Card } from "antd";
+import {
+  Layout,
+  List,
+  Divider,
+  message,
+  Card,
+  Col,
+  Row,
+  Typography,
+} from "antd";
 import { ItemCard } from "./ItemCard";
 import { searchItems } from "../utils";
 
 const { Content, Sider } = Layout;
+const { Title } = Typography;
 
 const SearchResult = ({ query }) => {
   const [items, setItems] = useState([]);
@@ -61,60 +71,81 @@ const SearchResult = ({ query }) => {
   return (
     <Layout>
       {/* search result filter on the left, fixed when scrolling */}
-      <Sider
-        width={200}
-        theme="light"
-        style={{
-          background: "#f0f2f5",
-          position: "fixed",
-          height: "60vh",
-          overflow: "auto",
-          borderRight: "1px solid #E0E0E0",
-        }}
-      >
-        {/* Add filter options here */}
-        <div>Filter Options</div>
-        {/* Filters can be added here */}
-      </Sider>
+      {/*<Sider*/}
+      {/*  width={200}*/}
+      {/*  theme="light"*/}
+      {/*  style={{*/}
+      {/*    background: "#f0f2f5",*/}
+      {/*    position: "fixed",*/}
+      {/*    height: "60vh",*/}
+      {/*    overflow: "auto",*/}
+      {/*    borderRight: "1px solid #E0E0E0",*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  /!* Add filter options here *!/*/}
+      {/*  <div>Filter Options</div>*/}
+      {/*  /!* Filters can be added here *!/*/}
+      {/*</Sider>*/}
 
       {/* Vertical Divider Line separate Filter and Scrollable Search Result */}
-      <Divider
-        type="vertical"
-        style={{
-          //   marginTop: "114px",
-          position: "fixed",
-          left: "248px",
-          height: "100vh",
-          backgroundColor: "#E0E0E0",
-          width: "1.5px",
-        }}
-      />
+      {/*<Divider*/}
+      {/*  type="vertical"*/}
+      {/*  style={{*/}
+      {/*    //   marginTop: "114px",*/}
+      {/*    position: "fixed",*/}
+      {/*    left: "248px",*/}
+      {/*    height: "100vh",*/}
+      {/*    backgroundColor: "#E0E0E0",*/}
+      {/*    width: "1.5px",*/}
+      {/*  }}*/}
+      {/*/>*/}
 
-      <Content
-        style={{ marginLeft: "220px", padding: "0 24px", minHeight: 280 }}
-      >
+      <Content style={{ padding: "0 24px", minHeight: 280 }}>
         {/* responsive & scrollable List of Search Result */}
-        <List
-          grid={{
-            gutter: "16px",
-            // Calculate columns (#items per row in the list) based on window width
-            column: itemsPerRow,
-          }}
-          loading={isLoading}
-          dataSource={items}
-          renderItem={(item) => {
-            return (
-              <List.Item>
-                <Card hoverable className="card-hover-effect">
-                  <ItemCard
-                    layout="vertical" // Specify the layout here
-                    item={item}
-                  />
-                </Card>
-              </List.Item>
-            );
-          }}
-        />
+        {/*<List*/}
+        {/*  grid={{*/}
+        {/*    gutter: "16px",*/}
+        {/*    // Calculate columns (#items per row in the list) based on window width*/}
+        {/*    column: itemsPerRow,*/}
+        {/*  }}*/}
+        {/*  loading={isLoading}*/}
+        {/*  dataSource={items}*/}
+        {/*  renderItem={(item) => {*/}
+        {/*    return (*/}
+        {/*      <List.Item>*/}
+        {/*        <Card hoverable className="card-hover-effect">*/}
+        {/*          <ItemCard*/}
+        {/*            layout="vertical" // Specify the layout here*/}
+        {/*            item={item}*/}
+        {/*          />*/}
+        {/*        </Card>*/}
+        {/*      </List.Item>*/}
+        {/*    );*/}
+        {/*  }}*/}
+        {/*/>*/}
+        <Row
+          justify="space-between"
+          align="middle"
+          style={{ marginBottom: "16px" }}
+        >
+          <Col>
+            <Title
+              level={3}
+              style={{ margin: 0, fontWeight: "bold", fontSize: "30px" }}
+            >
+              Search results for "{query}":
+            </Title>
+          </Col>
+        </Row>
+        <Row gutter={[16, 16]} style={{ paddingTop: "16px" }}>
+          {items.map((item) => (
+            <Col span={6} key={item.id}>
+              <Card hoverable className="card-hover-effect">
+                <ItemCard layout="vertical" item={item} />
+              </Card>
+            </Col>
+          ))}
+        </Row>
       </Content>
     </Layout>
   );

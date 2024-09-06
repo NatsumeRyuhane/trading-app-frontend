@@ -40,3 +40,7 @@
 .star {
     cursor: pointer;
 }
+
+.ant-btn-primary {
+    background-color: #3A00E5;
+}

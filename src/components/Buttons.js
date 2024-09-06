@@ -13,7 +13,7 @@ import {
   getActiveTransactionByItemId,
 } from "../utils";
 
-export function RateSellerButton({ transactionId, setSelectedTransaction }) {
+export function RateSellerButton({ transactionId }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -22,10 +22,9 @@ export function RateSellerButton({ transactionId, setSelectedTransaction }) {
 
   return (
     <Button
-      default
+      type="primary"
       style={{
         borderRadius: 20,
-        backgroundColor: "#3a00e5",
         color: "white",
         width: 128,
         height: 38,
@@ -40,11 +39,10 @@ export function RateSellerButton({ transactionId, setSelectedTransaction }) {
 export function PublishButton({ itemInfo, fetchData }) {
   return (
     <Button
-      default
+      type="primary"
       style={{
         borderRadius: 20,
         border: "1.5px solid  #3a00e5",
-        backgroundColor: "#3a00e5",
         color: "white",
         width: 90,
         height: 38,
@@ -272,14 +270,14 @@ export const CheckoutButton = ({ item, isLoggedIn }) => {
   );
 };
 
-export const CartCheckoutButton = ({ items, selectedRowKeys }) => {
+export const CartCheckoutButton = ({ items, selectedRowKeys, disabled }) => {
   const navigate = useNavigate();
 
   const handleCheckout = async () => {
     const idsToCheckout = new Set(selectedRowKeys);
     try {
       await createMultipleTransactions(
-        items.filter((item) => idsToCheckout.has(item.id))
+        items.filter((item) => idsToCheckout.has(item.id)),
       );
       await deleteMultipleCartItems(selectedRowKeys);
       message.success("Order created!");
@@ -294,9 +292,9 @@ export const CartCheckoutButton = ({ items, selectedRowKeys }) => {
       type="primary"
       shape="round"
       size="large"
+      disabled={disabled}
       style={{
         color: "white",
-        background: "#3A00E5",
         justifyContent: "center",
         alignItems: "center",
         display: "inline-flex",

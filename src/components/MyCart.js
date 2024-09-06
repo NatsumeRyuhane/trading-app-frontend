@@ -172,6 +172,7 @@ const MyCart = () => {
         <CartCheckoutButton
           items={cartData}
           selectedRowKeys={selectedRowKeys}
+          disabled={selectedRowKeys.length === 0}
         />
       </div>
     </Layout>
