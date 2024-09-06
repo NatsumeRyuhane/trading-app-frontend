@@ -256,6 +256,7 @@ export const CheckoutButton = ({ item, isLoggedIn }) => {
       style={{
         color: "white",
         background: "#3A00E5",
+        border: "2px solid #3A00E5",
         justifyContent: "center",
         alignItems: "center",
         display: "inline-flex",
@@ -278,7 +279,7 @@ export const CartCheckoutButton = ({ items, selectedRowKeys }) => {
     const idsToCheckout = new Set(selectedRowKeys);
     try {
       await createMultipleTransactions(
-        items.filter((item) => idsToCheckout.has(item.id)),
+        items.filter((item) => idsToCheckout.has(item.id))
       );
       await deleteMultipleCartItems(selectedRowKeys);
       message.success("Order created!");
@@ -313,7 +314,6 @@ export const CartCheckoutButton = ({ items, selectedRowKeys }) => {
 
 export function AddToCartButton({ item, isLoggedIn }) {
   const navigate = useNavigate();
-
   const handleAddToCart = async () => {
     if (!isLoggedIn) {
       navigate("/login");

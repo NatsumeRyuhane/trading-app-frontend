@@ -5,8 +5,6 @@ import { fetchCartItems, deleteCartItem } from "../utils"; // Import the ItemsDi
 import { DeleteOutlined } from "@ant-design/icons";
 import { CartCheckoutButton, CheckoutButton, ClearCartButton } from "./Buttons";
 
-const { Content } = Layout;
-
 const MyCart = () => {
   const [cartData, setCartData] = useState([]);
   const [checking, setChecking] = useState(false);
