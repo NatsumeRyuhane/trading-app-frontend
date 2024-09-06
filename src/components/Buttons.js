@@ -9,6 +9,8 @@ import {
   addToCart,
   createMultipleTransactions,
   deleteMultipleCartItems,
+  cancelTransaction,
+  getActiveTransactionByItemId,
 } from "../utils";
 
 export function RateSellerButton({ transactionId, setSelectedTransaction }) {
@@ -164,7 +166,16 @@ export function ClearCartButton({ onClearClick }) {
   );
 }
 
-export function CancelButton() {
+export function CancelButton({ transactionId }) {
+  const handleCancelClick = async () => {
+    try {
+      await cancelTransaction(transactionId);
+      message.success("Your order is canceled");
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
+
   return (
     <Button
       style={{
@@ -176,11 +187,42 @@ export function CancelButton() {
         width: 90,
         color: "#D10000",
       }}
+      onClick={handleCancelClick}
     >
       Cancel
     </Button>
   );
 }
+
+export const CancelOngoingTradeItemButton = ({ itemId, refetch }) => {
+  const handleCancelClick = async () => {
+    try {
+      const tx = await getActiveTransactionByItemId(itemId);
+      await cancelTransaction(tx.id);
+      message.success("Your order is canceled");
+      refetch();
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
+
+  return (
+    <Button
+      style={{
+        borderRadius: 20,
+        border: "1.5px solid  #D10000",
+        fontSize: 14,
+        margin: 5,
+        height: 38,
+        width: 90,
+        color: "#D10000",
+      }}
+      onClick={handleCancelClick}
+    >
+      Cancel
+    </Button>
+  );
+};
 
 export const uploadButton = (
   <button style={{ border: 0, background: "none" }} type="button">

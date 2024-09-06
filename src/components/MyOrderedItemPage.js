@@ -1,11 +1,7 @@
-import { Button, Input, Layout } from "antd";
-import React, {useEffect, useState} from "react";
-import ItemsDisplay from "./ItemsDisplay";
-import { SearchOutlined } from "@ant-design/icons";
-import { Content } from "antd/lib/layout/layout";
-import dummyItems from "./dummyItems";
+import { Layout } from "antd";
+import React, { useEffect, useState } from "react";
 import TransactionsDisplay from "./TransactionsDisplay";
-import {fetchTransactionsAsBuyer} from "../utils";
+import { fetchTransactionsAsBuyer } from "../utils";
 
 function MyOrderedItems() {
   const [orders, setOrders] = useState([]);
@@ -14,7 +10,7 @@ function MyOrderedItems() {
     const fetchOrders = async () => {
       const myOrders = await fetchTransactionsAsBuyer();
       setOrders(myOrders);
-    }
+    };
     fetchOrders();
   }, []);
 
