@@ -2,7 +2,12 @@ import React from "react";
 import { Button, message } from "antd";
 import { CloudUploadOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { confirmTransaction, createTransaction, publishItem } from "../utils";
+import {
+  confirmTransaction,
+  createTransaction,
+  publishItem,
+  addToCart,
+} from "../utils";
 
 export function RateSellerButton({ transactionId }) {
   return (
@@ -195,3 +200,42 @@ export const CheckoutButton = ({ item, isLoggedIn }) => {
     </Button>
   );
 };
+
+export function AddToCartButton({ item, isLoggedIn }) {
+  const navigate = useNavigate();
+
+  const handleAddToCart = async () => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      try {
+        await addToCart(item);
+        message.success("Order created!");
+        navigate("/myCart");
+      } catch (error) {
+        message.error(error.message);
+      }
+    }
+  };
+
+  return (
+    <Button
+      type="default"
+      shape="round"
+      size="large"
+      style={{
+        display: "inline-flex",
+        fontSize: 18,
+        fontFamily: "Arial",
+        fontWeight: "550",
+        letterSpacing: 0.2,
+        marginRight: 15,
+        color: "#3A00E5",
+        border: "2px solid #3A00E5",
+      }}
+      onClick={handleAddToCart}
+    >
+      Add to Cart
+    </Button>
+  );
+}
