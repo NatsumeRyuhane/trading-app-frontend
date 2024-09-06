@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 
 const { Title } = Typography;
 
-const LightningDeal = ({ isLoggedIn }) => {
+const Deals = ({ isLoggedIn }) => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -57,4 +57,4 @@ const LightningDeal = ({ isLoggedIn }) => {
   );
 };
 
-export default LightningDeal;
+export default Deals;
