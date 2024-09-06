@@ -28,7 +28,6 @@ function ItemsDisplay({ items, handleDelete, handleEdit }) {
   }
 
   //row selection
-  //TODO clear selection message
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
