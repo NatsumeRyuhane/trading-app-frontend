@@ -262,6 +262,36 @@ function ItemInformation({ isLoggedIn }) {
           >
             ${item.price}
           </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                color: "black",
+                fontSize: 16,
+                fontFamily: "Inter",
+                fontWeight: "400",
+              }}
+            >
+              Pick up location:
+            </div>
+            <div
+              style={{
+                color: "black",
+                fontSize: 20,
+                fontFamily: "Inter",
+                fontWeight: "400",
+                marginLeft: 15,
+              }}
+            >
+              {!item.address ? item.owner.address : item.address}
+            </div>
+          </div>
+
           <div style={{ display: "flex", justifyContent: "canter" }}>
             <AddToCartButton item={item} isLoggedIn={isLoggedIn} />
             <CheckoutButton item={item} isLoggedIn={isLoggedIn} />

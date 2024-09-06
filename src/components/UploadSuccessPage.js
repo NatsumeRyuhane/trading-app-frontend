@@ -76,7 +76,7 @@ export default function UploadSuccessPage() {
         >
           <div style={{ fontSize: 16, fontweight: 500, padding: 25 }}>
             If you choose to not list your item for sale once approved, your
-            item will be listed as “Status: In Stock” and won’t be visible to
+            item will be listed as “Status: Unpublished” and won’t be visible to
             other users.
             <br />
             <br />
