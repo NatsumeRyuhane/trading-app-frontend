@@ -8,9 +8,8 @@ import {
 } from "@ant-design/icons";
 
 import { fetchItemById, getUserRating } from "../utils";
-import { Carousel, message, Image,Button } from "antd";
-import { CheckoutButton , AddToCartButton } from "./Buttons";
-
+import { Carousel, message, Image, Button } from "antd";
+import { CheckoutButton, AddToCartButton } from "./Buttons";
 
 function ItemInformation({ isLoggedIn }) {
   const { itemId } = useParams(); // Get the itemId from the URL
@@ -263,7 +262,7 @@ function ItemInformation({ isLoggedIn }) {
           >
             ${item.price}
           </div>
-          <div>
+          <div style={{ display: "flex", justifyContent: "canter" }}>
             <AddToCartButton item={item} isLoggedIn={isLoggedIn} />
             <CheckoutButton item={item} isLoggedIn={isLoggedIn} />
           </div>

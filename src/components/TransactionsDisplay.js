@@ -1,42 +1,16 @@
-import { Button, Divider, Layout, message, Space, Table } from "antd";
+import { Button, Divider, Layout, Space, Table } from "antd";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { DeleteOutlined } from "@ant-design/icons";
 import { RateSellerButton, ConfirmTradeButton, CancelButton } from "./Buttons";
-import { fetchItemById } from "../utils";
 
 function TransactionsDisplay({ pageName, orders }) {
-  // const [items, setItems] = useState([]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setItems(dummyItems);
-  //   };
-  //   fetchData();
-
-  // }, [items]);
-
-  const navigate = useNavigate();
-
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const start = () => {
     setLoading(true);
     setTimeout(() => {
-      setSelectedRowKeys([]);
       setLoading(false);
     }, 1000);
   };
-
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
-  const hasSelected = selectedRowKeys.length > 0;
 
   const itemsForTable = formatItemForTable(orders);
 
@@ -52,23 +26,6 @@ function TransactionsDisplay({ pageName, orders }) {
     }));
     return table;
   }
-
-  // function handleCardClick(itemId) {
-  //   navigate(`/item/${itemId}`);
-  // }
-
-  const handleEdit = async (key, e) => {
-    try {
-      console.log(key);
-      //TODO:navigate to upload item page with old item data in form
-      await fetchItemById(key);
-      navigate("/uploadItems");
-    } catch (error) {
-      message.error(error.message);
-    } finally {
-    }
-    setLoading(false);
-  };
 
   const formatStatus = (status) => {
     switch (status) {
@@ -154,16 +111,6 @@ function TransactionsDisplay({ pageName, orders }) {
         gap: "30px",
       }}
     >
-      {/* maybe we don't need these two button? */}
-      {/* <div style={{ minWidth: "300px" }}>
-      <Button className="buttonWithoutBorder" style={{ color: "#1479FB" }}>
-          Select all Items
-        </Button>
-        <Button className="buttonWithoutBorder" style={{ color: "#d10000" }}>
-          Delete all Items
-        </Button>
-      </div> */}
-
       <div
         style={{
           display: "flex",
@@ -171,37 +118,10 @@ function TransactionsDisplay({ pageName, orders }) {
           alignItems: "center",
         }}
       >
-        {hasSelected ? `Selected ${selectedRowKeys.length} items` : null}
-        <Button
-          icon={<DeleteOutlined style={{ color: "#D10000" }} />}
-          onClick={start}
-          disabled={!hasSelected}
-          loading={loading}
-          style={
-            hasSelected
-              ? { display: "initial", marginLeft: 10, border: "none" }
-              : { display: "none" }
-          }
-        ></Button>
+        <Button onClick={start} loading={loading}></Button>
       </div>
       <Divider style={{ margin: 0, minWidth: "1022px" }} />
-      <Table
-        rowSelection={{
-          type: "checkbox",
-          ...rowSelection,
-        }}
-        columns={columns}
-        dataSource={itemsForTable}
-
-        //disscuss about if we need this function :click row to get item detail
-        // onRow={(record) => {
-        //   return {
-        //     onClick: () => {
-        //       handleCardClick(record.key);
-        //     },
-        //   };
-        // }}
-      />
+      <Table columns={columns} dataSource={itemsForTable} />
     </Layout>
   );
 }
