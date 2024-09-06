@@ -239,7 +239,7 @@ export const CheckoutButton = ({ item, isLoggedIn }) => {
       try {
         await createTransaction(item);
         message.success("Order created!");
-        navigate("/myOrdered");
+        navigate("/orders");
       } catch (error) {
         message.error(error.message);
       }
@@ -281,7 +281,7 @@ export const CartCheckoutButton = ({ items, selectedRowKeys, disabled }) => {
       );
       await deleteMultipleCartItems(selectedRowKeys);
       message.success("Order created!");
-      navigate("/myOrdered");
+      navigate("/orders");
     } catch (error) {
       message.error(error.message);
     }
@@ -319,7 +319,7 @@ export function AddToCartButton({ item, isLoggedIn }) {
       try {
         await addToCart(item);
         message.success("Order created!");
-        navigate("/myCart");
+        navigate("/cart");
       } catch (error) {
         message.error(error.message);
       }

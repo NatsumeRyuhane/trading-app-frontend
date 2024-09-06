@@ -111,7 +111,7 @@ const HeaderMenu = ({
             </Menu.Item>
             <Menu.Item key="myOrdered" icon={<ShoppingOutlined />}>
               <Link
-                to={isLoggedIn ? "/myOrdered" : "/login"}
+                to={isLoggedIn ? "/orders" : "/login"}
                 style={{
                   color: "white",
                   font: "Arial",
@@ -124,7 +124,7 @@ const HeaderMenu = ({
             </Menu.Item>
             <Menu.Item key="MyCart" icon={<ShoppingCartOutlined />}>
               <Link
-                to={isLoggedIn ? "/myCart" : "/login"}
+                to={isLoggedIn ? "/cart" : "/login"}
                 style={{
                   color: "white",
                   font: "Arial",

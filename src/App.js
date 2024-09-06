@@ -80,7 +80,7 @@ function App() {
           element={<Login onSuccess={handleLoginSuccess} />}
         />
         <Route path="/trade" element={<TradeMyItems />} />
-        <Route path="/myOrdered" element={<MyOrderedItems />} />
+        <Route path="/orders" element={<MyOrderedItems />} />
         <Route
           path="/search"
           element={<SearchResult items={searchResults} query={searchQuery} />}
@@ -92,7 +92,7 @@ function App() {
         <Route path="/uploadItems" element={<UploadItems />} />
         <Route path="/updateItems" element={<UpdateItems />} />
         <Route path="/uploadSeccess" element={<UploadSuccessPage />} />
-        <Route path="/myCart" element={<MyCart />} />
+        <Route path="/cart" element={<MyCart />} />
         <Route path="/byCategory" element={<ItemDisplayByCategory />} />
         <Route path="/register" element={<Register />} />
         <Route path="/rating" element={<RateSellerPage />} />

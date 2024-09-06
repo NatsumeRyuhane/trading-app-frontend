@@ -50,7 +50,7 @@ const RateSellerPage = () => {
     try {
       rateSeller(transaction.id, data.rating);
       message.success("Thank you for your rating!");
-      navigate("/myOrdered");
+      navigate("/orders");
     } catch (e) {
       message.error(e.message);
     }
