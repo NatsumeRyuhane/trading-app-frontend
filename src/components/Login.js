@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal } from "antd";
+import { Button, Form, Input, message } from "antd";
 import React from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { login } from "../utils";
