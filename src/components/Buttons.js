@@ -217,7 +217,7 @@ export function AddToCartButton({ item, isLoggedIn }) {
     } else {
       try {
         await addToCart(item);
-        message.success("Order created!");
+        message.success("Added item to cart!");
         navigate("/myCart");
       } catch (error) {
         message.error(error.message);
