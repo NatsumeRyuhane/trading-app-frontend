@@ -60,7 +60,7 @@ function ItemsDisplay({ items, handleDelete, handleEdit, refetch }) {
           <DeleteButton onDeleteClick={() => handleDelete(record.key)} />
         </div>
       );
-    } else if (record.status === "In Stock") {
+    } else if (record.status === "Unpublished") {
       return (
         <div>
           <PublishButton itemInfo={record} />

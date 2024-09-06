@@ -10,7 +10,7 @@ const { Content } = Layout;
 function TradeMyItems() {
   const status = {
     onSale: "On Sale",
-    inStock: "In Stock",
+    inStock: "Unpublished",
     sold: "Sold",
     ongoingTrade: "Ongoing Trade",
   };
@@ -50,7 +50,7 @@ function TradeMyItems() {
       if (item.status === "AVAILABLE") {
         item.status = "On Sale";
       } else if (item.status === "UNPUBLISHED") {
-        item.status = "In Stock";
+        item.status = "Unpublished";
       } else if (item.status === "ONGOING_TRADE") {
         item.status = "Ongoing Trade";
       } else if (item.status === "SOLD") {
@@ -263,7 +263,7 @@ function MyUploadedItems({
             onClick={() => handleStatusClick(status.inStock)}
             style={{ borderRadius: 0, borderLeft: 0, borderRight: 0 }}
           >
-            In Stock
+            Unpublished
           </Button>
           <Button
             className="buttonTab"

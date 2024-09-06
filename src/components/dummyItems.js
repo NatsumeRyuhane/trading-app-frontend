@@ -53,7 +53,7 @@ const dummyItems = [
       "https://plus.unsplash.com/premium_photo-1672419800149-d04c372c5113?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGFufGVufDB8fDB8fHww",
     ],
     title: "Pan id 5",
-    status: "In Stock",
+    status: "Unpublished",
     category: "Kitchen",
     price: 18.99,
     description:
@@ -65,7 +65,7 @@ const dummyItems = [
       "https://plus.unsplash.com/premium_photo-1672192166833-c8ae84e5e127?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YWlyJTIwZnJ5ZXJ8ZW58MHx8MHx8fDA%3D",
     ],
     title: "Air Fryer id 6",
-    status: "In Stock",
+    status: "Unpublished",
     category: "Kitchen",
     price: 80,
     description:
@@ -77,7 +77,7 @@ const dummyItems = [
       "https://images.unsplash.com/photo-1640003145136-f998284e11de?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1hdHRyZXNzfGVufDB8fDB8fHww",
     ],
     title: "Mattress id 7",
-    status: "In Stock",
+    status: "Unpublished",
     category: "Bedding",
     price: 254,
     description:
@@ -89,7 +89,7 @@ const dummyItems = [
       "https://images.unsplash.com/photo-1694405156884-dea1ffb40ede?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHdpcmVsZXNzJTIwa2V5Ym9hcmR8ZW58MHx8MHx8fDA%3D",
     ],
     title: "Wireless Keyboard id 8",
-    status: "In Stock",
+    status: "Unpublished",
     category: "Electronics",
     price: 31.6,
     description:
@@ -101,7 +101,7 @@ const dummyItems = [
       "https://images.unsplash.com/photo-1512212621149-107ffe572d2f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c29mYXxlbnwwfHwwfHx8MA%3D%3D",
     ],
     title: "Sofa id 9",
-    status: "In Stock",
+    status: "Unpublished",
     category: "Furniture",
     price: 341,
     description:

@@ -186,15 +186,14 @@ function UpdateItems() {
           >
             <Radio.Group onChange={onRadioChange} value={value}>
               <Space direction="vertical">
-                <Radio value={true}> Your Address</Radio>
+                <Radio value={true}>Your Address:</Radio>
+                {console.log(data)}
                 <Radio value={false}>
                   Use Another Address
                   {!value ? (
                     <Input
                       onChange={handleRadioInput}
                       style={{ marginTop: "20px", width: "100%" }}
-                      //set prefilled address for radio
-                      value={data.address}
                     />
                   ) : null}
                 </Radio>
