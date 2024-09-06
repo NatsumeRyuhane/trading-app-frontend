@@ -9,7 +9,13 @@ import {
   addToCart,
 } from "../utils";
 
-export function RateSellerButton({ transactionId }) {
+export function RateSellerButton({ transactionId, setSelectedTransaction }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/rating", { state: { transactionId } });
+  };
+
   return (
     <Button
       default
@@ -20,6 +26,7 @@ export function RateSellerButton({ transactionId }) {
         width: 128,
         height: 38,
       }}
+      onClick={handleClick}
     >
       Rate the seller
     </Button>
