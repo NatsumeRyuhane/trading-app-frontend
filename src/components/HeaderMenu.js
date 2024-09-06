@@ -1,7 +1,6 @@
 import { Button, Layout, Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import Search from "antd/lib/input/Search";
-import { searchItems } from "../utils";
 import {
   ShoppingCartOutlined,
   ShoppingOutlined,
@@ -99,7 +98,7 @@ const HeaderMenu = ({
 
             <Menu.Item key="trade" icon={<SwapOutlined />}>
               <Link
-                to="/trade"
+                to={isLoggedIn ? "/trade" : "/login"}
                 style={{
                   color: "white",
                   font: "Arial",
@@ -112,7 +111,7 @@ const HeaderMenu = ({
             </Menu.Item>
             <Menu.Item key="myOrdered" icon={<ShoppingOutlined />}>
               <Link
-                to="/myOrdered"
+                to={isLoggedIn ? "/myOrdered" : "/login"}
                 style={{
                   color: "white",
                   font: "Arial",
@@ -125,7 +124,7 @@ const HeaderMenu = ({
             </Menu.Item>
             <Menu.Item key="MyCart" icon={<ShoppingCartOutlined />}>
               <Link
-                to="/MyCart"
+                to={isLoggedIn ? "/myCart" : "/login"}
                 style={{
                   color: "white",
                   font: "Arial",
