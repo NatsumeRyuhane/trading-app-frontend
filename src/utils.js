@@ -191,6 +191,25 @@ export const createTransaction = (item) => {
   });
 };
 
+export const addToCart = (item) => {
+  console.log(item);
+  const sessionToken = Cookies.get("sessionToken");
+  const url = `/cart?${new URLSearchParams({
+    itemId: item.id,
+  }).toString()}`;
+
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to add item to cart");
+    }
+  });
+};
+
 export const publishItem = (id) => {
   const url = `/items/${id}?${new URLSearchParams({
     status: "AVAILABLE",

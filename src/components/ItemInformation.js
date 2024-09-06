@@ -6,9 +6,11 @@ import {
   StarFilled,
   UserOutlined,
 } from "@ant-design/icons";
+
 import { fetchItemById, getUserRating } from "../utils";
-import { Carousel, message, Image } from "antd";
-import { CheckoutButton } from "./Buttons";
+import { Carousel, message, Image,Button } from "antd";
+import { CheckoutButton , AddToCartButton } from "./Buttons";
+
 
 function ItemInformation({ isLoggedIn }) {
   const { itemId } = useParams(); // Get the itemId from the URL
@@ -261,7 +263,10 @@ function ItemInformation({ isLoggedIn }) {
           >
             ${item.price}
           </div>
-          <CheckoutButton item={item} isLoggedIn={isLoggedIn} />
+          <div>
+            <AddToCartButton item={item} isLoggedIn={isLoggedIn} />
+            <CheckoutButton item={item} isLoggedIn={isLoggedIn} />
+          </div>
         </div>
       </div>
     </div>
