@@ -79,26 +79,8 @@ function App() {
           path="/login"
           element={<Login onSuccess={handleLoginSuccess} />}
         />
-        <Route
-          path="/trade"
-          element={
-            isLoggedIn ? (
-              <TradeMyItems />
-            ) : (
-              <Login onSuccess={handleLoginSuccess} />
-            )
-          }
-        />
-        <Route
-          path="/myOrdered"
-          element={
-            isLoggedIn ? (
-              <MyOrderedItems />
-            ) : (
-              <Login onSuccess={handleLoginSuccess} />
-            )
-          }
-        />
+        <Route path="/trade" element={<TradeMyItems />} />
+        <Route path="/orders" element={<MyOrderedItems />} />
         <Route
           path="/search"
           element={<SearchResult items={searchResults} query={searchQuery} />}
@@ -110,7 +92,7 @@ function App() {
         <Route path="/uploadItems" element={<UploadItems />} />
         <Route path="/updateItems" element={<UpdateItems />} />
         <Route path="/uploadSeccess" element={<UploadSuccessPage />} />
-        <Route path="/MyCart" element={<MyCart />} />
+        <Route path="/cart" element={<MyCart />} />
         <Route path="/byCategory" element={<ItemDisplayByCategory />} />
         <Route path="/register" element={<Register />} />
         <Route path="/rating" element={<RateSellerPage />} />

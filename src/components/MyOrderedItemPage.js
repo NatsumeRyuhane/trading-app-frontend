@@ -1,4 +1,4 @@
-import { Layout } from "antd";
+import { Layout, message } from "antd";
 import React, { useEffect, useState } from "react";
 import TransactionsDisplay from "./TransactionsDisplay";
 import { fetchTransactionsAsBuyer } from "../utils";
@@ -8,8 +8,12 @@ function MyOrderedItems() {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const myOrders = await fetchTransactionsAsBuyer();
-      setOrders(myOrders);
+      try {
+        const myOrders = await fetchTransactionsAsBuyer();
+        setOrders(myOrders);
+      } catch (error) {
+        message.error(error.message);
+      }
     };
     fetchOrders();
   }, []);
