@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchCartItems, deleteCartItem } from "../utils"; // Import the ItemsDisplay component
 import { DeleteOutlined } from "@ant-design/icons";
-import { CheckoutButton, ClearCartButton } from "./Buttons";
+import { CartCheckoutButton, CheckoutButton, ClearCartButton } from "./Buttons";
 
 const { Content } = Layout;
 
@@ -40,6 +40,7 @@ const MyCart = () => {
         setLoading(false);
       });
   }
+
   function formatItemForTable(items) {
     const table = items.map((item) => ({
       key: item.item.id,
@@ -170,7 +171,10 @@ const MyCart = () => {
         />
       </Layout>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <CheckoutButton />
+        <CartCheckoutButton
+          items={cartData}
+          selectedRowKeys={selectedRowKeys}
+        />
       </div>
     </Layout>
   );

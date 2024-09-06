@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { message } from "antd";
 
 export const login = (credentials) => {
   const loginUrl = `/auth/login`;
@@ -191,6 +192,16 @@ export const createTransaction = (item) => {
   });
 };
 
+export const createMultipleTransactions = (items) => {
+  try {
+    items.forEach((item) => {
+      createTransaction(item);
+    });
+  } catch (e) {
+    throw e;
+  }
+};
+
 export const addToCart = (item) => {
   console.log(item);
   const sessionToken = Cookies.get("sessionToken");
@@ -268,6 +279,16 @@ export const deleteCartItem = (id) => {
       throw Error("Failed to remove item from shopping cart");
     }
   });
+};
+
+export const deleteMultipleCartItems = (ids) => {
+  try {
+    ids.forEach((id) => {
+      deleteCartItem(id);
+    });
+  } catch (e) {
+    throw e;
+  }
 };
 
 export const fetchItemsByCategory = (category) => {
