@@ -48,6 +48,7 @@ function TransactionsDisplay({ pageName, orders }) {
       status: order.status,
       sellerContact: order.seller.phone_number,
       price: order.item.price,
+      rating: order.buyer_to_seller_rating,
     }));
     return table;
   }
@@ -131,7 +132,7 @@ function TransactionsDisplay({ pageName, orders }) {
       dataIndex: "action",
       render: (_, record) => (
         <Space size="middle">
-          {record.status === "CONFIRMED" && (
+          {record.status === "CONFIRMED" && !record.rating && (
             <RateSellerButton transactionId={record.key} />
           )}
           {record.status !== "CONFIRMED" && (

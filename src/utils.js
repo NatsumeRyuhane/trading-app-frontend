@@ -156,6 +156,22 @@ export const fetchTransactionsAsBuyer = () => {
   });
 };
 
+export const fetchTransactionById = (transactionId) => {
+  const sessionToken = Cookies.get("sessionToken");
+
+  return fetch(`/transactions/${transactionId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to fetch transaction");
+    }
+    return response.json();
+  });
+};
+
 export const createTransaction = (item) => {
   const sessionToken = Cookies.get("sessionToken");
   const url = `/transactions?${new URLSearchParams({
@@ -240,4 +256,31 @@ export const fetchItemsByCategory = (category) => {
       console.error("Error fetching items by category:", error);
       return []; // Return an empty array in case of error
     });
+};
+
+export const rateSeller = (transactionId, rating) => {
+  const sessionToken = Cookies.get("sessionToken");
+  const url = `/transactions/${transactionId}/rating?rating=${rating}`;
+
+  return fetch(url, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to rate seller");
+    }
+  });
+};
+
+export const getUserRating = (userId) => {
+  const url = `/users/rating?id=${userId}`;
+
+  return fetch(url).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Failed to fetch user rating");
+    }
+    return response.json();
+  });
 };
