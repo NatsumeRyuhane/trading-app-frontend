@@ -91,7 +91,7 @@ const RateSellerPage = () => {
             name="rating"
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
-            // rules={[{ required: true, message: "Please give a rating!" }]}
+            rules={[{ required: true, message: "Please give a rating!" }]}
           >
             <Radio.Group>
               {[...Array(5)].map((_, index) => {
@@ -139,6 +139,7 @@ const RateSellerPage = () => {
             <Button
               type="primary"
               htmlType="submit"
+              disabled={!rating}
               style={{
                 width: "100%",
                 height: 40,
