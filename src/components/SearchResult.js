@@ -24,6 +24,7 @@ const SearchResult = () => {
     price: minMaxPrices,
     rating: 0, // min rating
     distance: "any distance", // pickup distance
+    category: "All categories",
   }); // State to store filter options
 
   // Fetch search results and set state
@@ -97,14 +98,16 @@ const SearchResult = () => {
           (filters.distance === "within 5 miles" && item.distance <= 5) ||
           (filters.distance === "within 10 miles" && item.distance <= 10) ||
           (filters.distance === "within 20 miles" && item.distance <= 20) ||
-          (filters.distance === "within 30 miles" && item.distance <= 30))
+          (filters.distance === "within 30 miles" && item.distance <= 30)) &&
+        (filters.category === "All categories" ||
+          item.category === filters.category)
       );
     });
 
     setFilteredItems(getfilteredItems);
   };
 
-  const menu = (
+  const distanceMenu = (
     <Menu
       onClick={({ key }) => handleFilterChange({ distance: key })}
       items={[
@@ -117,6 +120,21 @@ const SearchResult = () => {
     />
   );
 
+  const categoryMenu = (
+    <Menu
+      onClick={({ key }) => handleFilterChange({ category: key })}
+      items={[
+        { key: "All categories", label: "All Categories" },
+        { key: "Furniture", label: "Furniture" },
+        { key: "Kitchen", label: "Kitchen" },
+        { key: "Electronics", label: "Electronics" },
+        { key: "Lighting", label: "Lighting" },
+        { key: "Bedding", label: "Bedding" },
+        { key: "Organizing", label: "Organizing" },
+      ]}
+    />
+  );
+
   return (
     <Layout>
       {/* search result filter on the left, fixed when scrolling */}
@@ -125,7 +143,6 @@ const SearchResult = () => {
         style={{
           background: "transparent",
           position: "fixed",
-          height: "60vh",
           overflow: "hidden", //disable scrolling
         }}
       >
@@ -143,6 +160,58 @@ const SearchResult = () => {
           Filter Results
         </div>
 
+        <div>
+          <div
+            style={{
+              alignSelf: "stretch",
+              color: "black",
+              fontSize: 20,
+              fontFamily: "Arial",
+              fontWeight: "normal",
+              marginTop: "30px",
+              marginBottom: "10px",
+            }}
+          >
+            Category
+          </div>
+
+          <Dropdown overlay={categoryMenu}>
+            <Button
+              style={{
+                backgroundColor: "white",
+                borderColor: "#3A00E5",
+                width: 155,
+                height: 40,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center", // Center text vertically
+                color: "#3A00E5",
+                borderRadius: 30,
+                border: "1.5px",
+                borderStyle: "solid",
+                fontFamily: "Arial",
+                fontSize: 16,
+                transition: "background-color 0.3s, border-color 0.3s", // Transition for smooth color change
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = "#2A00C5")
+              } // Hover color
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = "white")
+              } // Revert color
+              onMouseDown={(e) =>
+                (e.currentTarget.style.backgroundColor = "#1A00A5")
+              } // Active color
+              onMouseUp={(e) =>
+                (e.currentTarget.style.backgroundColor = "white")
+              } // Revert color
+            >
+              {filters.category.charAt(0).toUpperCase() +
+                filters.category.slice(1)}
+            </Button>
+          </Dropdown>
+        </div>
+
         <div
           style={{
             alignSelf: "stretch",
@@ -150,6 +219,7 @@ const SearchResult = () => {
             fontSize: 20,
             fontFamily: "Arial",
             fontWeight: "normal",
+            marginTop: "20px",
             marginBottom: "10px",
           }}
         >
@@ -180,7 +250,7 @@ const SearchResult = () => {
               fontSize: 20,
               fontFamily: "Arial",
               fontWeight: "normal",
-              marginTop: "30px",
+              marginTop: "20px",
             }}
           >
             Seller's Rating
@@ -203,14 +273,14 @@ const SearchResult = () => {
               fontSize: 20,
               fontFamily: "Arial",
               fontWeight: "normal",
-              marginTop: "30px",
+              marginTop: "20px",
               marginBottom: "10px",
             }}
           >
             Pickup Distance
           </div>
 
-          <Dropdown overlay={menu}>
+          <Dropdown overlay={distanceMenu}>
             <Button
               style={{
                 backgroundColor: "white",
@@ -238,7 +308,7 @@ const SearchResult = () => {
                 (e.currentTarget.style.backgroundColor = "#1A00A5")
               } // Active color
               onMouseUp={(e) =>
-                (e.currentTarget.style.backgroundColor = "#white")
+                (e.currentTarget.style.backgroundColor = "white")
               } // Revert color
             >
               {filters.distance.charAt(0).toUpperCase() +
@@ -251,7 +321,7 @@ const SearchResult = () => {
           type="primary"
           onClick={applyFilters}
           style={{
-            marginTop: "60px",
+            marginTop: "50px",
             height: 40,
             padding: "22px 30px", // Top/bottom: 10px, left/right: 25px
             background: "#3A00E5",
