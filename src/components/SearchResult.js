@@ -280,6 +280,7 @@ const SearchResult = () => {
                 rating={item.rating}
                 distance={item.distance}
                 price={item.price}
+                category={item.category}
                 description={item.description}
               />
             </List.Item>

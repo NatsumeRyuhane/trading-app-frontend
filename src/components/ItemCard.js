@@ -80,6 +80,18 @@ export function ItemCard({
           alt={title}
         />
 
+        <Row
+          style={{
+            color: "#3a00e5",
+            marginTop: "5px",
+            fontSize: 16,
+            fontFamily: "Arial",
+            fontWeight: "550",
+          }}
+        >
+          @ {category}
+        </Row>
+
         <div
           style={{
             alignSelf: "stretch",
@@ -94,8 +106,18 @@ export function ItemCard({
 
         <div>
           <Row>
-            <StarFilled style={{ fontSize: 20, color: "#FFE100" }} />
-            <div style={{ marginLeft: "5px" }}>{rating}</div>
+            <StarFilled style={{ fontSize: 26, color: "#FFE100" }} />
+            <div
+              style={{
+                marginLeft: "5px",
+                color: "black",
+                fontSize: 16,
+                fontFamily: "Arial",
+                fontWeight: "550",
+              }}
+            >
+              {rating}
+            </div>
           </Row>
         </div>
 
@@ -128,14 +150,14 @@ export function ItemCard({
           <Row>
             <div
               style={{
+                color: "#3a00e5",
                 display: "flex",
                 alignItems: "center",
+                fontWeight: "normal",
               }}
             >
-              Available for pickup within
+              Available for pickup within {distance} miles
             </div>
-            <div style={{ marginLeft: "5px" }}>{distance}</div>
-            <div style={{ marginLeft: "5px" }}>miles</div>
           </Row>
         </div>
 
