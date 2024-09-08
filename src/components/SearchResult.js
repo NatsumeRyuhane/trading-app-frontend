@@ -204,13 +204,43 @@ const SearchResult = () => {
               fontFamily: "Arial",
               fontWeight: "normal",
               marginTop: "30px",
+              marginBottom: "10px",
             }}
           >
             Pickup Distance
           </div>
 
           <Dropdown overlay={menu}>
-            <Button>
+            <Button
+              style={{
+                backgroundColor: "white",
+                borderColor: "#3A00E5",
+                width: 155,
+                height: 40,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center", // Center text vertically
+                color: "#3A00E5",
+                borderRadius: 30,
+                border: "1.5px",
+                borderStyle: "solid",
+                fontFamily: "Arial",
+                fontSize: 16,
+                transition: "background-color 0.3s, border-color 0.3s", // Transition for smooth color change
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = "#2A00C5")
+              } // Hover color
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = "white")
+              } // Revert color
+              onMouseDown={(e) =>
+                (e.currentTarget.style.backgroundColor = "#1A00A5")
+              } // Active color
+              onMouseUp={(e) =>
+                (e.currentTarget.style.backgroundColor = "#white")
+              } // Revert color
+            >
               {filters.distance.charAt(0).toUpperCase() +
                 filters.distance.slice(1)}
             </Button>

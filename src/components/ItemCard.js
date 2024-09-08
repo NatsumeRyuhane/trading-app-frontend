@@ -146,7 +146,7 @@ export function ItemCard({
           ${price}
         </div>
 
-        <div style={{ marginBottom: "10px" }}>
+        <div style={{ marginBottom: "10px", width: 225 }}>
           <Row>
             <div
               style={{
