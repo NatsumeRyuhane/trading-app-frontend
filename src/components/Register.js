@@ -34,7 +34,7 @@ function Register() {
           justifyContent: "center",
         }}
       >
-        <div className="h1">Register to your Second-hand Trading Account</div>
+        <div className="h1">Register a SwapSpot Account</div>
 
         <div
           style={{

@@ -15,7 +15,14 @@ function Homepage({ isLoggedIn, onLogout }) {
 
       {/* Categories Section */}
       <div style={{ marginTop: "48px" }}>
-        <Title level={3} style={{ textAlign: "center", fontWeight: "bold" }}>
+        <Title
+          level={3}
+          style={{
+            textAlign: "center",
+            fontWeight: "bold",
+            marginBottom: "24px",
+          }}
+        >
           Buy what you want
         </Title>
         <Row gutter={[16, 16]} justify="center">

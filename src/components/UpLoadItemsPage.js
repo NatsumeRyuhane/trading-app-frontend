@@ -57,9 +57,6 @@ function UploadItems() {
 
     if (!values.useDefaultAddress) {
       formData.append("address", address);
-    } else {
-      setAddress("");
-      formData.append("address", "");
     }
 
     if (fileList.length > 5) {

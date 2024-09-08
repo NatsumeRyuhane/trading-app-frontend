@@ -196,30 +196,30 @@ function ItemInformation({ isLoggedIn }) {
           >
             {item.title}
           </div>
-          <div>
-            <span
-              style={{
-                color: "black",
-                fontSize: 20,
-                fontFamily: "Inter",
-                fontWeight: "400",
-                letterSpacing: 0.2,
-                wordWrap: "break-word",
-              }}
-            >
-              Category:
-            </span>
-            <span
-              style={{
-                color: "#3a00e5",
-                fontSize: 24,
-                fontFamily: "Inter",
-                fontWeight: "600",
-              }}
-            >
-              "{item.category}"
-            </span>
-          </div>
+          {/*<div>*/}
+          {/*  <span*/}
+          {/*    style={{*/}
+          {/*      color: "black",*/}
+          {/*      fontSize: 20,*/}
+          {/*      fontFamily: "Inter",*/}
+          {/*      fontWeight: "400",*/}
+          {/*      letterSpacing: 0.2,*/}
+          {/*      wordWrap: "break-word",*/}
+          {/*    }}*/}
+          {/*  >*/}
+          {/*    Category:*/}
+          {/*  </span>*/}
+          {/*  <span*/}
+          {/*    style={{*/}
+          {/*      color: "#3a00e5",*/}
+          {/*      fontSize: 24,*/}
+          {/*      fontFamily: "Inter",*/}
+          {/*      fontWeight: "600",*/}
+          {/*    }}*/}
+          {/*  >*/}
+          {/*    "{item.category}"*/}
+          {/*  </span>*/}
+          {/*</div>*/}
           <div
             style={{
               color: "black",

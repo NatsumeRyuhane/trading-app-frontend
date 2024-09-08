@@ -113,7 +113,7 @@ function App() {
 
         {/*<DiscountPromo />*/}
 
-        <Layout style={{ padding: "24px", marginTop: "114px" }}>
+        <Layout style={{ padding: "24px", marginTop: "80px" }}>
           <Content
             className="site-layout-background"
             style={{

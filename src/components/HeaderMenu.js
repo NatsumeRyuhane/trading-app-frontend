@@ -63,7 +63,7 @@ const HeaderMenu = ({
                   color: "white", // menu item icon color, not button text color
                 }}
               >
-                Second-Hand Trading
+                SwapSpot
               </Link>
             </Menu.Item>
 
