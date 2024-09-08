@@ -262,30 +262,34 @@ function ItemInformation() {
               "{item.category}"
             </span>
           </div>
-          <div
-            style={{
-              color: "black",
-              fontSize: 20,
-              fontFamily: "Inter",
-              fontWeight: "600",
-              letterSpacing: 0.2,
-              wordWrap: "break-word",
-            }}
-          >
-            Item Description:
+
+          <div>
+            <div
+              style={{
+                color: "black",
+                fontSize: 20,
+                fontFamily: "Inter",
+                fontWeight: "600",
+                letterSpacing: 0.2,
+                wordWrap: "break-word",
+              }}
+            >
+              Item Description:
+            </div>
+            <div
+              style={{
+                width: 550,
+                color: "black",
+                fontSize: 16,
+                fontFamily: "Inter",
+                fontWeight: "400",
+                letterSpacing: 0.2,
+              }}
+            >
+              {item.description}
+            </div>
           </div>
-          <div
-            style={{
-              width: 550,
-              color: "black",
-              fontSize: 20,
-              fontFamily: "Inter",
-              fontWeight: "400",
-              letterSpacing: 0.2,
-            }}
-          >
-            {item.description}
-          </div>
+
           <div
             style={{
               alignSelf: "stretch",
@@ -293,29 +297,43 @@ function ItemInformation() {
               border: "1px #B3B3B3 solid",
             }}
           ></div>
-          <div
-            style={{
-              width: 364,
-              color: "black",
-              fontSize: 32,
-              fontFamily: "Inter",
-              fontWeight: "600",
-            }}
-          >
-            ${item.price}
+
+          <div style={{ width: 500 }}>
+            <div
+              style={{
+                color: "black",
+                fontSize: 32,
+                fontFamily: "Inter",
+                fontWeight: "600",
+              }}
+            >
+              ${item.price}
+            </div>
+            <div
+              style={{
+                color: "#7A7A7A",
+                fontSize: 18,
+                fontFamily: "Inter",
+                fontWeight: "400",
+                letterSpacing: 0.16,
+              }}
+            >
+              estimated tax to be collected: ${item.tax || "2.58"}
+            </div>
+            <div
+              style={{
+                color: "#3a00e5",
+                fontSize: 18,
+                fontFamily: "Inter",
+                fontWeight: "400",
+                letterSpacing: 0.16,
+              }}
+            >
+              Available for pickup at the Seller's location, within{" "}
+              {item.distance || "'distance not privided'"} miles.
+            </div>
           </div>
-          <div
-            style={{
-              width: 364,
-              color: "#7A7A7A",
-              fontSize: 18,
-              fontFamily: "Inter",
-              fontWeight: "400",
-              letterSpacing: 0.16,
-            }}
-          >
-            estimated tax to be collected: ${item.tax || "2.58"}
-          </div>
+
           <div
             style={{
               padding: "10px 30px",
