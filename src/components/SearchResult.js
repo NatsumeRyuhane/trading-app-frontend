@@ -4,9 +4,6 @@ import {
   List,
   Divider,
   Slider,
-  InputNumber,
-  Row,
-  Col,
   Rate,
   Dropdown,
   Button,
@@ -20,12 +17,13 @@ const { Content, Sider } = Layout;
 
 const SearchResult = () => {
   const [items, setItems] = useState([]); // State to store search results
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [minMaxPrices, setminMaxPrices] = useState([0, 1000]); // storing the min and max prices of the search result
   const [itemsPerRow, setItemsPerRow] = useState(4);
   const [filters, setFilters] = useState({
-    price: [0, 1000],
-    distance: 0,
-    rating: 0,
-    uploadTime: "all time",
+    price: minMaxPrices,
+    rating: 0, // min rating
+    distance: "any distance", // pickup distance
   }); // State to store filter options
 
   // Fetch search results and set state
@@ -42,17 +40,29 @@ const SearchResult = () => {
     updateItemsPerRow();
 
     const fetchData = async () => {
-      // setItems(dummyItems);
+      setItems(dummyItems);
+      setFilteredItems(dummyItems);
 
-      try {
-        const searchParams = ""; // You may replace this with actual search query parameters
+      const prices = dummyItems.map((item) => item.price);
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+      setminMaxPrices([minPrice, maxPrice]);
 
-        const data = await searchItems(searchParams);
+      // Update the filters state with the calculated min and max price
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        price: [minPrice, maxPrice],
+      }));
 
-        setItems(data); // Update items state with the search results
-      } catch (error) {
-        console.error("Failed to fetch search results:", error);
-      }
+      // try {
+      //   const searchParams = ""; // You may replace this with actual search query parameters
+
+      //   const data = await searchItems(searchParams);
+
+      //   setItems(data); // Update items state with the search results
+      // } catch (error) {
+      //   console.error("Failed to fetch search results:", error);
+      // }
     };
 
     fetchData();
@@ -78,42 +88,31 @@ const SearchResult = () => {
   const applyFilters = () => {
     // Implement the filtering logic based on the filters state
 
-    const filteredItems = items.filter((item) => {
+    const getfilteredItems = items.filter((item) => {
       return (
         item.price >= filters.price[0] &&
         item.price <= filters.price[1] &&
-        item.distance <= filters.distance &&
         item.rating >= filters.rating &&
-        (filters.uploadTime === "all time" ||
-          (filters.uploadTime === "recently uploaded" &&
-            item.uploadTime <= 1) ||
-          (filters.uploadTime === "uploaded within the past month" &&
-            item.uploadTime <= 30) ||
-          (filters.uploadTime === "uploaded within the past 4 months" &&
-            item.uploadTime <= 120))
+        (filters.distance === "any distance" ||
+          (filters.distance === "within 5 miles" && item.distance <= 5) ||
+          (filters.distance === "within 10 miles" && item.distance <= 10) ||
+          (filters.distance === "within 20 miles" && item.distance <= 20) ||
+          (filters.distance === "within 30 miles" && item.distance <= 30))
       );
     });
 
-    setItems(filteredItems);
+    setFilteredItems(getfilteredItems);
   };
 
   const menu = (
     <Menu
-      onClick={({ key }) => handleFilterChange({ uploadTime: key })}
+      onClick={({ key }) => handleFilterChange({ distance: key })}
       items={[
-        { key: "recently uploaded", label: "Recently Uploaded" },
-
-        {
-          key: "uploaded within the past month",
-          label: "Uploaded within the past month",
-        },
-
-        {
-          key: "uploaded within the past 4 months",
-          label: "Uploaded within the past 4 months",
-        },
-
-        { key: "all time", label: "All Time" },
+        { key: "within 5 miles", label: "Within 5 Miles" },
+        { key: "within 10 miles", label: "Within 10 Miles" },
+        { key: "within 20 miles", label: "Within 20 Miles" },
+        { key: "within 30 miles", label: "Within 30 Miles" },
+        { key: "any distance", label: "Any Distance" },
       ]}
     />
   );
@@ -123,80 +122,120 @@ const SearchResult = () => {
       {/* search result filter on the left, fixed when scrolling */}
       <Sider
         width={200}
-        theme="light"
         style={{
-          background: "#f0f2f5",
+          background: "transparent",
           position: "fixed",
           height: "60vh",
-          overflow: "auto",
-          borderRight: "1px solid #E0E0E0",
+          overflow: "hidden", //disable scrolling
         }}
       >
         {/* Add filter options here */}
-        <div>Filter Results</div>
+        <div
+          style={{
+            alignSelf: "stretch",
+            color: "black",
+            fontSize: 24,
+            fontFamily: "Arial",
+            fontWeight: "bold",
+            marginBottom: "20px",
+          }}
+        >
+          Filter Results
+        </div>
 
-        <div>
+        <div
+          style={{
+            alignSelf: "stretch",
+            color: "black",
+            fontSize: 20,
+            fontFamily: "Arial",
+            fontWeight: "normal",
+            marginBottom: "10px",
+          }}
+        >
           <div>Price</div>
 
           <Slider
+            style={{ width: "85%", marginLeft: "8px" }} // Set slider width to be slightly less than sider to avoid overflow
+            trackStyle={[{ backgroundColor: "#3A00E5" }]} // Color of the selected range
+            handleStyle={[
+              { borderColor: "#3A00E5", backgroundColor: "#3A00E5" }, // Color of the handles
+              { borderColor: "#3A00E5", backgroundColor: "#3A00E5" }, // Second handle (for range slider)
+            ]}
             range={{
               draggableTrack: true,
             }}
             defaultValue={filters.price}
-            min={0}
-            max={1000}
+            min={minMaxPrices[0]}
+            max={minMaxPrices[1]}
             onChange={(value) => handleFilterChange({ price: value })}
           />
         </div>
 
         <div>
-          <div>Pickup Distance</div>
-
-          <Row>
-            <Col span={12}>
-              <Slider
-                min={0}
-                max={20}
-                value={filters.distance}
-                onChange={(value) => handleFilterChange({ distance: value })}
-              />
-            </Col>
-
-            <Col span={4}>
-              <InputNumber
-                min={0}
-                max={20}
-                style={{ margin: "0 16px" }}
-                value={filters.distance}
-                onChange={(value) => handleFilterChange({ distance: value })}
-              />
-            </Col>
-
-            <Col span={8}>miles</Col>
-          </Row>
-        </div>
-
-        <div>
-          <div>Seller's Rating</div>
+          <div
+            style={{
+              alignSelf: "stretch",
+              color: "black",
+              fontSize: 20,
+              fontFamily: "Arial",
+              fontWeight: "normal",
+              marginTop: "30px",
+            }}
+          >
+            Seller's Rating
+          </div>
 
           <Rate
+            style={{
+              fontSize: "26px", // star size
+            }}
             value={filters.rating}
             onChange={(value) => handleFilterChange({ rating: value })}
           />
         </div>
 
         <div>
-          <div>Uploaded Time</div>
+          <div
+            style={{
+              alignSelf: "stretch",
+              color: "black",
+              fontSize: 20,
+              fontFamily: "Arial",
+              fontWeight: "normal",
+              marginTop: "30px",
+            }}
+          >
+            Pickup Distance
+          </div>
 
           <Dropdown overlay={menu}>
             <Button>
-              {filters.uploadTime.charAt(0).toUpperCase() +
-                filters.uploadTime.slice(1)}
+              {filters.distance.charAt(0).toUpperCase() +
+                filters.distance.slice(1)}
             </Button>
           </Dropdown>
         </div>
 
-        <Button type="primary" onClick={applyFilters}>
+        <Button
+          type="primary"
+          onClick={applyFilters}
+          style={{
+            marginTop: "60px",
+            height: 40,
+            padding: "22px 30px", // Top/bottom: 10px, left/right: 25px
+            background: "#3A00E5",
+            borderRadius: 30,
+            justifyContent: "center",
+            alignItems: "center", // Center text vertically
+            display: "flex",
+            color: "white",
+            fontSize: 16,
+            fontFamily: "Arial",
+            fontWeight: "600",
+            border: "none",
+          }}
+        >
           Apply Filters
         </Button>
       </Sider>
@@ -223,7 +262,7 @@ const SearchResult = () => {
             // Calculate columns (#items per row in the list) based on window width
             column: itemsPerRow,
           }}
-          dataSource={items}
+          dataSource={filteredItems}
           renderItem={(item) => (
             <List.Item
               style={{
@@ -238,6 +277,8 @@ const SearchResult = () => {
                 layout="vertical"
                 imgSrc={item.imgSrc}
                 title={item.title}
+                rating={item.rating}
+                distance={item.distance}
                 price={item.price}
                 description={item.description}
               />

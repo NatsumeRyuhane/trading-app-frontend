@@ -7,6 +7,8 @@ const dummyItems = [
     title: "Pot id 1",
     status: "On Sale",
     category: "Kitchen",
+    distance: 24,
+    rating: 3.2,
     price: 25,
     description:
       "Poshmark connects you to people and closets filled with unique styles, hard-to-find pieces, and endless items to discover.",
@@ -18,6 +20,8 @@ const dummyItems = [
     title: "Pot id 2",
     status: "On Sale",
     category: "Kitchen",
+    distance: 3,
+    rating: 5.0,
     price: 37,
     description:
       "Poshmark connects you to people and closets filled with unique styles, hard-to-find pieces, and endless items to discover.",
@@ -29,7 +33,9 @@ const dummyItems = [
     title: "Chair id 3",
     status: "On Sale",
     category: "Furniture",
+    distance: 10,
     price: 49.9,
+    rating: 4.2,
     description:
       "Poshmark connects you to people and closets filled with unique styles, hard-to-find pieces, and endless items to discover.",
   },
@@ -40,7 +46,9 @@ const dummyItems = [
     title: "Mattress id 4",
     status: "On Sale",
     category: "Bedding",
+    distance: 18,
     price: 236,
+    rating: 3.7,
     description:
       "Poshmark connects you to people and closets filled with unique styles, hard-to-find pieces, and endless items to discover.",
   },
@@ -51,7 +59,9 @@ const dummyItems = [
     title: "Pan id 5",
     status: "In Stock",
     category: "Kitchen",
+    distance: 50,
     price: 18.99,
+    rating: 2.9,
     description:
       "Poshmark connects you to people and closets filled with unique styles, hard-to-find pieces, and endless items to discover.",
   },
@@ -62,7 +72,9 @@ const dummyItems = [
     title: "Air Fryer id 6",
     status: "In Stock",
     category: "Kitchen",
+    distance: 51,
     price: 80,
+    rating: 4.6,
     description:
       "Poshmark connects you to people and closets filled with unique styles, hard-to-find pieces, and endless items to discover.",
   },
@@ -73,7 +85,9 @@ const dummyItems = [
     title: "Mattress id 7",
     status: "In Stock",
     category: "Bedding",
+    distance: 17,
     price: 254,
+    rating: 5.0,
     description:
       "Poshmark connects you to people and closets filled with unique styles, hard-to-find pieces, and endless items to discover.",
   },
@@ -84,6 +98,8 @@ const dummyItems = [
     title: "Wireless Keyboard id 8",
     status: "In Stock",
     category: "Electronics",
+    distance: 38,
+    rating: 3.1,
     price: 31.6,
     description:
       "Poshmark connects you to people and closets filled with unique styles, hard-to-find pieces, and endless items to discover.",
@@ -95,7 +111,9 @@ const dummyItems = [
     title: "Sofa id 9",
     status: "In Stock",
     category: "Furniture",
+    distance: 24,
     price: 341,
+    rating: 4.5,
     description:
       "Poshmark connects you to people and closets filled with unique styles, hard-to-find pieces, and endless items to discover.",
   },
@@ -106,7 +124,9 @@ const dummyItems = [
     title: "Pan id 10",
     status: "Traded",
     category: "Kitchen",
+    distance: 35,
     price: 23.5,
+    rating: 3.8,
     description:
       "Poshmark connects you to people and closets filled with unique styles, hard-to-find pieces, and endless items to discover.",
   },
@@ -117,7 +137,9 @@ const dummyItems = [
     title: "Mattress id 11",
     status: "Traded",
     category: "Bedding",
+    distance: 27,
     price: 198,
+    rating: 2.7,
     description:
       "Poshmark connects you to people and closets filled with unique styles, hard-to-find pieces, and endless items to discover.",
   },

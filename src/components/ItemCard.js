@@ -1,6 +1,7 @@
 import React from "react";
-import { Button, Card } from "antd";
+import { Button, Card, Row } from "antd";
 import { Navigate, useNavigate } from "react-router-dom";
+import { StarFilled } from "@ant-design/icons";
 
 export function ItemCard({
   layout,
@@ -8,7 +9,9 @@ export function ItemCard({
   imgSrc,
   title,
   category,
+  rating,
   price,
+  distance,
   description,
 }) {
   const navigate = useNavigate();
@@ -89,6 +92,13 @@ export function ItemCard({
           {title}
         </div>
 
+        <div>
+          <Row>
+            <StarFilled style={{ fontSize: 20, color: "#FFE100" }} />
+            <div style={{ marginLeft: "5px" }}>{rating}</div>
+          </Row>
+        </div>
+
         <div
           style={{
             width: 225,
@@ -112,6 +122,21 @@ export function ItemCard({
           }}
         >
           ${price}
+        </div>
+
+        <div style={{ marginBottom: "10px" }}>
+          <Row>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              Available for pickup within
+            </div>
+            <div style={{ marginLeft: "5px" }}>{distance}</div>
+            <div style={{ marginLeft: "5px" }}>miles</div>
+          </Row>
         </div>
 
         <div
@@ -142,6 +167,9 @@ export function ItemCard({
               display: "flex",
               color: "white",
               border: "none",
+              fontSize: 16,
+              fontFamily: "Arial",
+              fontWeight: "600",
             }}
             // connect to Stripe payment page related to this item
             // onClick={() => handleCheckout(itemId)}
